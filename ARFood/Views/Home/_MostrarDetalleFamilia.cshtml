@@ -1,0 +1,100 @@
+﻿@model IList<ARFood.Models.Productos>
+
+<link href="~/Content/IMGStyle.css" rel="stylesheet" type="text/css">
+
+@if (Model != null)
+{
+    <div class="list-group">
+        @for (int i = 0; i < Model.Count(); i += 4)
+        {
+            <table>
+                <tr>
+                    @if (i < Model.Count())
+                    {
+                        if (Model[i].Imagen.Length > 0)
+                        {
+                            <td>
+                                <div class="content_image">
+                                    <img src="@Url.Content(Model[i].Imagen)" alt="Imagen" width="150" height="150" />
+                                    <div>@Model[i].Descripcion</div>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="content_image">
+                                    <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
+                                    <div>@Model[i].Descripcion</div>
+                                </div>
+                            </td>
+                        }
+                    }
+                    @if ((i + 1) < Model.Count())
+                    {
+                        if (Model[i + 1].Imagen.Length > 0)
+                        {
+                            <td>
+                                <div class="content_image">
+                                    <img src="@Url.Content(Model[i+1].Imagen)" alt="Imagen" width="150" height="150" />
+                                    <div>@Model[i + 1].Descripcion</div>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="content_image">
+                                    <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
+                                    <div>@Model[i + 1].Descripcion</div>
+                                </div>
+                            </td>
+                        }
+                    }
+                    @if ((i + 2) < Model.Count())
+                    {
+                        if (Model[i + 2].Imagen.Length > 0)
+                        {
+                            <td>
+                                <div class="content_image">
+                                    <img src="@Url.Content(Model[i+2].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                    <div>@Model[i + 2].Descripcion</div>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="content_image">
+                                    <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
+                                    <div>@Model[i + 2].Descripcion</div>
+                                </div>
+                            </td>
+                        }
+                    }
+                    @if ((i + 3) < Model.Count())
+                    {
+                        if (Model[i + 3].Imagen.Length > 0)
+                        {
+                            <td>
+                                <div class="content_image">
+                                    <img src="@Url.Content(Model[i+3].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                    <div>@Model[i + 3].Descripcion</div>
+                                </div>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <div class="content_image">
+                                    <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
+                                    <div>@Model[i + 3].Descripcion</div>
+                                </div>
+                            </td>
+                        }
+                    }
+                </tr>
+            </table>
+        }
+    </div>
+}

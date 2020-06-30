@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "";
+}
+
+<div class="row">
+    <div class="col-lg-12" id="todos">
+        @Html.Action("MostrarFamilias")
+    </div>
+    <table style="width:100%">
+        <tr>
+            <td width="50%">
+                <div class="col-lg-12" id="familia">
+                    @{Html.RenderAction("MostrarDetalleFamilia");}
+                </div>
+            </td>
+            <td width="50%">
+                <h1>Hola</h1>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            $.ajax({
+                url: "@Url.Content("~/Home/MostrarFamilias")"
+            }).done(function (data) {
+                $('#todos').html(data);
+            }).fail(function () {
+                alert("Error 1");
+            });
+        });
+        $('#todos').on('click', 'a[data-url]', function () {
+            var dataUrl = $(this).data('url');
+            $.ajax({
+                url: dataUrl
+            }).done(function (data) {
+                $('#familia').html(data);
+            }).fail(function () {
+                alert('Error 2');
+            });
+            $('#todos a').removeClass('active');
+            $(this).addClass('active');
+
+        })
+    </script>
+    }

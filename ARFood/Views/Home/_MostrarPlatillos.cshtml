@@ -1,0 +1,15 @@
+﻿@model IList<ARFood.Models.Productos>
+
+<link href="~/Content/IMGStyle.css" rel="stylesheet" type="text/css">
+
+@if (Model != null)
+{
+    <div class="list-group">
+        @foreach (var item in Model)
+        {
+            <div >
+                <div>@item.Descripcion</div>
+            </div>
+        }
+    </div>
+}

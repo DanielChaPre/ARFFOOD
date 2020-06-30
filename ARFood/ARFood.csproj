@@ -1,0 +1,1028 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C7CBD838-833F-4B88-8341-98C53567B1AE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ARFood</RootNamespace>
+    <AssemblyName>ARFood</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44395</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Almacenes.cs" />
+    <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\Colonias.cs" />
+    <Compile Include="Models\CP.cs" />
+    <Compile Include="Models\DocPartidas.cs" />
+    <Compile Include="Models\Documentos.cs" />
+    <Compile Include="Models\Estados.cs" />
+    <Compile Include="Models\Familias.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Ingredientes.cs" />
+    <Compile Include="Models\IngredientesxReceta.cs" />
+    <Compile Include="Models\Inventario.cs" />
+    <Compile Include="Models\Localidades.cs" />
+    <Compile Include="Models\Lotes.cs" />
+    <Compile Include="Models\LotesInv.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MINV.cs" />
+    <Compile Include="Models\Municipios.cs" />
+    <Compile Include="Models\Productos.cs" />
+    <Compile Include="Models\Proveedores.cs" />
+    <Compile Include="Models\Recetas.cs" />
+    <Compile Include="Models\TiposDoc.cs" />
+    <Compile Include="Models\TiposProd.cs" />
+    <Compile Include="Models\UnidadesMedidas.cs" />
+    <Compile Include="Models\ValoresNutricionales.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\IMGStyle.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="IMG\ARFood\Logo.jpeg" />
+    <Content Include="IMG\bebidas\agua de fruta natural.jpg" />
+    <Content Include="IMG\bebidas\bebidas.jpg" />
+    <Content Include="IMG\bebidas\botella de agua.jpg" />
+    <Content Include="IMG\bebidas\cerbeza light.jpg" />
+    <Content Include="IMG\bebidas\cerveza especial.jpg" />
+    <Content Include="IMG\bebidas\cerveza sin alcihol.jpg" />
+    <Content Include="IMG\bebidas\cerveza.jpg" />
+    <Content Include="IMG\bebidas\clamato preparado.jpg" />
+    <Content Include="IMG\bebidas\huevos adelita.jpg" />
+    <Content Include="IMG\bebidas\limonada mineral.jpg" />
+    <Content Include="IMG\bebidas\margaritas_cocteles.jpg" />
+    <Content Include="IMG\bebidas\michelada.jpg" />
+    <Content Include="IMG\bebidas\naranjada min.jpg" />
+    <Content Include="IMG\bebidas\Receta-de-limonada-natural.jpg" />
+    <Content Include="IMG\bebidas\refresco de lata.jpg" />
+    <Content Include="IMG\bebidas\vaso chelado.jpg" />
+    <Content Include="IMG\bocadillos\B TORTILLA TO Y MAYONESA.jpg" />
+    <Content Include="IMG\bocadillos\bocadillo blanco y negro.jpg" />
+    <Content Include="IMG\bocadillos\bocadillo de jamon.jpg" />
+    <Content Include="IMG\bocadillos\bocadillo española.jpg" />
+    <Content Include="IMG\bocadillos\bocadillo lomo con queso.jpg" />
+    <Content Include="IMG\bocadillos\bocadillo lomo plancha.jpg" />
+    <Content Include="IMG\bocadillos\bocadillo sepia rebozada.jpg" />
+    <Content Include="IMG\bocadillos\BOCADILLO1.jpg" />
+    <Content Include="IMG\bocadillos\BOCADILLO2.jpg" />
+    <Content Include="IMG\bocadillos\BOCADILLO3.jpg" />
+    <Content Include="IMG\bocadillos\BOCATA.jpg" />
+    <Content Include="IMG\bocadillos\HAMBURGUESA2.jpg" />
+    <Content Include="IMG\bocadillos\HAMBURGUESA3.jpg" />
+    <Content Include="IMG\bocadillos\HAMBURGUESA4.jpg" />
+    <Content Include="IMG\bocadillos\HOTDOG.jpg" />
+    <Content Include="IMG\bocadillos\SANDWICH.jpg" />
+    <Content Include="IMG\bocadillos\SANDWICH2.jpg" />
+    <Content Include="IMG\bocadillos\sanwich mixto.jpg" />
+    <Content Include="IMG\cafes\cafe con leche.jpg" />
+    <Content Include="IMG\cafes\cafe solo.jpg" />
+    <Content Include="IMG\cafes\CAFE.jpg" />
+    <Content Include="IMG\cafes\CAFE2.jpg" />
+    <Content Include="IMG\cafes\CAFE3.jpg" />
+    <Content Include="IMG\cafes\CAFEDESCAF.jpg" />
+    <Content Include="IMG\cafes\cortado.jpg" />
+    <Content Include="IMG\cafes\descafeinado de sobre.jpg" />
+    <Content Include="IMG\cafes\infusion.jpg" />
+    <Content Include="IMG\Cafe\cafe americano.jpg" />
+    <Content Include="IMG\Cafe\cafe.jpg" />
+    <Content Include="IMG\Cafe\capuccino frio.jpg" />
+    <Content Include="IMG\Cafe\capuccino.jpg" />
+    <Content Include="IMG\Cafe\chai vainilla.jpg" />
+    <Content Include="IMG\Cafe\chocolate.jpg" />
+    <Content Include="IMG\Cafe\expreso cortado 1.jpg" />
+    <Content Include="IMG\Cafe\expreso cortado.jpg" />
+    <Content Include="IMG\Cafe\frappe.jpg" />
+    <Content Include="IMG\Cafe\infusion.jpg" />
+    <Content Include="IMG\Cafe\latte.jpg" />
+    <Content Include="IMG\Cafe\smoothies.jpg" />
+    <Content Include="IMG\carnes\carne.jpg" />
+    <Content Include="IMG\cervezas\aguila.jpg" />
+    <Content Include="IMG\cervezas\buckler1.jpg" />
+    <Content Include="IMG\cervezas\carlsberg1.jpg" />
+    <Content Include="IMG\cervezas\carlsberg2.jpg" />
+    <Content Include="IMG\cervezas\caña2.jpg" />
+    <Content Include="IMG\cervezas\cerveza barril.jpg" />
+    <Content Include="IMG\cervezas\cerveza.jpg" />
+    <Content Include="IMG\cervezas\CORONITA2.jpg" />
+    <Content Include="IMG\cervezas\cruzcampo1.jpg" />
+    <Content Include="IMG\cervezas\CRUZCAMPO2.jpg" />
+    <Content Include="IMG\cervezas\cruzcampo3.jpg" />
+    <Content Include="IMG\cervezas\heineken.jpg" />
+    <Content Include="IMG\cervezas\heineken1.jpg" />
+    <Content Include="IMG\cervezas\HEINEKEN2.jpg" />
+    <Content Include="IMG\cervezas\heineken3.jpg" />
+    <Content Include="IMG\cervezas\kronenbourg1.jpg" />
+    <Content Include="IMG\cervezas\kronenbourg2.jpg" />
+    <Content Include="IMG\cervezas\kronenbourg3.jpg" />
+    <Content Include="IMG\cervezas\kronenbourg4.jpg" />
+    <Content Include="IMG\cervezas\laiker quinto.jpg" />
+    <Content Include="IMG\cervezas\laiker tercio.jpg" />
+    <Content Include="IMG\cervezas\laiker1.jpg" />
+    <Content Include="IMG\cervezas\mahou 1-3.jpg" />
+    <Content Include="IMG\cervezas\mahou tercio.jpg" />
+    <Content Include="IMG\cervezas\mahou.jpg" />
+    <Content Include="IMG\cervezas\mahou1.jpg" />
+    <Content Include="IMG\cervezas\MAHOU2.jpg" />
+    <Content Include="IMG\cervezas\SANMIGUEL.jpg" />
+    <Content Include="IMG\cervezas\sanmiguel1.jpg" />
+    <Content Include="IMG\cervezas\SANMIGUEL2.jpg" />
+    <Content Include="IMG\cervezas\tubo.jpg" />
+    <Content Include="IMG\cocktails\clericot.jpg" />
+    <Content Include="IMG\cocktails\cocktail.jpg" />
+    <Content Include="IMG\cocktails\descarga.jpg" />
+    <Content Include="IMG\cocktails\fruta.jpg" />
+    <Content Include="IMG\cocktails\poncho reyes xiii.jpg" />
+    <Content Include="IMG\cocktails\Sangria.jpg" />
+    <Content Include="IMG\cocktails\sangria_3.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\chil guaj cecin.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\chil guaj pollo.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\chil guaj.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\chil, cecina.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\chilaq,hue.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\chilaquiles zapatistas.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\chilaquilesconmole.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\crepas de pollo.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\DES,PAQ.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\enchiladas con mole poblano.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\focaccia.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\huevos a la cazuela.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\huevos agripina.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\huevos vivandera.jpg" />
+    <Content Include="IMG\desayunos_no_tradicionales\HUEVOS.jpg" />
+    <Content Include="IMG\desayunos_tradicionales\chilaquiles maderistas.jpg" />
+    <Content Include="IMG\desayunos_tradicionales\Chilaquiles.jpg" />
+    <Content Include="IMG\desayunos_tradicionales\desayuno en paquete.jpg" />
+    <Content Include="IMG\desayunos_tradicionales\descarga.jpg" />
+    <Content Include="IMG\desayunos_tradicionales\enchiladas maderistas.jpg" />
+    <Content Include="IMG\desayunos_tradicionales\enmoladas.jpg" />
+    <Content Include="IMG\desayunos_tradicionales\huevos al gusto del general.jpg" />
+    <Content Include="IMG\desayunos_tradicionales\omelette juana.jpg" />
+    <Content Include="IMG\ensaladas\aguachile.jpg" />
+    <Content Include="IMG\ensaladas\ensaladas.jpg" />
+    <Content Include="IMG\Entradas\aguachile.jpg" />
+    <Content Include="IMG\Entradas\copasvinos.jpg" />
+    <Content Include="IMG\Entradas\salsa.jpg" />
+    <Content Include="IMG\Entradas\tacos dorados.jpg" />
+    <Content Include="IMG\Entradas\tostadas.jpg" />
+    <Content Include="IMG\familias\bebidas1.jpg" />
+    <Content Include="IMG\familias\bebidas2.jpg" />
+    <Content Include="IMG\familias\bolleria1.jpg" />
+    <Content Include="IMG\familias\cafes1.jpg" />
+    <Content Include="IMG\familias\cafes2.jpg" />
+    <Content Include="IMG\familias\cafes3.jpg" />
+    <Content Include="IMG\familias\carnes1.jpg" />
+    <Content Include="IMG\familias\cervezas1.jpg" />
+    <Content Include="IMG\familias\ensaladas1.jpg" />
+    <Content Include="IMG\familias\golosinas1.jpg" />
+    <Content Include="IMG\familias\golosinas2.jpg" />
+    <Content Include="IMG\familias\pan1.jpg" />
+    <Content Include="IMG\familias\pastas1.jpg" />
+    <Content Include="IMG\familias\pescados1.jpg" />
+    <Content Include="IMG\familias\pizzas1.jpg" />
+    <Content Include="IMG\familias\pizzas2.jpg" />
+    <Content Include="IMG\familias\pizzas3.jpg" />
+    <Content Include="IMG\familias\postres1.jpg" />
+    <Content Include="IMG\familias\postres2.jpg" />
+    <Content Include="IMG\familias\postres3.jpg" />
+    <Content Include="IMG\familias\primeros1.jpg" />
+    <Content Include="IMG\familias\refrescos1.jpg" />
+    <Content Include="IMG\familias\refrescos2.jpg" />
+    <Content Include="IMG\familias\refrescos3.jpg" />
+    <Content Include="IMG\familias\segundos1.jpg" />
+    <Content Include="IMG\familias\tabacos_y_puros.jpg" />
+    <Content Include="IMG\familias\vinos1.jpg" />
+    <Content Include="IMG\familias\vinos2.jpg" />
+    <Content Include="IMG\jugos\combinados.jpg" />
+    <Content Include="IMG\jugos\jugo de betabel.jpg" />
+    <Content Include="IMG\jugos\jugo de toronja.jpg" />
+    <Content Include="IMG\jugos\jugo de zanahoria.jpg" />
+    <Content Include="IMG\jugos\jugo-de-naranja1.jpg" />
+    <Content Include="IMG\jugos\jugos.jpg" />
+    <Content Include="IMG\jugos\mango.jpg" />
+    <Content Include="IMG\jugos\strawberry_juice.jpg" />
+    <Content Include="IMG\jugos\verde.jpg" />
+    <Content Include="IMG\licores_y_brandis\103.jpg" />
+    <Content Include="IMG\licores_y_brandis\1900.jpg" />
+    <Content Include="IMG\licores_y_brandis\absolut1.jpg" />
+    <Content Include="IMG\licores_y_brandis\absolut2.jpg" />
+    <Content Include="IMG\licores_y_brandis\anis del mono.jpg" />
+    <Content Include="IMG\licores_y_brandis\anisdelmono1.jpg" />
+    <Content Include="IMG\licores_y_brandis\anises.jpg" />
+    <Content Include="IMG\licores_y_brandis\bacardi.jpg" />
+    <Content Include="IMG\licores_y_brandis\bacardi1.jpg" />
+    <Content Include="IMG\licores_y_brandis\bacardi2.jpg" />
+    <Content Include="IMG\licores_y_brandis\bacardibreezer.jpg" />
+    <Content Include="IMG\licores_y_brandis\baileys.jpg" />
+    <Content Include="IMG\licores_y_brandis\BALLANTINES.jpg" />
+    <Content Include="IMG\licores_y_brandis\ballantines1.jpg" />
+    <Content Include="IMG\licores_y_brandis\barndi.jpg" />
+    <Content Include="IMG\licores_y_brandis\beefeater.jpg" />
+    <Content Include="IMG\licores_y_brandis\beefeater1.jpg" />
+    <Content Include="IMG\licores_y_brandis\beefeater2.jpg" />
+    <Content Include="IMG\licores_y_brandis\BEEFETER.jpg" />
+    <Content Include="IMG\licores_y_brandis\bombay.jpg" />
+    <Content Include="IMG\licores_y_brandis\bombayshaffire1.jpg" />
+    <Content Include="IMG\licores_y_brandis\bombayshaffire2.jpg" />
+    <Content Include="IMG\licores_y_brandis\cacique.jpg" />
+    <Content Include="IMG\licores_y_brandis\cacique1.jpg" />
+    <Content Include="IMG\licores_y_brandis\carlosIII.jpg" />
+    <Content Include="IMG\licores_y_brandis\cavalier1.jpg" />
+    <Content Include="IMG\licores_y_brandis\chinchon dulce.jpg" />
+    <Content Include="IMG\licores_y_brandis\chinchon.jpg" />
+    <Content Include="IMG\licores_y_brandis\chivas1.jpg" />
+    <Content Include="IMG\licores_y_brandis\CHIVAS2.jpg" />
+    <Content Include="IMG\licores_y_brandis\CHIVAS3.jpg" />
+    <Content Include="IMG\licores_y_brandis\chivas4.jpg" />
+    <Content Include="IMG\licores_y_brandis\chupito.jpg" />
+    <Content Include="IMG\licores_y_brandis\chupitos.jpg" />
+    <Content Include="IMG\licores_y_brandis\cointreau1.jpg" />
+    <Content Include="IMG\licores_y_brandis\cointreau2.jpg" />
+    <Content Include="IMG\licores_y_brandis\copa wiski.jpg" />
+    <Content Include="IMG\licores_y_brandis\copa wisky.jpg" />
+    <Content Include="IMG\licores_y_brandis\cutty sark.jpg" />
+    <Content Include="IMG\licores_y_brandis\cutty.jpg" />
+    <Content Include="IMG\licores_y_brandis\cutty2.jpg" />
+    <Content Include="IMG\licores_y_brandis\DISARONNO2.jpg" />
+    <Content Include="IMG\licores_y_brandis\DISARONNO3.jpg" />
+    <Content Include="IMG\licores_y_brandis\dyc1.jpg" />
+    <Content Include="IMG\licores_y_brandis\frangelico1.jpg" />
+    <Content Include="IMG\licores_y_brandis\frangelico2.jpg" />
+    <Content Include="IMG\licores_y_brandis\frangelico3.jpg" />
+    <Content Include="IMG\licores_y_brandis\fundador.jpg" />
+    <Content Include="IMG\licores_y_brandis\ginebras.jpg" />
+    <Content Include="IMG\licores_y_brandis\gordons.jpg" />
+    <Content Include="IMG\licores_y_brandis\granpecher.jpg" />
+    <Content Include="IMG\licores_y_brandis\havanaclubron1.jpg" />
+    <Content Include="IMG\licores_y_brandis\havanaclubron2.jpg" />
+    <Content Include="IMG\licores_y_brandis\j&amp;b1.jpg" />
+    <Content Include="IMG\licores_y_brandis\JACK DANIELS.jpg" />
+    <Content Include="IMG\licores_y_brandis\jackdaniels1.jpg" />
+    <Content Include="IMG\licores_y_brandis\JB.jpg" />
+    <Content Include="IMG\licores_y_brandis\jb2.jpg" />
+    <Content Include="IMG\licores_y_brandis\JOHNNIE WALKER.jpg" />
+    <Content Include="IMG\licores_y_brandis\johnnywalker1.jpg" />
+    <Content Include="IMG\licores_y_brandis\larios.jpg" />
+    <Content Include="IMG\licores_y_brandis\larios1.jpg" />
+    <Content Include="IMG\licores_y_brandis\licor43.jpg" />
+    <Content Include="IMG\licores_y_brandis\licores.jpg" />
+    <Content Include="IMG\licores_y_brandis\licores2.jpg" />
+    <Content Include="IMG\licores_y_brandis\licores3.jpg" />
+    <Content Include="IMG\licores_y_brandis\magno.jpg" />
+    <Content Include="IMG\licores_y_brandis\magno1.jpg" />
+    <Content Include="IMG\licores_y_brandis\malibu1.jpg" />
+    <Content Include="IMG\licores_y_brandis\marie brizard.jpg" />
+    <Content Include="IMG\licores_y_brandis\martini blanco.jpg" />
+    <Content Include="IMG\licores_y_brandis\martini extra dry.jpg" />
+    <Content Include="IMG\licores_y_brandis\martini rojo.jpg" />
+    <Content Include="IMG\licores_y_brandis\martini roso.jpg" />
+    <Content Include="IMG\licores_y_brandis\martini.jpg" />
+    <Content Include="IMG\licores_y_brandis\martini1.jpg" />
+    <Content Include="IMG\licores_y_brandis\MARTINI2.jpg" />
+    <Content Include="IMG\licores_y_brandis\peche.jpg" />
+    <Content Include="IMG\licores_y_brandis\ponche caballero.jpg" />
+    <Content Include="IMG\licores_y_brandis\ricard.jpg" />
+    <Content Include="IMG\licores_y_brandis\ricard2.jpg" />
+    <Content Include="IMG\licores_y_brandis\ronbarcelo1.jpg" />
+    <Content Include="IMG\licores_y_brandis\ronbarcelo2.jpg" />
+    <Content Include="IMG\licores_y_brandis\ronbottran1.jpg" />
+    <Content Include="IMG\licores_y_brandis\smirnoff.jpg" />
+    <Content Include="IMG\licores_y_brandis\smirnoff1.jpg" />
+    <Content Include="IMG\licores_y_brandis\SMIRNOFF2.jpg" />
+    <Content Include="IMG\licores_y_brandis\smirnoff3.jpg" />
+    <Content Include="IMG\licores_y_brandis\soberano.jpg" />
+    <Content Include="IMG\licores_y_brandis\terry.jpg" />
+    <Content Include="IMG\licores_y_brandis\veterano.jpg" />
+    <Content Include="IMG\licores_y_brandis\veterano2.jpg" />
+    <Content Include="IMG\licores_y_brandis\whisky dyc.jpg" />
+    <Content Include="IMG\licores_y_brandis\wiskis.jpg" />
+    <Content Include="IMG\licores_y_brandis\zoco.jpg" />
+    <Content Include="IMG\macha-con-pepita.jpg" />
+    <Content Include="IMG\macha-con-pepita.png" />
+    <Content Include="IMG\macha-con-pepita2.jpg" />
+    <Content Include="IMG\pan_dulce\alitas.JPG" />
+    <Content Include="IMG\pan_dulce\conchas 052.jpg" />
+    <Content Include="IMG\pan_dulce\conchas_052.jpg" />
+    <Content Include="IMG\pan_dulce\pan dulce.jpg" />
+    <Content Include="IMG\pan_dulce\pan_dulce.jpg" />
+    <Content Include="IMG\pan_dulce\waffles.jpg" />
+    <Content Include="IMG\personal\AL PACINO.bmp" />
+    <Content Include="IMG\personal\AL_PACINO.bmp" />
+    <Content Include="IMG\personal\ANTONIO BANDERA.bmp" />
+    <Content Include="IMG\personal\ANTONIO_BANDERA.bmp" />
+    <Content Include="IMG\personal\BRAD PITT.bmp" />
+    <Content Include="IMG\personal\BRAD_PITT.bmp" />
+    <Content Include="IMG\personal\BRIGITE BARDOT.bmp" />
+    <Content Include="IMG\personal\BRIGITE_BARDOT.bmp" />
+    <Content Include="IMG\personal\brooke shieds.bmp" />
+    <Content Include="IMG\personal\brooke_shieds.bmp" />
+    <Content Include="IMG\personal\Bruce Willis.bmp" />
+    <Content Include="IMG\personal\Bruce_Willis.bmp" />
+    <Content Include="IMG\personal\CATHERINE ZETA JONES.bmp" />
+    <Content Include="IMG\personal\CATHERINE_ZETA_JONES.bmp" />
+    <Content Include="IMG\personal\CHOW YUN-FAT.bmp" />
+    <Content Include="IMG\personal\CHOW_YUN-FAT.bmp" />
+    <Content Include="IMG\personal\DENISE RICHARDS.bmp" />
+    <Content Include="IMG\personal\DENISE_RICHARDS.bmp" />
+    <Content Include="IMG\personal\FOTO21.BMP" />
+    <Content Include="IMG\personal\GEORGE GLOONEY.bmp" />
+    <Content Include="IMG\personal\GEORGE_GLOONEY.bmp" />
+    <Content Include="IMG\personal\HARRISON FORD.bmp" />
+    <Content Include="IMG\personal\HARRISON_FORD.bmp" />
+    <Content Include="IMG\personal\JEAN RENO.bmp" />
+    <Content Include="IMG\personal\JEAN_RENO.bmp" />
+    <Content Include="IMG\personal\JENIFER LOPEZ.bmp" />
+    <Content Include="IMG\personal\JENIFER LOPEZ2.bmp" />
+    <Content Include="IMG\personal\JENIFER_LOPEZ.bmp" />
+    <Content Include="IMG\personal\JENIFER_LOPEZ2.bmp" />
+    <Content Include="IMG\personal\JOHN TRAVOLTA.bmp" />
+    <Content Include="IMG\personal\JOHN_TRAVOLTA.bmp" />
+    <Content Include="IMG\personal\JULIA ROBERTS.bmp" />
+    <Content Include="IMG\personal\JULIA_ROBERTS.bmp" />
+    <Content Include="IMG\personal\KEVIN COSTNER.bmp" />
+    <Content Include="IMG\personal\KEVIN_COSTNER.bmp" />
+    <Content Include="IMG\personal\MARLON BRANDO.bmp" />
+    <Content Include="IMG\personal\MARLON_BRANDO.bmp" />
+    <Content Include="IMG\personal\Mel Gibson.bmp" />
+    <Content Include="IMG\personal\Mel_Gibson.bmp" />
+    <Content Include="IMG\personal\NEVE CAPBEL.bmp" />
+    <Content Include="IMG\personal\NEVE_CAPBEL.bmp" />
+    <Content Include="IMG\personal\nicole kidman.bmp" />
+    <Content Include="IMG\personal\nicole_kidman.bmp" />
+    <Content Include="IMG\personal\SANDRA BULLOCK.bmp" />
+    <Content Include="IMG\personal\SANDRA_BULLOCK.bmp" />
+    <Content Include="IMG\personal\SHARON STONE.bmp" />
+    <Content Include="IMG\personal\SHARON STONE2.bmp" />
+    <Content Include="IMG\personal\SHARON STONE3.bmp" />
+    <Content Include="IMG\personal\SHARON_STONE.bmp" />
+    <Content Include="IMG\personal\SHARON_STONE2.bmp" />
+    <Content Include="IMG\personal\SHARON_STONE3.bmp" />
+    <Content Include="IMG\personal\TOM CRUISE.bmp" />
+    <Content Include="IMG\personal\TOM_CRUISE.bmp" />
+    <Content Include="IMG\platos_y_tapas\aceitunas pequeñas.jpg" />
+    <Content Include="IMG\platos_y_tapas\aceitunas.jpg" />
+    <Content Include="IMG\platos_y_tapas\ANCHOA1.jpg" />
+    <Content Include="IMG\platos_y_tapas\APERITIVOS_FAMILY.jpg" />
+    <Content Include="IMG\platos_y_tapas\BACALAO.jpg" />
+    <Content Include="IMG\platos_y_tapas\BACALAO2.jpg" />
+    <Content Include="IMG\platos_y_tapas\BACALAO3.jpg" />
+    <Content Include="IMG\platos_y_tapas\banderillas.jpg" />
+    <Content Include="IMG\platos_y_tapas\berberechos.jpg" />
+    <Content Include="IMG\platos_y_tapas\boquerones vinagre.jpg" />
+    <Content Include="IMG\platos_y_tapas\boquerones_vinagre.jpg" />
+    <Content Include="IMG\platos_y_tapas\BROCHETA.jpg" />
+    <Content Include="IMG\platos_y_tapas\BROCHETA2.jpg" />
+    <Content Include="IMG\platos_y_tapas\BROCHETA3.jpg" />
+    <Content Include="IMG\platos_y_tapas\caballa.jpg" />
+    <Content Include="IMG\platos_y_tapas\cacaguetes.jpg" />
+    <Content Include="IMG\platos_y_tapas\cacahuetes.jpg" />
+    <Content Include="IMG\platos_y_tapas\CALAMAR2.jpg" />
+    <Content Include="IMG\platos_y_tapas\CALAMAR3.jpg" />
+    <Content Include="IMG\platos_y_tapas\carabineros.jpg" />
+    <Content Include="IMG\platos_y_tapas\CARNE_BRASA.jpg" />
+    <Content Include="IMG\platos_y_tapas\chuletas de cordero.jpg" />
+    <Content Include="IMG\platos_y_tapas\chuletas_de_cordero.jpg" />
+    <Content Include="IMG\platos_y_tapas\CIGALAS2.jpg" />
+    <Content Include="IMG\platos_y_tapas\CIGALAS4.jpg" />
+    <Content Include="IMG\platos_y_tapas\CIGALAS5.jpg" />
+    <Content Include="IMG\platos_y_tapas\COCIDO3.jpg" />
+    <Content Include="IMG\platos_y_tapas\combinado sepia.jpg" />
+    <Content Include="IMG\platos_y_tapas\combinado1.jpg" />
+    <Content Include="IMG\platos_y_tapas\combinado2.jpg" />
+    <Content Include="IMG\platos_y_tapas\combinado3.jpg" />
+    <Content Include="IMG\platos_y_tapas\COMBINADO4.jpg" />
+    <Content Include="IMG\platos_y_tapas\combinado_sepia.jpg" />
+    <Content Include="IMG\platos_y_tapas\conbinado4.jpg" />
+    <Content Include="IMG\platos_y_tapas\conbinado5.jpg" />
+    <Content Include="IMG\platos_y_tapas\conejo al ajillo.jpg" />
+    <Content Include="IMG\platos_y_tapas\conejo_al_ajillo.jpg" />
+    <Content Include="IMG\platos_y_tapas\consome.jpg" />
+    <Content Include="IMG\platos_y_tapas\CORDERO1.jpg" />
+    <Content Include="IMG\platos_y_tapas\CORDERO2.jpg" />
+    <Content Include="IMG\platos_y_tapas\COSTILLA.jpg" />
+    <Content Include="IMG\platos_y_tapas\DORADA.jpg" />
+    <Content Include="IMG\platos_y_tapas\embutido de requena.jpg" />
+    <Content Include="IMG\platos_y_tapas\embutido_de_requena.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensalada italiana_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensalada mixta_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensalada primavera_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensalada.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensalada2_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensalada3_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensalada_italiana_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensalada_mixta_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensalada_primavera_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensaladilla rusa.jpg" />
+    <Content Include="IMG\platos_y_tapas\ensaladilla_rusa.jpg" />
+    <Content Include="IMG\platos_y_tapas\ENSALADILLRUSA3.jpg" />
+    <Content Include="IMG\platos_y_tapas\ENTRECOT.jpg" />
+    <Content Include="IMG\platos_y_tapas\ENTRECOT2.jpg" />
+    <Content Include="IMG\platos_y_tapas\ENTREMES2.jpg" />
+    <Content Include="IMG\platos_y_tapas\ENTREMES4.jpg" />
+    <Content Include="IMG\platos_y_tapas\ESGARRAT.jpg" />
+    <Content Include="IMG\platos_y_tapas\ESGARRAT2.jpg" />
+    <Content Include="IMG\platos_y_tapas\espaghetti2_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ESPAGUETIS.jpg" />
+    <Content Include="IMG\platos_y_tapas\ESPARRAGOS1.jpg" />
+    <Content Include="IMG\platos_y_tapas\fabada.jpg" />
+    <Content Include="IMG\platos_y_tapas\FIDEOS3.jpg" />
+    <Content Include="IMG\platos_y_tapas\filete ternera.jpg" />
+    <Content Include="IMG\platos_y_tapas\filete_ternera.jpg" />
+    <Content Include="IMG\platos_y_tapas\GAMBAGAMBA.jpg" />
+    <Content Include="IMG\platos_y_tapas\GAMBAS.jpg" />
+    <Content Include="IMG\platos_y_tapas\GAMBAS2.jpg" />
+    <Content Include="IMG\platos_y_tapas\GAMBAS3.jpg" />
+    <Content Include="IMG\platos_y_tapas\GAMBAS4.jpg" />
+    <Content Include="IMG\platos_y_tapas\GAMBAS5.jpg" />
+    <Content Include="IMG\platos_y_tapas\GARBANZOS3.jpg" />
+    <Content Include="IMG\platos_y_tapas\GAZPACHO.jpg" />
+    <Content Include="IMG\platos_y_tapas\guisado.jpg" />
+    <Content Include="IMG\platos_y_tapas\guisado2.jpg" />
+    <Content Include="IMG\platos_y_tapas\HUEVOPATATAS.jpg" />
+    <Content Include="IMG\platos_y_tapas\huevos 1.jpg" />
+    <Content Include="IMG\platos_y_tapas\HUEVOSFRITOS.jpg" />
+    <Content Include="IMG\platos_y_tapas\huevos_1.jpg" />
+    <Content Include="IMG\platos_y_tapas\jamon.jpg" />
+    <Content Include="IMG\platos_y_tapas\JAMON4.jpg" />
+    <Content Include="IMG\platos_y_tapas\JAMON5.jpg" />
+    <Content Include="IMG\platos_y_tapas\JAMON6.jpg" />
+    <Content Include="IMG\platos_y_tapas\LANGOSTINOS2.jpg" />
+    <Content Include="IMG\platos_y_tapas\LANGOSTINOS3.jpg" />
+    <Content Include="IMG\platos_y_tapas\LANGOSTINOS4.jpg" />
+    <Content Include="IMG\platos_y_tapas\lasaña.jpg" />
+    <Content Include="IMG\platos_y_tapas\lenguado parrilla.jpg" />
+    <Content Include="IMG\platos_y_tapas\LENGUADO1.jpg" />
+    <Content Include="IMG\platos_y_tapas\LENGUADO2.jpg" />
+    <Content Include="IMG\platos_y_tapas\lenguado_parrilla.jpg" />
+    <Content Include="IMG\platos_y_tapas\LENTEJAS.jpg" />
+    <Content Include="IMG\platos_y_tapas\LUBINA.jpg" />
+    <Content Include="IMG\platos_y_tapas\MACARRONES3.jpg" />
+    <Content Include="IMG\platos_y_tapas\MARISCO.jpg" />
+    <Content Include="IMG\platos_y_tapas\mejillones al vapor.jpg" />
+    <Content Include="IMG\platos_y_tapas\mejillones.jpg" />
+    <Content Include="IMG\platos_y_tapas\mejillones_al_vapor.jpg" />
+    <Content Include="IMG\platos_y_tapas\MERLUZA1.jpg" />
+    <Content Include="IMG\platos_y_tapas\MERLUZA2.jpg" />
+    <Content Include="IMG\platos_y_tapas\montaditos de jamon.jpg" />
+    <Content Include="IMG\platos_y_tapas\montaditos lomo.jpg" />
+    <Content Include="IMG\platos_y_tapas\montaditos salmon y pate_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\montaditos_de_jamon.jpg" />
+    <Content Include="IMG\platos_y_tapas\montaditos_lomo.jpg" />
+    <Content Include="IMG\platos_y_tapas\montaditos_salmon_y_pate_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\mozarella1_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\paella valenciana.jpg" />
+    <Content Include="IMG\platos_y_tapas\PAELLAMARISCO.jpg" />
+    <Content Include="IMG\platos_y_tapas\PAELLAPOLLO.jpg" />
+    <Content Include="IMG\platos_y_tapas\paella_valenciana.jpg" />
+    <Content Include="IMG\platos_y_tapas\parrillada de verduras.jpg" />
+    <Content Include="IMG\platos_y_tapas\parrillada_de_verduras.jpg" />
+    <Content Include="IMG\platos_y_tapas\patatas fritas.jpg" />
+    <Content Include="IMG\platos_y_tapas\patatas.jpg" />
+    <Content Include="IMG\platos_y_tapas\patatas_fritas.jpg" />
+    <Content Include="IMG\platos_y_tapas\PERDIZ1.jpg" />
+    <Content Include="IMG\platos_y_tapas\PERDIZ2.jpg" />
+    <Content Include="IMG\platos_y_tapas\PESCADILLA_RARA.jpg" />
+    <Content Include="IMG\platos_y_tapas\PESCADO2.jpg" />
+    <Content Include="IMG\platos_y_tapas\PESCADO3.jpg" />
+    <Content Include="IMG\platos_y_tapas\PESCADORARO.jpg" />
+    <Content Include="IMG\platos_y_tapas\pimientos y longaniza.jpg" />
+    <Content Include="IMG\platos_y_tapas\pimientos1.jpg" />
+    <Content Include="IMG\platos_y_tapas\pimientos2.jpg" />
+    <Content Include="IMG\platos_y_tapas\pimientos_y_longaniza.jpg" />
+    <Content Include="IMG\platos_y_tapas\pizza 4 estaciones_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\pizza2_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\pizza_4_estaciones_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\PLATOPAELLA.jpg" />
+    <Content Include="IMG\platos_y_tapas\pulpo a la gallega.jpg" />
+    <Content Include="IMG\platos_y_tapas\pulpo_a_la_gallega.jpg" />
+    <Content Include="IMG\platos_y_tapas\PUNTILLAS.jpg" />
+    <Content Include="IMG\platos_y_tapas\QUESO1.jpg" />
+    <Content Include="IMG\platos_y_tapas\QUESO2.jpg" />
+    <Content Include="IMG\platos_y_tapas\rabo.jpg" />
+    <Content Include="IMG\platos_y_tapas\SALMON1.jpg" />
+    <Content Include="IMG\platos_y_tapas\SARDINA1.jpg" />
+    <Content Include="IMG\platos_y_tapas\sepia plancha.jpg" />
+    <Content Include="IMG\platos_y_tapas\SEPIA REBOZADA.jpg" />
+    <Content Include="IMG\platos_y_tapas\sepia_plancha.jpg" />
+    <Content Include="IMG\platos_y_tapas\SEPIA_REBOZADA.jpg" />
+    <Content Include="IMG\platos_y_tapas\SOLOMILLO.jpg" />
+    <Content Include="IMG\platos_y_tapas\SOLOMILLO1.jpg" />
+    <Content Include="IMG\platos_y_tapas\SOLOMILLO2.jpg" />
+    <Content Include="IMG\platos_y_tapas\SOLOMILLOPIMIENTA.jpg" />
+    <Content Include="IMG\platos_y_tapas\SOPA1.jpg" />
+    <Content Include="IMG\platos_y_tapas\SOPA2.jpg" />
+    <Content Include="IMG\platos_y_tapas\SOPAVERDE.jpg" />
+    <Content Include="IMG\platos_y_tapas\spaghetti1_thumb.jpg" />
+    <Content Include="IMG\platos_y_tapas\surtido iberico.jpg" />
+    <Content Include="IMG\platos_y_tapas\surtido_iberico.jpg" />
+    <Content Include="IMG\platos_y_tapas\tabla de quesos y fiamb.jpg" />
+    <Content Include="IMG\platos_y_tapas\tabla_de_quesos_y_fiamb.jpg" />
+    <Content Include="IMG\platos_y_tapas\ternera a la jardinera.jpg" />
+    <Content Include="IMG\platos_y_tapas\ternera_a_la_jardinera.jpg" />
+    <Content Include="IMG\platos_y_tapas\tortilla francesa.jpg" />
+    <Content Include="IMG\platos_y_tapas\tortilla_francesa.jpg" />
+    <Content Include="IMG\Postres\buñuelo.JPG" />
+    <Content Include="IMG\Postres\crema tatemada.jpg" />
+    <Content Include="IMG\Postres\crema_tatemada.jpg" />
+    <Content Include="IMG\Postres\crepas maria luisa.jpg" />
+    <Content Include="IMG\Postres\crepas martires.jpg" />
+    <Content Include="IMG\Postres\crepas_maria_luisa.jpg" />
+    <Content Include="IMG\Postres\crepas_martires.jpg" />
+    <Content Include="IMG\Postres\descarga.jpg" />
+    <Content Include="IMG\Postres\helados.jpg" />
+    <Content Include="IMG\postres_y_bolleria\bombas.jpg" />
+    <Content Include="IMG\postres_y_bolleria\bombas2.jpg" />
+    <Content Include="IMG\postres_y_bolleria\CASTAÑAHELADA.jpg" />
+    <Content Include="IMG\postres_y_bolleria\crema catalana.jpg" />
+    <Content Include="IMG\postres_y_bolleria\crema_catalana.jpg" />
+    <Content Include="IMG\postres_y_bolleria\CROISANT.jpg" />
+    <Content Include="IMG\postres_y_bolleria\CROISANT2.jpg" />
+    <Content Include="IMG\postres_y_bolleria\donuts.jpg" />
+    <Content Include="IMG\postres_y_bolleria\empanadilla.jpg" />
+    <Content Include="IMG\postres_y_bolleria\flan casero.jpg" />
+    <Content Include="IMG\postres_y_bolleria\flan_casero.jpg" />
+    <Content Include="IMG\postres_y_bolleria\fruta1.jpg" />
+    <Content Include="IMG\postres_y_bolleria\fruta5.jpg" />
+    <Content Include="IMG\postres_y_bolleria\fruta6.jpg" />
+    <Content Include="IMG\postres_y_bolleria\galletas principe.jpg" />
+    <Content Include="IMG\postres_y_bolleria\galletas_principe.jpg" />
+    <Content Include="IMG\postres_y_bolleria\HELADO1.jpg" />
+    <Content Include="IMG\postres_y_bolleria\HELADO2.jpg" />
+    <Content Include="IMG\postres_y_bolleria\HELADO3.jpg" />
+    <Content Include="IMG\postres_y_bolleria\HELADOCHOCO.jpg" />
+    <Content Include="IMG\postres_y_bolleria\HELADOCONO.jpg" />
+    <Content Include="IMG\postres_y_bolleria\HELADOCOPA.jpg" />
+    <Content Include="IMG\postres_y_bolleria\HELADORARO.jpg" />
+    <Content Include="IMG\postres_y_bolleria\HELADOX.jpg" />
+    <Content Include="IMG\postres_y_bolleria\natillas.jpg" />
+    <Content Include="IMG\postres_y_bolleria\palmera.jpg" />
+    <Content Include="IMG\postres_y_bolleria\pasta1.jpg" />
+    <Content Include="IMG\postres_y_bolleria\pasta2.jpg" />
+    <Content Include="IMG\postres_y_bolleria\pasta3.jpg" />
+    <Content Include="IMG\postres_y_bolleria\platano.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre1.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre17.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre1_thumb.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre2.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre2_thumb.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre3.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre4.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre5.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre6.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postre7.jpg" />
+    <Content Include="IMG\postres_y_bolleria\postres.jpg" />
+    <Content Include="IMG\postres_y_bolleria\TARTA1.jpg" />
+    <Content Include="IMG\postres_y_bolleria\TARTA2.jpg" />
+    <Content Include="IMG\postres_y_bolleria\TARTA3.jpg" />
+    <Content Include="IMG\postres_y_bolleria\TARTA4.jpg" />
+    <Content Include="IMG\postres_y_bolleria\tartafresa1.jpg" />
+    <Content Include="IMG\postres_y_bolleria\trufa chocolate.jpg" />
+    <Content Include="IMG\postres_y_bolleria\trufa_chocolate.jpg" />
+    <Content Include="IMG\postres_y_bolleria\valenciana.jpg" />
+    <Content Include="IMG\postres_y_bolleria\yogurt natural.jpg" />
+    <Content Include="IMG\postres_y_bolleria\yogurt_natural.jpg" />
+    <Content Include="IMG\pozole\capofinal.jpg" />
+    <Content Include="IMG\pozole\menu eje.jpg" />
+    <Content Include="IMG\pozole\menu_eje.jpg" />
+    <Content Include="IMG\pozole\pozole bco.jpg" />
+    <Content Include="IMG\pozole\pozole verde.jpg" />
+    <Content Include="IMG\pozole\pozole_bco.jpg" />
+    <Content Include="IMG\pozole\pozole_verde.jpg" />
+    <Content Include="IMG\pulque\Pulque.jpg" />
+    <Content Include="IMG\refrescos\agua fonter.jpg" />
+    <Content Include="IMG\refrescos\agua grande.jpg" />
+    <Content Include="IMG\refrescos\agua mediana.jpg" />
+    <Content Include="IMG\refrescos\AGUA MINERAL.jpg" />
+    <Content Include="IMG\refrescos\agua pequeña.jpg" />
+    <Content Include="IMG\refrescos\agua_fonter.jpg" />
+    <Content Include="IMG\refrescos\agua_grande.jpg" />
+    <Content Include="IMG\refrescos\agua_mediana.jpg" />
+    <Content Include="IMG\refrescos\AGUA_MINERAL.jpg" />
+    <Content Include="IMG\refrescos\aquarius1.jpg" />
+    <Content Include="IMG\refrescos\BIO LIVIANA.jpg" />
+    <Content Include="IMG\refrescos\BIO_LIVIANA.jpg" />
+    <Content Include="IMG\refrescos\bisolan.jpg" />
+    <Content Include="IMG\refrescos\biter kas.jpg" />
+    <Content Include="IMG\refrescos\biter_kas.jpg" />
+    <Content Include="IMG\refrescos\BITTER.jpg" />
+    <Content Include="IMG\refrescos\burn1.jpg" />
+    <Content Include="IMG\refrescos\CHOLECK CHOCOLATE.jpg" />
+    <Content Include="IMG\refrescos\CHOLECK VAINLLA .jpg" />
+    <Content Include="IMG\refrescos\choleckchoco1.jpg" />
+    <Content Include="IMG\refrescos\choleckchoco2.jpg" />
+    <Content Include="IMG\refrescos\choleckchoco3.jpg" />
+    <Content Include="IMG\refrescos\CHOLECK_CHOCOLATE.jpg" />
+    <Content Include="IMG\refrescos\CHOLECK_VAINLLA_.jpg" />
+    <Content Include="IMG\refrescos\cocacola1.jpg" />
+    <Content Include="IMG\refrescos\COCACOLA2.jpg" />
+    <Content Include="IMG\refrescos\cocacola3.jpg" />
+    <Content Include="IMG\refrescos\cocacolalight1.jpg" />
+    <Content Include="IMG\refrescos\cocacolalight2.jpg" />
+    <Content Include="IMG\refrescos\cocacolalightlemon1.jpg" />
+    <Content Include="IMG\refrescos\fanta1.jpg" />
+    <Content Include="IMG\refrescos\FANTA2.jpg" />
+    <Content Include="IMG\refrescos\fantabote2.jpg" />
+    <Content Include="IMG\refrescos\fantalimon3.jpg" />
+    <Content Include="IMG\refrescos\greip.jpg" />
+    <Content Include="IMG\refrescos\kasbote1.jpg" />
+    <Content Include="IMG\refrescos\lacasera1.jpg" />
+    <Content Include="IMG\refrescos\lanjaron.jpg" />
+    <Content Include="IMG\refrescos\leche2.jpg" />
+    <Content Include="IMG\refrescos\leche3.jpg" />
+    <Content Include="IMG\refrescos\LIMON2.jpg" />
+    <Content Include="IMG\refrescos\minut made.jpg" />
+    <Content Include="IMG\refrescos\minut_made.jpg" />
+    <Content Include="IMG\refrescos\nestealimon1.jpg" />
+    <Content Include="IMG\refrescos\nordic west.jpg" />
+    <Content Include="IMG\refrescos\nordic1.jpg" />
+    <Content Include="IMG\refrescos\nordic_west.jpg" />
+    <Content Include="IMG\refrescos\okey.jpg" />
+    <Content Include="IMG\refrescos\pepsi1.jpg" />
+    <Content Include="IMG\refrescos\PEPSI2.jpg" />
+    <Content Include="IMG\refrescos\pepsi3.jpg" />
+    <Content Include="IMG\refrescos\REDBULL.jpg" />
+    <Content Include="IMG\refrescos\redbull1.jpg" />
+    <Content Include="IMG\refrescos\REDBULL2.jpg" />
+    <Content Include="IMG\refrescos\schweppeslimon1.jpg" />
+    <Content Include="IMG\refrescos\schweppestonica1.jpg" />
+    <Content Include="IMG\refrescos\schweppestonica2.jpg" />
+    <Content Include="IMG\refrescos\SWEPPES.jpg" />
+    <Content Include="IMG\refrescos\trina.jpg" />
+    <Content Include="IMG\refrescos\trinalimon1.jpg" />
+    <Content Include="IMG\refrescos\trinamanzana1.jpg" />
+    <Content Include="IMG\refrescos\VICHY CATALAN.jpg" />
+    <Content Include="IMG\refrescos\VICHY_CATALAN.jpg" />
+    <Content Include="IMG\refrescos\ZUMO DE MELOCOTON.jpg" />
+    <Content Include="IMG\refrescos\zumo DE PIÑA.jpg" />
+    <Content Include="IMG\refrescos\zumo1.jpg" />
+    <Content Include="IMG\refrescos\zumo2.jpg" />
+    <Content Include="IMG\refrescos\ZUMO3.jpg" />
+    <Content Include="IMG\refrescos\zumo4.jpg" />
+    <Content Include="IMG\refrescos\ZUMO_DE_MELOCOTON.jpg" />
+    <Content Include="IMG\salsa.png" />
+    <Content Include="IMG\sopas_y_caldos\sopas.jpg" />
+    <Content Include="IMG\TORTACCIA.jpg" />
+    <Content Include="IMG\usuarios\admin1.bmp" />
+    <Content Include="IMG\usuarios\user1.bmp" />
+    <Content Include="IMG\varios\bolsa papas.jpg" />
+    <Content Include="IMG\varios\bolsa_papas.jpg" />
+    <Content Include="IMG\varios\caramelos miel.jpg" />
+    <Content Include="IMG\varios\caramelos.jpg" />
+    <Content Include="IMG\varios\caramelos_miel.jpg" />
+    <Content Include="IMG\varios\CHICLE1.jpg" />
+    <Content Include="IMG\varios\chicles.jpg" />
+    <Content Include="IMG\varios\colacao.jpg" />
+    <Content Include="IMG\varios\hotel.jpg" />
+    <Content Include="IMG\varios\kikos.jpg" />
+    <Content Include="IMG\varios\kinder.jpg" />
+    <Content Include="IMG\varios\kit kat.jpg" />
+    <Content Include="IMG\varios\kitkat.jpg" />
+    <Content Include="IMG\varios\kit_kat.jpg" />
+    <Content Include="IMG\varios\licor del polo.jpg" />
+    <Content Include="IMG\varios\licor_del_polo.jpg" />
+    <Content Include="IMG\varios\mix frutos secos.jpg" />
+    <Content Include="IMG\varios\mix_frutos_secos.jpg" />
+    <Content Include="IMG\varios\pan.jpg" />
+    <Content Include="IMG\varios\pan2.jpg" />
+    <Content Include="IMG\varios\ricola.jpg" />
+    <Content Include="IMG\varios\smint.jpg" />
+    <Content Include="IMG\varios\v6.jpg" />
+    <Content Include="IMG\vinos\alto cuevas tinto.jpg" />
+    <Content Include="IMG\vinos\alto_cuevas_tinto.jpg" />
+    <Content Include="IMG\vinos\bercial.jpg" />
+    <Content Include="IMG\vinos\castillo de requena blanco.jpg" />
+    <Content Include="IMG\vinos\castillo de utiel tinto.jpg" />
+    <Content Include="IMG\vinos\castillo_de_requena_blanco.jpg" />
+    <Content Include="IMG\vinos\castillo_de_utiel_tinto.jpg" />
+    <Content Include="IMG\vinos\copasvinos.jpg" />
+    <Content Include="IMG\vinos\enterizo reserva.jpg" />
+    <Content Include="IMG\vinos\enterizo_reserva.jpg" />
+    <Content Include="IMG\vinos\hoya de cadenas.jpg" />
+    <Content Include="IMG\vinos\hoya_de_cadenas.jpg" />
+    <Content Include="IMG\vinos\las lomas.jpg" />
+    <Content Include="IMG\vinos\las_lomas.jpg" />
+    <Content Include="IMG\vinos\marmiton reserva.jpg" />
+    <Content Include="IMG\vinos\marmiton.jpg" />
+    <Content Include="IMG\vinos\marmiton_reserva.jpg" />
+    <Content Include="IMG\vinos\marques de requena crianza 1991.jpg" />
+    <Content Include="IMG\vinos\marques_de_requena_crianza_1991.jpg" />
+    <Content Include="IMG\vinos\merlot.jpg" />
+    <Content Include="IMG\vinos\naranjada min.jpg" />
+    <Content Include="IMG\vinos\naranjada_min.jpg" />
+    <Content Include="IMG\vinos\palacio del cid tinto crianza.jpg" />
+    <Content Include="IMG\vinos\palacio_del_cid_tinto_crianza.jpg" />
+    <Content Include="IMG\vinos\peña tejo tinto crianza.jpg" />
+    <Content Include="IMG\vinos\pinord blanco_thumb.jpg" />
+    <Content Include="IMG\vinos\pinord rosado_thumb.jpg" />
+    <Content Include="IMG\vinos\pinord_blanco_thumb.jpg" />
+    <Content Include="IMG\vinos\pinord_rosado_thumb.jpg" />
+    <Content Include="IMG\vinos\provechon reserva.jpg" />
+    <Content Include="IMG\vinos\provechon_reserva.jpg" />
+    <Content Include="IMG\vinos\torre oria brut nature.jpg" />
+    <Content Include="IMG\vinos\torres moya tinto.jpg" />
+    <Content Include="IMG\vinos\torres5.jpg" />
+    <Content Include="IMG\vinos\torres_moya_tinto.jpg" />
+    <Content Include="IMG\vinos\torre_oria_brut_nature.jpg" />
+    <Content Include="IMG\vinos\valle de tejo.jpg" />
+    <Content Include="IMG\vinos\valle_de_tejo.jpg" />
+    <Content Include="IMG\vinos\vegano.jpg" />
+    <Content Include="IMG\vinos\vera de estenas.jpg" />
+    <Content Include="IMG\vinos\vera_de_estenas.jpg" />
+    <Content Include="IMG\vinos\vinos1.jpg" />
+    <Content Include="IMG\vinos\vinos2.jpg" />
+    <Content Include="IMG\vinos\vinos3.jpg" />
+    <Content Include="IMG\vinos\vinos4.jpg" />
+    <Content Include="IMG\vinos\vinos5.jpg" />
+    <Content Include="IMG\vinos\vinos6.jpg" />
+    <Content Include="IMG\vinos\vinos7.jpg" />
+    <Content Include="IMG\vinos\viña carmina rosado.jpg" />
+    <Content Include="IMG\vinos\viña enterizo tinto crianza.jpg" />
+    <Content Include="IMG\vinos\viña lidon.jpg" />
+    <Content Include="IMG\vinos\viña turquesa.jpg" />
+    <Content Include="IMG\vino\canepa-classico-carmenere.jpg" />
+    <Content Include="IMG\vino\Chardonnay.jpg" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="IMG\varios\salsas.xps" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\_MostrarFamilias.cshtml" />
+    <Content Include="Views\Home\_MostrarDetalleFamilia.cshtml" />
+    <Content Include="Views\Home\_MostrarPlatillos.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="IMG\fruta\" />
+    <Folder Include="IMG\tortaccias\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>56205</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44395/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
