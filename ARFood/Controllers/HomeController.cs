@@ -63,25 +63,47 @@ namespace ARFood.Controllers
 
         public ActionResult MostrarPlatillos(int? id)
         {
-            List<int> ListadoPlatillos = (List<int>)Session["ListadoPlatillos"];
-            if (id!=null)
+            if (id != null)
             {
-                ListadoPlatillos.Remove(id.Value);
+                if (id > 0)
+                {
+                    List<int> ListadoPlatillos;
+                    if (Session["ListadoPlatillos"] == null)
+                    {
+                        ListadoPlatillos = new List<int>();
+                    }
+                    else
+                    {
+                        ListadoPlatillos = Session["ListadoPlatillos"] as List<int>;
+                    }
+                    ListadoPlatillos.Add(id.Value);
+                    Session["ListadoPlatillos"] = ListadoPlatillos;
+                }
+                else
+                {
+                    List<int> ListadoPlatillos = (List<int>)Session["ListadoPlatillos"];
+                    if (id != null)
+                    {
+                        ListadoPlatillos.Remove(id.Value);
+                    }
+                    if (ListadoPlatillos == null || ListadoPlatillos.Count == 0)
+                    {
+                        Session["ListadoPlatillos"] = null;
+
+                    }
+                    else
+                    {
+                        Session["ListadoPlatillos"] = ListadoPlatillos;
+                    }
+                    if (Session["ListadoPlatillos"] != null)
+                    {
+                        List<Productos> productos = this.ARService.BuscarProductos(ListadoPlatillos);
+                        return PartialView("_MostrarPlatillos", productos);
+                    }
+                }
+                return View(this.ARService.GetProductos(id.Value));
             }
-            if(ListadoPlatillos == null || ListadoPlatillos.Count ==0)
-            {
-                Session["ListadoPlatillos"] = null;
-               
-            }
-            else
-            {
-                Session["ListadoPlatillos"] = ListadoPlatillos;
-            }
-            if (Session["ListadoPlatillos"] != null)
-            {
-                List<Productos> productos = this.ARService.BuscarProductos(ListadoPlatillos);
-                return PartialView("_MostrarPlatillos", productos);
-            }
+            ViewBag.ListadoPlatillos = Session["ListadoPlatillos"];
             return PartialView("_MostrarPlatillos");
         }
         public ActionResult About()

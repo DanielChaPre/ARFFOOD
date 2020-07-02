@@ -15,8 +15,10 @@
                         {
                             <td>
                                 <div class="content_image">
-                                    <img src="@Url.Content(Model[i].Imagen)" alt="Imagen" width="150" height="150" />
-                                    <div>@Model[i].Descripcion</div>
+                                    <a data-url="@Url.Content(string.Format("~/home/MostrarPlatillos/{0}", Model[i].ID))" class="img-responsive">
+                                        <img src="@Url.Content(Model[i].Imagen)" alt="Imagen" width="150" height="150" />
+                                        <div>@Model[i].Descripcion</div>
+                                    </a>
                                 </div>
                             </td>
                         }

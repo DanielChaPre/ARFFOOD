@@ -14,7 +14,9 @@
                 </div>
             </td>
             <td width="50%">
-                <h1>Hola</h1>
+                <div class="col-lg-12" id="Platillo">
+                    @{Html.RenderAction("MostrarPlatillos");}
+                </div>
             </td>
         </tr>
     </table>
@@ -22,13 +24,17 @@
 
 @section scripts {
     <script>
-        $(function () {
-            $.ajax({
-                url: "@Url.Content("~/Home/MostrarFamilias")"
-            }).done(function (data) {
-                $('#todos').html(data);
-            }).fail(function () {
-                alert("Error 1");
+        $(function ()
+        {
+            $.ajax(
+                {
+                    url: "@Url.Content("~/Home/MostrarFamilias")"
+                }).done(function (data)
+                    {
+                        $('#todos').html(data);
+                    }).fail(function ()
+                    {
+                        alert("Error 1");
             });
         });
         $('#todos').on('click', 'a[data-url]', function () {

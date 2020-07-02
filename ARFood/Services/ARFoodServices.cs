@@ -1,4 +1,5 @@
 ﻿using ARFood.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,14 @@ namespace ARFood.Services
         }
         public List<Productos> GetProductos(int Familia)
         {
-            var consulta = from datos in contex.Productos
-                           where Familia.Equals(datos.Familia)
-                           select datos;
-            return consulta.ToList();
+            if (Familia >0 )
+            {
+                var consulta = from datos in contex.Productos
+                               where Familia.Equals(datos.Familia)
+                               select datos;
+                return consulta.ToList();
+            }
+            return null;
         }
 
         public List<Productos> BuscarProductos(List<int> Productos)
