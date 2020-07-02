@@ -31,6 +31,7 @@ namespace ARFood.Services
                            where Productos.Contains(datos.ID)
                            select datos;
             return consulta.ToList();
+
         }
     }
 }
