@@ -201,6 +201,7 @@
     <Compile Include="Models\UnidadesMedidas.cs" />
     <Compile Include="Models\ValoresNutricionales.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ARFoodServices.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

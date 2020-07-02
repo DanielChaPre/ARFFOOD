@@ -1,7 +1,9 @@
 ﻿using ARFood.Models;
+using ARFood.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Permissions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -9,6 +11,12 @@ namespace ARFood.Controllers
 {
     public class HomeController : Controller
     {
+        ARFoodServices ARService;
+
+        public HomeController()
+        {
+            this.ARService = new ARFoodServices();
+        }
         public ActionResult Index()
         {
             return View();
@@ -16,76 +24,65 @@ namespace ARFood.Controllers
 
         public ActionResult MostrarFamilias()
         {
-            using (ApplicationDbContext dbModel = new ApplicationDbContext())
-            {
-                var FamiliasMenu = dbModel.Familias.ToList();
-                return PartialView("_MostrarFamilias", FamiliasMenu);
-            }
+            var FamiliasMenu = ARService.GetFamilias();
+            return PartialView("_MostrarFamilias", FamiliasMenu);
         }
 
         public ActionResult MostrarDetalleFamilia(int? ID)
         {
-            using (ApplicationDbContext dbModel = new ApplicationDbContext())
+            if (ID > 0)
             {
-                if (ID != null)
-                {
-                    var DetalleFamilia = dbModel.Productos.Where(x=>x.Familia == ID).ToList();
-                    if (DetalleFamilia == null)
-                    {
-                        return HttpNotFound();
-                    }
-                    return PartialView("_MostrarDetalleFamilia", DetalleFamilia);
-                }
+                var ProductosMenu = ARService.GetProductos(ID.Value);
+                return PartialView("_MostrarDetalleFamilia", ProductosMenu);
+            }
+            else
+            {
                 return PartialView("_MostrarDetalleFamilia");
             }
         }
 
-        public ActionResult MostrarPlatillos()
+        //public ActionResult MostrarPlatillos(int? id)
+        //{
+        //    if (id != null)
+        //    {
+        //        List<int> ListadoPlatillos;
+        //        if (Session["ListadoPlatillos"] == null)
+        //        {
+        //            ListadoPlatillos = new List<int>();
+        //        }
+        //        else
+        //        {
+        //            ListadoPlatillos = Session["ListadoPlatillos"] as List<int>;
+        //        }
+        //        ListadoPlatillos.Add(id.Value);
+        //        Session["ListadoPlatillos"] = ListadoPlatillos;
+        //    }
+        //    ViewBag.ListadoPlatillos = Session["ListadoPlatillos"];
+        //    return View(this.ARService.GetProductos(id.Value));
+        //}
+
+        public ActionResult MostrarPlatillos(int? id)
         {
-            using (ApplicationDbContext dbModel = new ApplicationDbContext())
+            List<int> ListadoPlatillos = (List<int>)Session["ListadoPlatillos"];
+            if (id!=null)
             {
-                if (Session["ARFoodUser"] != null)
-                {
-                    List<int> Platillos = (List<int>)Session["ARFoodUser"];
-
-                    if (codigos == null || codigos.Count == 0)
-                    {
-                        Session["Videojuegos"] = null;
-                        dbModel.Videojuegos.SqlQuery("UPDATE Videojuegos set Cantidad = 0").SingleOrDefaultAsync();
-                        //Session["VideojuegosD"] = null;
-                    }
-                    else
-                    {
-                        Session["Videojuegos"] = codigos;
-                        //Session["VideojuegosD"] = codigosD;
-                    }
-                    if (vJuego != null)
-                    {
-                        foreach (var juego in vJuego)
-                        {
-                            Videojuegos Ojuego = new Videojuegos();
-                            var video = dbModel.Videojuegos.Where(x => x.Id == juego.Id).FirstOrDefault();
-                            if (video.Cantidad != juego.Cantidad && juego.Cantidad >= 0)
-                            {
-                                video.Cantidad = juego.Cantidad;
-                                dbModel.Entry(video).State = System.Data.Entity.EntityState.Modified;
-                                dbModel.SaveChanges();
-                                if (video.Cantidad == 0)
-                                {
-                                    codigos.Remove(video.Id);
-                                }
-                            }
-
-                        }
-                    }
-                    if (Session["Videojuegos"] != null)
-                    {
-                        List<Videojuegos> videjuegos = this.video.BuscarVideoJuegos(codigos);
-                        return View(videjuegos);
-                    }
-                }
-                return PartialView("_MostrarDetalleFamilia");
+                ListadoPlatillos.Remove(id.Value);
             }
+            if(ListadoPlatillos == null || ListadoPlatillos.Count ==0)
+            {
+                Session["ListadoPlatillos"] = null;
+               
+            }
+            else
+            {
+                Session["ListadoPlatillos"] = ListadoPlatillos;
+            }
+            if (Session["ListadoPlatillos"] != null)
+            {
+                List<Productos> productos = this.ARService.BuscarProductos(ListadoPlatillos);
+                return PartialView("_MostrarPlatillos", productos);
+            }
+            return PartialView("_MostrarPlatillos");
         }
         public ActionResult About()
         {
