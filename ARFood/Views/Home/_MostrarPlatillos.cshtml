@@ -1,15 +1,40 @@
 ﻿@model IList<ARFood.Models.Productos>
 
 <link href="~/Content/IMGStyle.css" rel="stylesheet" type="text/css">
+<link href="~/Content/Listas.css" rel="stylesheet" type="text/css">
 
 @if (Model != null)
 {
-    <div class="list-group">
-        @foreach (var item in Model)
-        {
-            <div >
-                <div>@item.Descripcion</div>
-            </div>
-        }
+    <table width="100%" height="75px">
+        <tr>
+            <td width="50%" align="left">
+                Orden:
+            </td>
+            <td width="50%" align="right">
+                @(15 * 3)
+            </td>
+        </tr>
+    </table>
+    <div class="list-group" style="width:100%">
+        <ol id="lista5" style="width:100%">
+            @foreach (var item in Model)
+            {
+                <li style="width:100%">
+                    <table width="100%">
+                        <tr>
+                            <td width="50%">
+                                @item.Descripcion
+                            </td>
+                            <td width="20%">
+                                @item.Precio
+                            </td>
+                            <td width="30%">
+                                @(item.Precio * 3)
+                            </td>
+                        </tr>
+                    </table>
+                </li>
+            }
+        </ol>
     </div>
 }

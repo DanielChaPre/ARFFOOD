@@ -5,7 +5,7 @@
 @if (Model != null)
 {
     <div class="list-group">
-        @for (int i = 0; i < Model.Count(); i += 4)
+        @for (int i = 0; i < Model.Count(); i += 3)
         {
             <table>
                 <tr>
@@ -26,8 +26,10 @@
                         {
                             <td>
                                 <div class="content_image">
-                                    <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
-                                    <div>@Model[i].Descripcion</div>
+                                    <a data-url="@Url.Content(string.Format("~/home/MostrarPlatillos/{0}", Model[i].ID))" class="img-responsive">
+                                        <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
+                                        <div>@Model[i].Descripcion</div>
+                                    </a>
                                 </div>
                             </td>
                         }
@@ -38,8 +40,10 @@
                         {
                             <td>
                                 <div class="content_image">
-                                    <img src="@Url.Content(Model[i+1].Imagen)" alt="Imagen" width="150" height="150" />
-                                    <div>@Model[i + 1].Descripcion</div>
+                                    <a data-url="@Url.Content(string.Format("~/home/MostrarPlatillos/{0}", Model[i+1].ID))" class="img-responsive">
+                                        <img src="@Url.Content(Model[i+1].Imagen)" alt="Imagen" width="150" height="150" />
+                                        <div>@Model[i + 1].Descripcion</div>
+                                    </a>
                                 </div>
                             </td>
                         }
@@ -47,8 +51,10 @@
                         {
                             <td>
                                 <div class="content_image">
-                                    <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
-                                    <div>@Model[i + 1].Descripcion</div>
+                                    <a data-url="@Url.Content(string.Format("~/home/MostrarPlatillos/{0}", Model[i+1].ID))" class="img-responsive">
+                                        <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
+                                        <div>@Model[i + 1].Descripcion</div>
+                                    </a>
                                 </div>
                             </td>
                         }
@@ -59,8 +65,10 @@
                         {
                             <td>
                                 <div class="content_image">
-                                    <img src="@Url.Content(Model[i+2].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
-                                    <div>@Model[i + 2].Descripcion</div>
+                                    <a data-url="@Url.Content(string.Format("~/home/MostrarPlatillos/{0}", Model[i+2].ID))" class="img-responsive">
+                                        <img src="@Url.Content(Model[i+2].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                        <div>@Model[i + 2].Descripcion</div>
+                                    </a>
                                 </div>
                             </td>
                         }
@@ -68,20 +76,24 @@
                         {
                             <td>
                                 <div class="content_image">
-                                    <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
-                                    <div>@Model[i + 2].Descripcion</div>
+                                    <a data-url="@Url.Content(string.Format("~/home/MostrarPlatillos/{0}", Model[i+2].ID))" class="img-responsive">
+                                        <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
+                                        <div>@Model[i + 2].Descripcion</div>
+                                    </a>
                                 </div>
                             </td>
                         }
                     }
-                    @if ((i + 3) < Model.Count())
+                    @*@if ((i + 3) < Model.Count())
                     {
                         if (Model[i + 3].Imagen.Length > 0)
                         {
                             <td>
                                 <div class="content_image">
-                                    <img src="@Url.Content(Model[i+3].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
-                                    <div>@Model[i + 3].Descripcion</div>
+                                    <a data-url="@Url.Content(string.Format("~/home/MostrarPlatillos/{0}", Model[i+3].ID))" class="img-responsive">
+                                        <img src="@Url.Content(Model[i+3].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                        <div>@Model[i + 3].Descripcion</div>
+                                    </a>
                                 </div>
                             </td>
                         }
@@ -89,12 +101,14 @@
                         {
                             <td>
                                 <div class="content_image">
-                                    <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
-                                    <div>@Model[i + 3].Descripcion</div>
+                                    <a data-url="@Url.Content(string.Format("~/home/MostrarPlatillos/{0}", Model[i+3].ID))" class="img-responsive">
+                                        <img src="~/IMG/ARFood/Logo.jpeg" alt="Imagen" width="150" height="150" />
+                                        <div>@Model[i + 3].Descripcion</div>
+                                    </a>
                                 </div>
                             </td>
                         }
-                    }
+                    }*@
                 </tr>
             </table>
         }
