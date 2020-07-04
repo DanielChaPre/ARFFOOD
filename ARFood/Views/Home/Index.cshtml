@@ -22,22 +22,18 @@
     </div>
     <table style="width:100%" height="200px">
         <tr>
-            <td width="50%" height="200px">
+            <td width="40%" height="200px">
                 <div class="b" style="height:400px; overflow-y:scroll" id="familia">
                     @{Html.RenderAction("MostrarDetalleFamilia");}
                 </div>
             </td>
-            <td width="50%">
+            <td width="60%">
                 <div class="b" style="height:400px; overflow-y:scroll" id="Platillo">
                     @{Html.RenderAction("MostrarPlatillos");}
                 </div>
             </td>
         </tr>
     </table>
-    <div class="b" style="height:400px; overflow-y:scroll" id="SubTotal">
-        @{Html.RenderAction("SubTotal");}
-    </div>
-    <h1>@ViewBag.SubTotal</h1>
 </div>
 
 @section scripts {
@@ -78,13 +74,18 @@
                 }).fail(function () {
                     alert('Error 2');
                 });
+            $('#todos a').removeClass('active');
+            $(this).addClass('active');
+        });
+        $('#Platillo').on('click', 'a[data-url]', function () {
+            var dataUrl = $(this).data('url');
             $.ajax(
                 {
-                    url: "@Url.Content("~/home/SubTotal")"
+                    url: dataUrl
                 }).done(function (data) {
-                    $('#SubTotal').html(data);
+                    $('#Platillo').html(data);
                 }).fail(function () {
-                    alert('Error 3');
+                    alert('Error platillo');
                 });
             $('#todos a').removeClass('active');
             $(this).addClass('active');

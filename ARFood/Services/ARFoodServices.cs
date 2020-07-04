@@ -35,6 +35,14 @@ namespace ARFood.Services
             var consulta = from datos in contex.Productos
                            where Productos.Contains(datos.ID)
                            select datos;
+                           //{
+                           //    ID = datos.ID,
+                           //    Producto = datos.Producto,
+                           //    Descripcion = datos.Descripcion,
+                           //    Cantidad = datos.Cantidad,
+                           //    Precio = datos.Precio,
+                           //    IVA = datos.IVA
+                           //};
             return consulta.ToList();
 
         }

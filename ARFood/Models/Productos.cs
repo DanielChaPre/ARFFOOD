@@ -14,6 +14,8 @@ namespace ARFood.Models
         public int ID { get; set; }
         public string Producto { get; set; }
         public string Descripcion { get; set; }
+        //Campo temporal para ejecutar el menu, no guarda información
+        public int Cantidad { get; set; }
         public int UnidadMedida { get; set; }
         public int UnidadAlterna { get; set; }
         public double FactorConversion { get; set; }
@@ -27,5 +29,17 @@ namespace ARFood.Models
         public string Imagen { get; set; }
         public string Video { get; set; }
 
+    }
+
+    public class ProductosPedidos
+    {
+        public int ID { get; set; }
+        public int IDUsuario { get; set; }
+        public string Producto { get; set; }
+        public string Descripcion { get; set; }
+        public int Cantidad { get; set; }
+        public double Precio { get; set; }
+        public double SubTotal { get; set; }
+        public double IVA { get; set; }
     }
 }

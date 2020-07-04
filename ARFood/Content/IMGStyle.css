@@ -8,6 +8,34 @@
 }
 
     /* Child Text Container */
+    .content_TextImage div {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: black;
+        color: white;
+        margin-bottom: 5px;
+        font-family: sans-serif;
+        opacity: 0;
+        visibility: hidden;
+        -webkit-transition: visibility 0s, opacity 0.5s linear;
+        transition: visibility 0s, opacity 0.5s linear;
+    }
+
+    /* Hover on Parent Container */
+    .content_TextImage:hover {
+        cursor: pointer;
+}
+
+        .content_TextImage:hover div {
+            width: 150px;
+            padding: 8px;
+            visibility: visible;
+            opacity: 0.7;
+        }
+
+
+    /* Child Text Container */
     .content_image div {
         position: absolute;
         bottom: 0;

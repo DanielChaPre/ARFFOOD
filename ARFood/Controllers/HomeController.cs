@@ -2,19 +2,19 @@
 using ARFood.Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Permissions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Razor.Tokenizer;
+using System.Web.UI.WebControls;
 
 namespace ARFood.Controllers
 {
     public class HomeController : Controller
     {
         ARFoodServices ARService;
-        string VBTest = "";
-        bool ShouldWait = true;
 
         public HomeController()
         {
@@ -46,26 +46,40 @@ namespace ARFood.Controllers
 
         public ActionResult MostrarPlatillos(int? id)
         {
-            ShouldWait = true;
             if (id != null)
             {
-                List<int> ListadoPlatillos;
+                List<ProductosPedidos> ListadoPlatillos;
+                ProductosPedidos NewProducto = new ProductosPedidos();
+                double SubTotal = 0;
                 if (Session["ListadoPlatillos"] == null)
                 {
-                    ListadoPlatillos = new List<int>();
+                    ListadoPlatillos = new List<ProductosPedidos>();
                 }
                 else
                 {
-                    ListadoPlatillos = Session["ListadoPlatillos"] as List<int>;
+                    ListadoPlatillos = Session["ListadoPlatillos"] as List<ProductosPedidos>;
                 }
                 if (id > 0)
                 {
-                    ListadoPlatillos.Add(id.Value);
+                    if (ListadoPlatillos.Exists(x => x.ID == id.Value))
+                    {
+                        ListadoPlatillos.Find(x => x.ID == id.Value).Cantidad += 1;
+                    }
+                    else
+                    {
+                        NewProducto.ID = id.Value;
+                        NewProducto.Cantidad = 1;
+                        ListadoPlatillos.Add(NewProducto);
+                    }
                     Session["ListadoPlatillos"] = ListadoPlatillos;
                 }
                 else
                 {
-                    ListadoPlatillos.Remove(id.Value);
+                    ListadoPlatillos.Find(x => x.ID == (id.Value * -1)).Cantidad += -1;
+                    if (ListadoPlatillos.Find(x => x.ID == (id.Value * -1)).Cantidad < 1)
+                    {
+                        ListadoPlatillos.Remove(ListadoPlatillos.Find(x => x.ID == (id.Value * -1)));
+                    }
                     if (ListadoPlatillos == null || ListadoPlatillos.Count == 0)
                     {
                         Session["ListadoPlatillos"] = null;
@@ -77,29 +91,28 @@ namespace ARFood.Controllers
                 }
                 if (Session["ListadoPlatillos"] != null)
                 {
-                    List<Productos> productos = this.ARService.BuscarProductos(ListadoPlatillos);
-                    VBTest = "total Productos: " + productos.Count.ToString();
-                    ShouldWait = false;
-                    return PartialView("_MostrarPlatillos", productos);
+                    List<int> AddProd = new List<int>();
+                    foreach(var item in ListadoPlatillos)
+                    {
+                        AddProd.Add(item.ID);
+                    }
+                    List<Productos> productos = this.ARService.BuscarProductos(AddProd);
+                    for (int i = 0; i< productos.Count(); i++)
+                    {
+                        ListadoPlatillos.Find(x=> x.ID == productos[i].ID).Producto = productos[i].Producto;
+                        ListadoPlatillos.Find(x => x.ID == productos[i].ID).Descripcion = productos[i].Descripcion;
+                        ListadoPlatillos.Find(x => x.ID == productos[i].ID).Precio = productos[i].Precio;
+                        SubTotal += ListadoPlatillos.Find(x => x.ID == productos[i].ID).Precio * ListadoPlatillos.Find(x => x.ID == productos[i].ID).Cantidad;
+                    }
+                    ViewBag.SubTotal = SubTotal.ToString("###,##0.00");
+                    return PartialView("_MostrarPlatillos", ListadoPlatillos);
                 }
                 //return View(this.ARService.GetProductos(id.Value));
             }
             ViewBag.ListadoPlatillos = Session["ListadoPlatillos"];
-            ShouldWait = false;
             return PartialView("_MostrarPlatillos");
         }
 
-        public ActionResult SubTotal()
-        {
-            List<int> ListadoPlatillos;
-            if (Session["ListadoPlatillos"] != null)
-            {
-                ListadoPlatillos = Session["ListadoPlatillos"] as List<int>;
-                ViewBag.SubTotal = "total Productos" +  ListadoPlatillos.Count.ToString();
-            }
-            ViewBag.SubTotal2 = "PRueba";
-            return PartialView("_SubTotal");
-        }
 
         public ActionResult About()
         {
