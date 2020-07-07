@@ -41,5 +41,7 @@ namespace ARFood.Models
         public double Precio { get; set; }
         public double SubTotal { get; set; }
         public double IVA { get; set; }
+        [MaxLength(100)]
+        public string Observaciones { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace ARFood.Services
 {
@@ -45,6 +46,17 @@ namespace ARFood.Services
                            //};
             return consulta.ToList();
 
+        }
+
+        public Boolean GuardaPedido(List<ProductosPedidos> productos, int IDUser)
+        {
+            bool SeGuardo = false;
+            Documentos documentos = new Documentos();
+            documentos.IDCliente = IDUser;
+            documentos.IDTipo = 1;
+            documentos.Observaciones = "";
+            DocPartidas docPartidas = new DocPartidas();
+            return SeGuardo;
         }
     }
 }

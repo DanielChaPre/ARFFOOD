@@ -1,7 +1,7 @@
 ﻿@model IList<ARFood.Models.Familias>
 
 <link href="~/Content/IMGStyle.css" rel="stylesheet" type="text/css">
-
+@{int HW = 150; }
 <label>Escoja una Familia</label>
 <div class="list-group">
     @for (int i = 0; i < Model.Count(); i += 8)
@@ -13,7 +13,7 @@
                     <td>
                         <div class="content_image">
                             <a data-url="@Url.Content(string.Format("~/home/MostrarDetalleFamilia/{0}", Model[i].ID))" class="img-responsive">
-                                <img src="@Url.Content(Model[i].Imagen)" alt="Imagen" width="150" height="150" />
+                                <img src="@Url.Content(Model[i].Imagen)" alt="Imagen" width="@HW" height="@HW" />
                                 <div>@Model[i].Descripcion</div>
                             </a>
                         </div>
@@ -24,7 +24,7 @@
                     <td>
                         <div class="content_image">
                             <a data-url="@Url.Content(string.Format("~/home/MostrarDetalleFamilia/{0}", Model[i+1].ID))" class="img-responsive">
-                                <img src="@Url.Content(Model[i+1].Imagen)" alt="Imagen" width="150" height="150" />
+                                <img src="@Url.Content(Model[i+1].Imagen)" alt="Imagen" width="@HW" height="@HW" />
                                 <div>@Model[i + 1].Descripcion</div>
                             </a>
                         </div>
@@ -35,7 +35,7 @@
                     <td>
                         <div class="content_image">
                             <a data-url="@Url.Content(string.Format("~/home/MostrarDetalleFamilia/{0}", Model[i+2].ID))" class="img-responsive">
-                                <img src="@Url.Content(Model[i+2].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                <img src="@Url.Content(Model[i+2].Imagen)" alt="Imagen" width="@HW" height="@HW" style="padding-top:40px" />
                             </a>
                             <div>  @Model[i + 2].Descripcion</div>
                         </div>
@@ -46,7 +46,7 @@
                     <td>
                         <div class="content_image">
                             <a data-url="@Url.Content(string.Format("~/home/MostrarDetalleFamilia/{0}", Model[i+3].ID))" class="img-responsive">
-                                <img src="@Url.Content(Model[i+3].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                <img src="@Url.Content(Model[i+3].Imagen)" alt="Imagen" width="@HW" height="@HW" style="padding-top:40px" />
                             </a>
                             <div>  @Model[i + 3].Descripcion</div>
                         </div>
@@ -57,7 +57,7 @@
                     <td>
                         <div class="content_image">
                             <a data-url="@Url.Content(string.Format("~/home/MostrarDetalleFamilia/{0}", Model[i+4].ID))" class="img-responsive">
-                                <img src="@Url.Content(Model[i+4].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                <img src="@Url.Content(Model[i+4].Imagen)" alt="Imagen" width="@HW" height="@HW" style="padding-top:40px" />
                             </a>
                             <div>  @Model[i + 4].Descripcion</div>
                         </div>
@@ -68,7 +68,7 @@
                     <td>
                         <div class="content_image">
                             <a data-url="@Url.Content(string.Format("~/home/MostrarDetalleFamilia/{0}", Model[i+5].ID))" class="img-responsive">
-                                <img src="@Url.Content(Model[i+5].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                <img src="@Url.Content(Model[i+5].Imagen)" alt="Imagen" width="@HW" height="@HW" style="padding-top:40px" />
                             </a>
                             <div>  @Model[i + 5].Descripcion</div>
                         </div>
@@ -79,7 +79,7 @@
                     <td>
                         <div class="content_image">
                             <a data-url="@Url.Content(string.Format("~/home/MostrarDetalleFamilia/{0}", Model[i+6].ID))" class="img-responsive">
-                                <img src="@Url.Content(Model[i+6].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                <img src="@Url.Content(Model[i+6].Imagen)" alt="Imagen" width="@HW" height="@HW" style="padding-top:40px" />
                             </a>
                             <div>  @Model[i + 6].Descripcion</div>
                         </div>
@@ -90,7 +90,7 @@
                     <td>
                         <div class="content_image">
                             <a data-url="@Url.Content(string.Format("~/home/MostrarDetalleFamilia/{0}", Model[i+7].ID))" class="img-responsive">
-                                <img src="@Url.Content(Model[i+7].Imagen)" alt="Imagen" width="150" height="150" style="padding-top:40px" />
+                                <img src="@Url.Content(Model[i+7].Imagen)" alt="Imagen" width="@HW" height="@HW" style="padding-top:40px" />
                             </a>
                             <div>  @Model[i + 7].Descripcion</div>
                         </div>

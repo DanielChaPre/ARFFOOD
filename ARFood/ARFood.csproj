@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SalonController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -209,6 +210,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\DragImg.css" />
     <Content Include="Content\IMGStyle.css" />
     <Content Include="Content\Listas.css" />
     <Content Include="favicon.ico" />
@@ -475,6 +477,9 @@
     <Content Include="IMG\macha-con-pepita.jpg" />
     <Content Include="IMG\macha-con-pepita.png" />
     <Content Include="IMG\macha-con-pepita2.jpg" />
+    <Content Include="IMG\Objetos\espana.gif" />
+    <Content Include="IMG\Objetos\europa.gif" />
+    <Content Include="IMG\Objetos\italia.gif" />
     <Content Include="IMG\pan_dulce\alitas.JPG" />
     <Content Include="IMG\pan_dulce\conchas 052.jpg" />
     <Content Include="IMG\pan_dulce\conchas_052.jpg" />
@@ -970,6 +975,8 @@
     <Content Include="Views\Home\_MostrarDetalleFamilia.cshtml" />
     <Content Include="Views\Home\_MostrarPlatillos.cshtml" />
     <Content Include="Views\Home\_SubTotal.cshtml" />
+    <Content Include="Views\Salon\Index.cshtml" />
+    <Content Include="Views\Home\Pedido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

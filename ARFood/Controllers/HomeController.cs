@@ -1,5 +1,6 @@
 ﻿using ARFood.Models;
 using ARFood.Services;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -113,7 +114,27 @@ namespace ARFood.Controllers
             return PartialView("_MostrarPlatillos");
         }
 
-
+        public ActionResult Pedido()
+        {
+            if (Session["ListadoPlatillos"] == null)
+            {
+                return PartialView("_MostrarPlatillos");
+            }
+            List<ProductosPedidos> ListadoPlatillos;
+            ProductosPedidos NewProducto = new ProductosPedidos();
+            int id;
+            if (User.Identity.GetUserId() != null)
+            {
+                id = Convert.ToInt32(User.Identity.GetUserId().ToString());
+            }
+            else
+            {
+                id = 1;
+            }
+            ListadoPlatillos = Session["ListadoPlatillos"] as List<ProductosPedidos>;
+            ARService.GuardaPedido(ListadoPlatillos, id);            
+            return PartialView("_MostrarPlatillos");
+        }
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
