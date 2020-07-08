@@ -977,6 +977,7 @@
     <Content Include="Views\Home\_SubTotal.cshtml" />
     <Content Include="Views\Salon\Index.cshtml" />
     <Content Include="Views\Home\Pedido.cshtml" />
+    <Content Include="Views\Home\Personalizar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

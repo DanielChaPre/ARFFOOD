@@ -79,6 +79,7 @@
         });
         $('#Platillo').on('click', 'a[data-url]', function () {
             var dataUrl = $(this).data('url');
+            var idProdCustom;
             if (dataUrl.indexOf("MostrarPlatillos") > -1) {
                 $.ajax(
                     {
@@ -91,7 +92,7 @@
                 $('#todos a').removeClass('active');
                 $(this).addClass('active');
             }
-            else {
+            else if (dataUrl.indexOf("Pedidoxx") > -1) {
                 $.ajax(
                     {
                         url: dataUrl
@@ -103,6 +104,41 @@
                 $('#todos a').removeClass('active');
                 $(this).addClass('active');
             }
-            });
+            else if (dataUrl.indexOf("AceptCustomize") > -1) {
+                PersonalizarDialog.close();
+                alert(document.getElementById('txtPersonaliza').value);
+                alert(this.idProdCustom);
+            }
+        });
+
+        function fnProcesaPedido(comp) {
+            var Obs = document.getElementById('txtPersonaliza');
+            var id = document.getElementById('IDPersonalizando');
+            Obs.value = document.getElementById("Obs_" + comp.id.substring(comp.id.indexOf("btnstart_") + 9)).value;
+            id.value = comp.id.substring(comp.id.indexOf("btnstart_") + 9);
+            PersonalizarDialog.showModal();
+        }
+
+        function fnGuardaPedido(comp) {
+            var Obs = document.getElementById('txtPersonaliza');
+            var id = document.getElementById('IDPersonalizando');
+            $.ajax({
+                    type: "POST",
+                    traditional: true,
+                    async: false,
+                    cache: false,
+                    url: '/home/MostrarPlatillos/',
+                    data: { RidProdCustom: id.value, Comentarios: Obs.value, Accion : "Agregar" }
+                    }).done(function (data) {
+                        $('#Platillo').html(data);
+                    }).fail(function () {
+                        alert('La función de Guardar aún no está Activa');
+                    });  
+
+            PersonalizarDialog.close();
+        }
+        
+
+
     </script>
     }

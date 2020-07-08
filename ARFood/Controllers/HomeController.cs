@@ -1,5 +1,6 @@
 ﻿using ARFood.Models;
 using ARFood.Services;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace ARFood.Controllers
                 return PartialView("_MostrarDetalleFamilia");
             }
         }
+
 
         public ActionResult MostrarPlatillos(int? id)
         {
@@ -112,6 +114,56 @@ namespace ARFood.Controllers
             }
             ViewBag.ListadoPlatillos = Session["ListadoPlatillos"];
             return PartialView("_MostrarPlatillos");
+        }
+
+
+        [HttpPost]
+        public ActionResult MostrarPlatillos(string RidProdCustom, string Comentarios, string Accion)
+        {
+            int id;
+            double SubTotal = 0;
+            if (RidProdCustom != null)
+            {
+                ViewBag.msg = "Procesado";
+                id = Convert.ToInt32(RidProdCustom);
+                List<ProductosPedidos> ListadoPlatillos;
+                ProductosPedidos NewProducto = new ProductosPedidos();
+                if (Session["ListadoPlatillos"] == null)
+                {
+                    ListadoPlatillos = new List<ProductosPedidos>();
+                }
+                else
+                {
+                    ListadoPlatillos = Session["ListadoPlatillos"] as List<ProductosPedidos>;
+                }
+                if (id > 0)
+                {
+                    if (Accion.Equals( "Agregar"))
+                    {
+                        ListadoPlatillos.Find(x => x.ID == id).Observaciones = Comentarios;
+                    }
+                    else
+                    {
+                        ListadoPlatillos.Find(x => x.ID == id).Observaciones = "";
+                    }
+                   
+                    Session["ListadoPlatillos"] = ListadoPlatillos;
+                }
+                if (Session["ListadoPlatillos"] != null)
+                {
+                    for (int i = 0; i < ListadoPlatillos.Count(); i++)
+                    {
+                        SubTotal += ListadoPlatillos[i].Precio * ListadoPlatillos[i].Cantidad;
+                    }
+                    ViewBag.SubTotal = SubTotal.ToString("###,##0.00");
+                    return PartialView("_MostrarPlatillos", ListadoPlatillos);
+                }
+            }
+            return PartialView("_MostrarPlatillos");
+        }
+        public ActionResult Personalizar (int? id)
+        {
+            return View();
         }
 
         public ActionResult Pedido()
