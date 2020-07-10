@@ -34,8 +34,9 @@ namespace ARFood.Models
         public DbSet<Almacenes> Almacenes { get; set; }
         public DbSet<Clientes> Clientes { get; set; }
         public DbSet<Colonias> Colonias { get; set; }
-        public DbSet<CP> cPs { get; set; }
+        public DbSet<CP> CPs { get; set; }
         public DbSet<DocPartidas> DocPartidas { get; set; }
+        public DbSet<DocPartidasPersonalizar> docPartidasPersonalizars { get; set; }
         public DbSet<Documentos> Documentos { get; set; }
         public DbSet<Estados> Estados { get; set; }
         public DbSet<Familias> Familias { get; set; }

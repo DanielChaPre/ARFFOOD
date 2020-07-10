@@ -92,10 +92,13 @@
                 $('#todos a').removeClass('active');
                 $(this).addClass('active');
             }
-            else if (dataUrl.indexOf("Pedidoxx") > -1) {
+            else if (dataUrl.indexOf("Pedido") > -1) {
+                var conDate = document.getElementById('ProgramarFecha');
+                alert(conDate.value);
                 $.ajax(
                     {
-                        url: dataUrl
+                        url: dataUrl,
+                        data: { HasDate: conDate.value }
                     }).done(function (data) {
                         $('#AllMenu').html(data);
                     }).fail(function () {
@@ -122,13 +125,14 @@
         function fnGuardaPedido(comp) {
             var Obs = document.getElementById('txtPersonaliza');
             var id = document.getElementById('IDPersonalizando');
+            var sl = document.getElementById('switch-label');
             $.ajax({
                     type: "POST",
                     traditional: true,
                     async: false,
                     cache: false,
                     url: '/home/MostrarPlatillos/',
-                    data: { RidProdCustom: id.value, Comentarios: Obs.value, Accion : "Agregar" }
+                data: { RidProdCustom: id.value, Comentarios: Obs.value, Accion: "Agregar" }
                     }).done(function (data) {
                         $('#Platillo').html(data);
                     }).fail(function () {

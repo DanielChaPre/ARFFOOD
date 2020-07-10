@@ -105,9 +105,10 @@ namespace ARFood.Controllers
                         ListadoPlatillos.Find(x=> x.ID == productos[i].ID).Producto = productos[i].Producto;
                         ListadoPlatillos.Find(x => x.ID == productos[i].ID).Descripcion = productos[i].Descripcion;
                         ListadoPlatillos.Find(x => x.ID == productos[i].ID).Precio = productos[i].Precio;
+                        ListadoPlatillos.Find(x => x.ID == productos[i].ID).UnidadMedida = productos[i].UnidadMedida;
                         SubTotal += ListadoPlatillos.Find(x => x.ID == productos[i].ID).Precio * ListadoPlatillos.Find(x => x.ID == productos[i].ID).Cantidad;
                     }
-                    ViewBag.SubTotal = SubTotal.ToString("###,##0.00");
+                    Session["SubTotal"] = SubTotal.ToString("###,##0.00");
                     return PartialView("_MostrarPlatillos", ListadoPlatillos);
                 }
                 //return View(this.ARService.GetProductos(id.Value));
@@ -124,7 +125,6 @@ namespace ARFood.Controllers
             double SubTotal = 0;
             if (RidProdCustom != null)
             {
-                ViewBag.msg = "Procesado";
                 id = Convert.ToInt32(RidProdCustom);
                 List<ProductosPedidos> ListadoPlatillos;
                 ProductosPedidos NewProducto = new ProductosPedidos();
@@ -155,7 +155,7 @@ namespace ARFood.Controllers
                     {
                         SubTotal += ListadoPlatillos[i].Precio * ListadoPlatillos[i].Cantidad;
                     }
-                    ViewBag.SubTotal = SubTotal.ToString("###,##0.00");
+                    Session["SubTotal"] = SubTotal.ToString("###,##0.00");
                     return PartialView("_MostrarPlatillos", ListadoPlatillos);
                 }
             }
@@ -166,7 +166,7 @@ namespace ARFood.Controllers
             return View();
         }
 
-        public ActionResult Pedido()
+        public ActionResult Pedido(string HasDate)
         {
             if (Session["ListadoPlatillos"] == null)
             {
@@ -184,8 +184,23 @@ namespace ARFood.Controllers
                 id = 1;
             }
             ListadoPlatillos = Session["ListadoPlatillos"] as List<ProductosPedidos>;
-            ARService.GuardaPedido(ListadoPlatillos, id);            
+            string xResult = ARService.GuardaPedido(ListadoPlatillos, id, Convert.ToInt32( Session["IDEmpleado"] ),  Convert.ToDouble(Session["SubTotal"]), HasDate);            
+            if (xResult.Contains("GUID:"))
+            {
+                Guid xID = Guid.Parse(xResult);
+                RedirectToAction("Pedidos");
+            }
+            else
+            {
+                return PartialView("_MostrarPlatillos");
+            }
             return PartialView("_MostrarPlatillos");
+        }
+
+        public ActionResult OrdenCreada()
+        {
+
+            return View();
         }
         public ActionResult About()
         {

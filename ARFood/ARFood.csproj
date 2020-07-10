@@ -174,13 +174,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202007082206455_20200708.cs" />
+    <Compile Include="Migrations\202007082206455_20200708.Designer.cs">
+      <DependentUpon>202007082206455_20200708.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Almacenes.cs" />
+    <Compile Include="Models\CalendarioMenu.cs" />
     <Compile Include="Models\Clientes.cs" />
     <Compile Include="Models\Colonias.cs" />
     <Compile Include="Models\CP.cs" />
     <Compile Include="Models\DocPartidas.cs" />
+    <Compile Include="Models\DocPartidasPersonalizar.cs" />
     <Compile Include="Models\Documentos.cs" />
     <Compile Include="Models\Estados.cs" />
     <Compile Include="Models\Familias.cs" />
@@ -210,6 +216,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ChechkBox.css" />
     <Content Include="Content\DragImg.css" />
     <Content Include="Content\IMGStyle.css" />
     <Content Include="Content\Listas.css" />
@@ -978,6 +985,7 @@
     <Content Include="Views\Salon\Index.cshtml" />
     <Content Include="Views\Home\Pedido.cshtml" />
     <Content Include="Views\Home\Personalizar.cshtml" />
+    <Content Include="Views\Home\OrdenCreada.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -996,6 +1004,11 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202007082206455_20200708.resx">
+      <DependentUpon>202007082206455_20200708.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -10,8 +10,7 @@ namespace ARFood.Models
     public class Documentos
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public Guid ID { get; set; }
         public int IDTipo { get; set; }
         public int IDCliente { get; set; }
         public string Observaciones { get; set; }

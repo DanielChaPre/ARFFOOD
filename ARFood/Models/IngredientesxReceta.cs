@@ -17,6 +17,8 @@ namespace ARFood.Models
         public int IDIngrediente { get; set; }
         public double Cantidad { get; set; }
         public int UnidadMedida { get; set; }
+        public Boolean AddorRemove { get; set; }
+        public int Precio { get; set; }
 
     }
 }
