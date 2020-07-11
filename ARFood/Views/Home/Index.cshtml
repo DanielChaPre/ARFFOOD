@@ -10,25 +10,31 @@
 
     div.b {
         width: 100%;
-        height: 200px;
+        height: 308px;
         border: 1px solid black;
     }
 </style>
 
 
-<div class="row" id="AllMenu" style="width:100%">
-    <div class="col-lg-12" id="todos">
-        @Html.Action("MostrarFamilias")
-    </div>
-    <table style="width:100%" height="200px">
-        <tr>
-            <td width="40%" height="200px">
-                <div class="b" style="height:400px; overflow-y:scroll" id="familia">
+<div class="row" id="AllMenu">
+    <table style="height:990px">
+        <tr style="height:330px">
+            <td>
+                <div class="b" style="overflow-y:scroll; overflow-x:scroll" id="todos">
+                    @Html.Action("MostrarFamilias")
+                </div>
+            </td>
+        </tr>
+        <tr style="height:330px">
+            <td>
+                <div class="b" style="overflow-y:scroll; overflow-x:scroll" id="familia">
                     @{Html.RenderAction("MostrarDetalleFamilia");}
                 </div>
             </td>
-            <td width="60%">
-                <div class="b" style="height:400px; overflow-y:scroll" id="Platillo">
+        </tr>
+        <tr style="height:330px">
+            <td>
+                <div class="b" style="overflow-y:scroll; overflow-x:scroll" id="Platillo">
                     @{Html.RenderAction("MostrarPlatillos");}
                 </div>
             </td>
@@ -119,13 +125,186 @@
             var id = document.getElementById('IDPersonalizando');
             Obs.value = document.getElementById("Obs_" + comp.id.substring(comp.id.indexOf("btnstart_") + 9)).value;
             id.value = comp.id.substring(comp.id.indexOf("btnstart_") + 9);
+
+
+            $.ajax({
+                type: "POST",
+                url: "home/CargaPersonalizar",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: OnSuccess,
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+
+
+            for (var i = 0; i < 5; i++) {
+
+                var insertAt = document.getElementById("ListaPersonaliza");
+
+
+                var inserting = document.createElement("tr");
+                var xID = document.createAttribute("ID");
+                xID.value = "TR_" + i;
+                inserting.setAttributeNode(xID);
+                var xName = document.createAttribute("name");
+                xName.value = "TR_" + i;
+                inserting.setAttributeNode(xName);
+                insertAt.parentNode.insertBefore(inserting, insertAt);
+
+                insertAt = document.getElementById("TR_" + i);
+
+                inserting = document.createElement("td");
+                xID = document.createAttribute("ID");
+                xID.value = "TD_" + i;
+                inserting.setAttributeNode(xID);
+                xName = document.createAttribute("name");
+                xName.value = "TD_" + i;
+                inserting.setAttributeNode(xName);
+                insertAt.appendChild(inserting);
+
+                insertAt = document.getElementById("TD_" + i);
+
+                MainDiv = document.createElement("div");
+                xclass = document.createAttribute("class");
+                xclass.value = "switch-button";
+                MainDiv.setAttributeNode(xclass);
+                var xID = document.createAttribute("ID");
+                xID.value = "Newswitch-button_" + i;
+                MainDiv.setAttributeNode(xID);
+                xName = document.createAttribute("name");
+                xName.value = "Newswitch-button_" + i;
+                MainDiv.setAttributeNode(xName);
+                insertAt.appendChild(MainDiv);
+
+                insertAt = document.getElementById("Newswitch-button_" + i);
+
+                newDiv = document.createElement("input");
+                xclass = document.createAttribute("class");
+                xclass.value = "switch-button__checkbox";
+                newDiv.setAttributeNode(xclass);
+                xID = document.createAttribute("ID");
+                xID.value = "NewSB_" + i;
+                newDiv.setAttributeNode(xID);
+                xName = document.createAttribute("name");
+                xName.value = "NewSB_" + i;
+                inserting.setAttributeNode(xName);
+                var xCHK = document.createAttribute("type");
+                xCHK.value = "checkbox";
+                newDiv.setAttributeNode(xCHK);
+                var xON = document.createAttribute("checked");
+                xON.value = "checked";
+                newDiv.setAttributeNode(xON);
+
+                insertAt.appendChild(newDiv);
+
+                newDiv = document.createElement("label");
+                xclass = document.createAttribute("class");
+                xclass.value = "switch-button__label";
+                newDiv.setAttributeNode(xclass);
+                xID = document.createAttribute("ID");
+                xID.value = "NewSL_" +i;
+                newDiv.setAttributeNode(xID);
+                xName = document.createAttribute("name");
+                xName.value = "NewSL_" + i;
+                inserting.setAttributeNode(xName);
+                var xlbl = document.createAttribute("for");
+                xlbl.value = "NewSB_" + i;
+                newDiv.setAttributeNode(xlbl);
+
+                insertAt.appendChild(newDiv);
+
+
+                insertAt = document.getElementById("TR_" + i);
+
+                inserting = document.createElement("td");
+                xID = document.createAttribute("ID");
+                xID.value = "TDL_" + i;
+                inserting.setAttributeNode(xID);
+                xName = document.createAttribute("name");
+                xName.value = "TDL_" + i;
+                inserting.setAttributeNode(xName);
+                insertAt.appendChild(inserting);
+
+                insertAt = document.getElementById("TDL_" + i);
+
+                newDiv = document.createElement("label");
+                xID = document.createAttribute("ID");
+                xID.value = "lblText_" + i;
+                newDiv.setAttributeNode(xID);
+                xName = document.createAttribute("name");
+                xName.value = "lblText_" + i;
+                newDiv.setAttributeNode(xName);
+
+                insertAt.appendChild(newDiv);
+
+                document.getElementById("lblText_" + i).innerHTML = "Hola " + i;
+
+                //insertAt.parentNode.insertBefore(newDiv, insertAt);
+            }
+            //const name = "<img src='x' onerror='alert(1)'>";
+            //node.innerHTML = name; // '<label>Mensaje Uno</label>';
+            
+            //var Lista = document.getElementById('ListaPersonaliza'); 
+            //Lista.document.body.insertBefore(node, Lista); 
+            
+
+            //var newDiv = document.createElement("div");
+            //var xclass = document.createAttribute("class");        // Create a "href" attribute
+            //xclass.value = "switch-button";            // Set the value of the href attribute
+            //newDiv.setAttributeNode(xclass);
+            //var xID = document.createAttribute("ID");        // Create a "href" attribute
+            //xID.value = "Newswitch-button";            // Set the value of the href attribute
+            //newDiv.setAttributeNode(xID);
+
+            //alert(newDiv);
+            //currentDiv = document.getElementById("ListaPersonaliza");
+            //alert(currentDiv);
+            //document.body.insertBefore(newDiv, currentDiv)
+
+            //alert('Dos');
+
+            //newDiv = document.createElement("input");
+            //xclass = document.createAttribute("class");
+            //xclass.value = "switch-button__checkbox";
+            //newDiv.setAttributeNode(xclass);
+            //xID = document.createAttribute("ID");
+            //xID.value = "NewSB";
+            //newDiv.setAttributeNode(xID);
+            //var xCHK = document.createAttribute("typeID");
+            //xCHK.value = "checkbox";
+            //newDiv.setAttributeNode(xCHK);
+            //var xON = document.createAttribute("checked");
+            //xON.value = "checked";
+            //newDiv.setAttributeNode(xON);
+
+            //currentDiv = document.getElementById("Newswitch-button");
+            //document.body.insertBefore(newDiv, currentDiv);
+
+            //$.ajax({
+            //    type: "POST",
+            //    traditional: true,
+            //    async: false,
+            //    cache: false,
+            //    url: '/home/MostrarPlatillos/',
+            //    data: { RidProdCustom: id.value, Comentarios: Obs.value, Accion: "Agregar" }
+            //}).done(function (data) {
+            //    $('#Platillo').html(data);
+            //}).fail(function () {
+            //    alert('La función de Guardar aún no está Activa');
+            //});  
+
+
             PersonalizarDialog.showModal();
         }
 
         function fnGuardaPedido(comp) {
             var Obs = document.getElementById('txtPersonaliza');
-            var id = document.getElementById('IDPersonalizando');
-            var sl = document.getElementById('switch-label');
+            var idProd = document.getElementById('IDPersonalizando');
+            var listadiv = document.getElementById('ListaPersonaliza');
+
+            
             $.ajax({
                     type: "POST",
                     traditional: true,
@@ -138,6 +317,7 @@
                     }).fail(function () {
                         alert('La función de Guardar aún no está Activa');
                     });  
+
 
             PersonalizarDialog.close();
         }

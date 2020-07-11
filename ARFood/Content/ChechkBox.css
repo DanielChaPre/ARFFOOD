@@ -40,5 +40,4 @@
 
         .switch-button .switch-button__checkbox:checked + .switch-button__label:before {
             transform: translateX(2rem);
-        }body {
-}
+        }

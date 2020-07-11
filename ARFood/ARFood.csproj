@@ -986,6 +986,7 @@
     <Content Include="Views\Home\Pedido.cshtml" />
     <Content Include="Views\Home\Personalizar.cshtml" />
     <Content Include="Views\Home\OrdenCreada.cshtml" />
+    <Content Include="Views\Home\LeerPersonalizar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

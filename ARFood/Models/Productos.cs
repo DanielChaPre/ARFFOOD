@@ -45,4 +45,12 @@ namespace ARFood.Models
         [MaxLength(100)]
         public string Observaciones { get; set; }
     }
+
+    public class ProductosPersonalizados
+    {
+        public int ID { get; set; }
+        public int IDProd { get; set; }
+        public string Descripcion { get; set; }
+        public int Cantidad { get; set; }
+    }
 }

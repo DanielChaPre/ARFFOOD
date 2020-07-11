@@ -161,6 +161,24 @@ namespace ARFood.Controllers
             }
             return PartialView("_MostrarPlatillos");
         }
+
+
+        [System.Web.Services.WebMethod]
+        public static string[][] CargaPersonalizar()
+        {
+            
+            string[] xtemp1 = { "1", "1", "Uno", "1" };
+            string[] xtemp2 = { "2", "2", "Dos", "2" };
+            string[] xtemp3 = { "3", "3", "Tres", "3" };
+            string[] xtemp4 = { "4", "4", "Cuatro", "4" };
+
+            string[][] xResult = { xtemp1, xtemp2, xtemp3, xtemp4 };
+
+            return xResult;
+            //ViewBag.Personalizar = productosPersonalizados;
+            
+        }
+
         public ActionResult Personalizar (int? id)
         {
             return View();
@@ -188,7 +206,7 @@ namespace ARFood.Controllers
             if (xResult.Contains("GUID:"))
             {
                 Guid xID = Guid.Parse(xResult);
-                RedirectToAction("Pedidos");
+                RedirectToAction("OrdenCreada");
             }
             else
             {
