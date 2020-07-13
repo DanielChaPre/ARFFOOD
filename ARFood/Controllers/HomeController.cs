@@ -270,24 +270,36 @@ namespace ARFood.Controllers
 
         public ActionResult OrdenCreada(string txtQRCode)
         {
-            if (Session["Order-GUID"] == null)
+            if (txtQRCode == null)
             {
-                txtQRCode = "8B0826BA-1E46-409E-AE3C-E7F72BADAD0D";
-                Session["Order-GUID"] = Guid.Parse(txtQRCode);
+                if (Session["Order-GUID"] == null)
+                {
+                    txtQRCode = "8B0826BA-1E46-409E-AE3C-E7F72BADAD0D";
+                    Session["Order-GUID"] = Guid.Parse(txtQRCode);
+                }
+            }
+            else
+            {
+                Session["Order-GUID"] = null;
             }
             vmPedidos xpedidos = new vmPedidos();
-            if (Session["Order-GUID"] != null || txtQRCode.Contains("NewOrderGuid:"))
+
+            List<Guid> xID = new List<Guid>();
+            if (Session["Order-GUID"] != null)
             {
-                List<Guid> xID = new List<Guid>();
                 xID.Add(Guid.Parse(Session["Order-GUID"].ToString()));
-                List<Documentos> ListadoDocumentos = ARService.getDocumentos(xID);
-                List<DocPartidas> ListadoDocPartidas = ARService.getDocumentosPartidas(xID);
-                List<DocPartidasPersonalizar> ListadoDocPartidasPersonalizar = ARService.getDocumentosPartidasPersonalizar(xID);
-                xpedidos.GetDocumentos = ListadoDocumentos;
-                xpedidos.GetDocPartidas = ListadoDocPartidas;
-                xpedidos.GetDocPartidasPersonalizars = ListadoDocPartidasPersonalizar;
-                txtQRCode = xID[0].ToString();
             }
+            else
+            {
+                xID.Add(Guid.Parse(txtQRCode));
+            }
+            List<Documentos> ListadoDocumentos = ARService.getDocumentos(xID);
+            List<DocPartidas> ListadoDocPartidas = ARService.getDocumentosPartidas(xID);
+            List<DocPartidasPersonalizar> ListadoDocPartidasPersonalizar = ARService.getDocumentosPartidasPersonalizar(xID);
+            xpedidos.GetDocumentos = ListadoDocumentos;
+            xpedidos.GetDocPartidas = ListadoDocPartidas;
+            xpedidos.GetDocPartidasPersonalizars = ListadoDocPartidasPersonalizar;
+            txtQRCode = xID[0].ToString();
             ViewBag.txtQRCode = txtQRCode;
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(txtQRCode, QRCodeGenerator.ECCLevel.Q);

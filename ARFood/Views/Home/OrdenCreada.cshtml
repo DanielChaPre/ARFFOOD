@@ -20,17 +20,17 @@
     <link href="~/Content/Listas.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <form id="form1" runat="server" action="~/Default" method="post">
+    <form id="form1" runat="server" action="~/home/OrdenCreada" method="post">
         <div class="container">
             <h2>Orden Creada</h2>
             <div class="row">
                 <div class="col-md-9">
                     <div class="form-group">
-                        <label>Enter Something</label>
+                        <label>Introduzca una orden para buscar</label>
                         <div class="input-group">
                             <input type="text" name="txtQRCode" class="form-control" value="@ViewBag.txtQRCode" />
                             <div class="input-group-prepend">
-                                <button type="submit">Generte QR</button>
+                                <button type="submit">Buscar Orden</button>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
             </div>
             @if (ViewBag.imageBytes != null)
             {
-                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ViewBag.imageBytes))" />
+                <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(ViewBag.imageBytes))" height="400px" width="400px" />
             }
         </div>
         <div id="ListaProd">
