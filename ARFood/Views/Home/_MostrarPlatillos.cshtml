@@ -14,7 +14,8 @@
                     <label>Comentarios al Chef:</label>
                     <br />
                     <input type="hidden" id="IDPersonalizando" name="IDPersonalizando" />
-                    <textarea rows="5" cols="40" id="txtPersonaliza" name="txtPersonaliza" />
+                    <input type="hidden" id="IDPerList" name="IDPerList" />
+                    <textarea rows="5" cols="500" id="txtPersonaliza" name="txtPersonaliza" />
                 </p>
             </section>
             <section>
@@ -22,8 +23,8 @@
                     <label>Personalizar Ingredientes</label>
                     <table>
                         <tr>
-                            <td width="100px">
-                                <table id="ListaPersonaliza" name="ListaPersonaliza" style="border:dashed">
+                            <td>
+                                <table id="ListaPersonaliza" name="ListaPersonaliza">
                                 </table>
                             </td>
                         </tr>
@@ -31,12 +32,11 @@
                 </p>
             </section>
             <menu>
-                <button id="cancel">Canelar</button>
+                <button id="cancel" onclick="fnCancelPedido(this)">Canelar</button>
                 <button id="Aceptar" onclick="fnGuardaPedido(this)">Aceptar</button>
             </menu>
         </form>
     </dialog>
-
     <table width="100%" height="75px">
         <tr>
             <td>
@@ -45,9 +45,7 @@
         </tr>
         <tr>
             <td width="40%" align="center">
-                <a data-url="@Url.Content(string.Format("~/home/Pedido"))" class="img-responsive">
-                    <input type="button" value="Procesar Orden" />
-                </a>
+                <input type="button" value="Procesar Orden" onclick="btnSaveOrder(this)" />
             </td>
             <td width="25%">
                 <label>Programar</label>
@@ -84,6 +82,23 @@
                         <tr>
                             <td width="50%">
                                 <input type="hidden" id="Obs_@item.ID" name="Obs_@item.ID" value="@item.Observaciones" />
+                                @if (item.ComplementodeProducto != null)
+                                {
+                                    <input type="hidden" id="TotalComplementos_@item.ID" name="TotalComplementos_@item.ID" value="@item.ComplementodeProducto.Count()" />
+                                    <table>
+                                        <tr>
+                                            @foreach (var complemento in item.ComplementodeProducto)
+                                            {
+                                            <td>
+                                                <input type="hidden" id="CID_@(item.ID)_@(complemento.idComplemento)" name="CID_@(item.ID)_@(complemento.idComplemento)" value="@complemento.idComplemento" />
+                                                <input type="hidden" id="CCDES_@(item.ID)_@(complemento.idComplemento)" name="CDES_@(item.ID)_@(complemento.idComplemento)" value="@complemento.Descripcion" />
+                                                <input type="hidden" id="CCANT_@(item.ID)_@(complemento.idComplemento)" name="CCANT_@(item.ID)_@(complemento.idComplemento)" value="@complemento.cantidad" />
+                                                <input type="hidden" id="CCPRECIO_@(item.ID)_@(complemento.idComplemento)" name="CPRECIO_@(item.ID)_@(complemento.idComplemento)" value="@complemento.Precio" />
+                                            </td>
+                                            }
+                                        </tr>
+                                    </table>
+                                }
                                 <input type="button" id="btnstart_@item.ID" name="btnstart_@item.ID" value="Personalizar" onclick="fnProcesaPedido(this)" />
                             </td>
                             <td width="10%">

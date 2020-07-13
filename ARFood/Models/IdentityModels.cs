@@ -55,5 +55,6 @@ namespace ARFood.Models
         public DbSet<TiposProd> tiposProds { get; set; }
         public DbSet<UnidadesMedidas> UnidadesMedidas { get; set; }
         public DbSet<ValoresNutricionales> ValoresNutricionales { get; set; }
+        public DbSet<ComplementoProductos> complementoProductos { get; set; }
     }
 }

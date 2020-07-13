@@ -20,6 +20,6 @@ namespace ARFood.Models
         public DateTime Fecha { get; set; }
         public DateTime FechaEntrega { get; set; }
         public double Pago { get; set; }
-
+        public string Estatus { get; set; }
     }
 }

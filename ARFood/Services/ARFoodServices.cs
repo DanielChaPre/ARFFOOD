@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Razor;
 using System.Web.UI.WebControls;
+using System.Windows.Markup;
 
 namespace ARFood.Services
 {
@@ -49,6 +50,15 @@ namespace ARFood.Services
 
         }
 
+        public List<ComplementoProductos> BuscarProductosComplementarios(List<int> Productos)
+        {
+            var consulta = from datos in contex.complementoProductos
+                           where Productos.Contains(datos.idProducto)
+                           orderby datos.idProducto, datos.idComplemento
+                           select datos;
+            return consulta.ToList();
+        }
+
         public string GuardaPedido(List<ProductosPedidos> productos, int IDCliente,  int IDUser, double subTotal, string hasDate)
         {
             string SeGuardo = "Error al Guardar, favor de intentarlo de nuevo";
@@ -83,20 +93,70 @@ namespace ARFood.Services
             int xPartida = 1;
             foreach (ProductosPedidos xPedido in productos)
             {
-                DocPartidas docPartidas = new DocPartidas();
-                docPartidas.IDDoc = xID;
-                docPartidas.NPartida = xPartida;
-                docPartidas.IDProd = xPedido.ID;
-                docPartidas.Cantidad = xPedido.Cantidad;
-                docPartidas.UnidadMedida = xPedido.UnidadMedida;
-                docPartidas.Observaciones = xPedido.Observaciones;
-                docPartidas.Precio = xPedido.Precio;
-                docPartidas.IVA = xPedido.IVA;
-                xPartida++;
-                contex.DocPartidas.Add(docPartidas);
+                DocPartidas xdocPartidas = new DocPartidas();
+                xdocPartidas.IDDoc = xID;
+                xdocPartidas.NPartida = xPartida;
+                xdocPartidas.IDProd = xPedido.ID;
+                xdocPartidas.Descripcion = xPedido.Descripcion;
+                xdocPartidas.Cantidad = xPedido.Cantidad;
+                xdocPartidas.UnidadMedida = xPedido.UnidadMedida;
+                xdocPartidas.Observaciones = xPedido.Observaciones;
+                xdocPartidas.Precio = xPedido.Precio;
+                xdocPartidas.IVA = xPedido.IVA;
+                contex.DocPartidas.Add(xdocPartidas);
                 contex.SaveChanges();
+                List<int> idProdPersonalizado = new List<int>();
+                idProdPersonalizado.Add(xdocPartidas.IDProd);
+                List<ComplementoProductos> DatosProductosComplementarios = BuscarProductosComplementarios(idProdPersonalizado);
+                if (xPedido.ComplementodeProducto != null)
+                {
+                    foreach (ComplementoProductos xComplemento in xPedido.ComplementodeProducto)
+                    {
+                        if (xComplemento.Seleccionado != DatosProductosComplementarios.Find(x => x.idComplemento == xComplemento.idComplemento).Seleccionado)
+                        {
+                            DocPartidasPersonalizar docPPersonalizar = new DocPartidasPersonalizar();
+                            docPPersonalizar.IDDoc = xID;
+                            docPPersonalizar.NPartida = xPartida;
+                            docPPersonalizar.IDProdPersonalizado = xPedido.ID;
+                            docPPersonalizar.IDProdAgregado = xComplemento.idComplemento;
+                            docPPersonalizar.Descripcion = xComplemento.Descripcion;
+                            docPPersonalizar.Cantidad = xComplemento.cantidad * (xComplemento.Seleccionado ? 1 : -1);
+                            docPPersonalizar.UnidadMedida = xComplemento.UnidadMedida;
+                            docPPersonalizar.Precio = xComplemento.Precio;
+                            docPPersonalizar.IVA = xComplemento.Precio * 0.16;
+                            contex.docPartidasPersonalizars.Add(docPPersonalizar);
+                            contex.SaveChanges();
+                        }
+                    }
+                }
+                xPartida++;
             }
             return "GUID:" + xID.ToString() ;
+        }
+
+        public List<Documentos> getDocumentos(List<Guid> xID)
+        {
+//                Guid xID = Guid.Parse(IDDoc);
+            var consulta = from datos in contex.Documentos
+                            where xID.Contains( datos.ID) 
+                            select datos;
+            return consulta.ToList();
+        }
+
+        public List<DocPartidas> getDocumentosPartidas(List<Guid> xID)
+        {
+            var consulta = from datos in contex.DocPartidas
+                            where xID.Contains( datos.IDDoc) 
+                            select datos;
+            return consulta.ToList();
+        }
+
+        public List<DocPartidasPersonalizar> getDocumentosPartidasPersonalizar(List<Guid> xID)
+        {
+            var consulta = from datos in contex.docPartidasPersonalizars
+                            where xID.Contains( datos.IDDoc)
+                            select datos;
+            return consulta.ToList();
         }
     }
 }

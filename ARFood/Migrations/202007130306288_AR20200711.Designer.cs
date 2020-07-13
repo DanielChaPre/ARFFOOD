@@ -7,13 +7,13 @@ namespace ARFood.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class _20200708 : IMigrationMetadata
+    public sealed partial class AR20200711 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_20200708));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AR20200711));
         
         string IMigrationMetadata.Id
         {
-            get { return "202007082206455_20200708"; }
+            get { return "202007130306288_AR20200711"; }
         }
         
         string IMigrationMetadata.Source

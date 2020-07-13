@@ -44,6 +44,7 @@ namespace ARFood.Models
         public double IVA { get; set; }
         [MaxLength(100)]
         public string Observaciones { get; set; }
+        public List<ComplementoProductos> ComplementodeProducto { get; set; }
     }
 
     public class ProductosPersonalizados
@@ -52,5 +53,21 @@ namespace ARFood.Models
         public int IDProd { get; set; }
         public string Descripcion { get; set; }
         public int Cantidad { get; set; }
+    }
+
+
+    public class ComplementoProductos
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        public int idProducto { get; set; }
+        public int idComplemento { get; set; }
+        public string Descripcion { get; set; }
+        public int cantidad { get; set; }
+        public int UnidadMedida { get; set; }
+        public double Precio { get; set; }
+        public Boolean EsIngrediente { get; set; }
+        public Boolean Seleccionado { get; set; }
     }
 }

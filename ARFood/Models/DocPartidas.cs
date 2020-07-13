@@ -16,11 +16,13 @@ namespace ARFood.Models
         public Guid IDDoc { get; set; }
         public int NPartida { get; set; }
         public int IDProd { get; set; }
+        public string Descripcion { get; set; }
         public double Cantidad { get; set; }
         public int UnidadMedida { get; set; }
         public string Observaciones { get; set; }
         public double Precio { get; set; }
         public double IVA { get; set; }
+        public List<ComplementoProductos> ComplementodeProducto { get; set; }
 
     }
 }
