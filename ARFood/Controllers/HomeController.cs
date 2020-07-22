@@ -40,9 +40,14 @@ namespace ARFood.Controllers
 
         public ActionResult MostrarDetalleFamilia(int? ID)
         {
+            if (Session["FamiliaSelected"] != null && ID == null)
+            {
+                ID = Convert.ToInt32(Session["FamiliaSelected"].ToString());
+            }
             if (ID > 0)
             {
                 var ProductosMenu = ARService.GetProductos(ID.Value);
+                Session["FamiliaSelected"] = ID;
                 return PartialView("_MostrarDetalleFamilia", ProductosMenu);
             }
             else
@@ -54,7 +59,7 @@ namespace ARFood.Controllers
 
         public ActionResult MostrarPlatillos(int? id)
         {
-            if (id != null)
+            if (id != null  )
             {
                 List<ProductosPedidos> ListadoPlatillos;
                 ProductosPedidos NewProducto = new ProductosPedidos();
@@ -67,34 +72,37 @@ namespace ARFood.Controllers
                 {
                     ListadoPlatillos = Session["ListadoPlatillos"] as List<ProductosPedidos>;
                 }
-                if (id > 0)
+                if (id != null)
                 {
-                    if (ListadoPlatillos.Exists(x => x.ID == id.Value))
+                    if (id > 0)
                     {
-                        ListadoPlatillos.Find(x => x.ID == id.Value).Cantidad += 1;
-                    }
-                    else
-                    {
-                        NewProducto.ID = id.Value;
-                        NewProducto.Cantidad = 1;
-                        ListadoPlatillos.Add(NewProducto);
-                    }
-                    Session["ListadoPlatillos"] = ListadoPlatillos;
-                }
-                else
-                {
-                    ListadoPlatillos.Find(x => x.ID == (id.Value * -1)).Cantidad += -1;
-                    if (ListadoPlatillos.Find(x => x.ID == (id.Value * -1)).Cantidad < 1)
-                    {
-                        ListadoPlatillos.Remove(ListadoPlatillos.Find(x => x.ID == (id.Value * -1)));
-                    }
-                    if (ListadoPlatillos == null || ListadoPlatillos.Count == 0)
-                    {
-                        Session["ListadoPlatillos"] = null;
-                    }
-                    else
-                    {
+                        if (ListadoPlatillos.Exists(x => x.ID == id.Value))
+                        {
+                            ListadoPlatillos.Find(x => x.ID == id.Value).Cantidad += 1;
+                        }
+                        else
+                        {
+                            NewProducto.ID = id.Value;
+                            NewProducto.Cantidad = 1;
+                            ListadoPlatillos.Add(NewProducto);
+                        }
                         Session["ListadoPlatillos"] = ListadoPlatillos;
+                    }
+                    else
+                    {
+                        ListadoPlatillos.Find(x => x.ID == (id.Value * -1)).Cantidad += -1;
+                        if (ListadoPlatillos.Find(x => x.ID == (id.Value * -1)).Cantidad < 1)
+                        {
+                            ListadoPlatillos.Remove(ListadoPlatillos.Find(x => x.ID == (id.Value * -1)));
+                        }
+                        if (ListadoPlatillos == null || ListadoPlatillos.Count == 0)
+                        {
+                            Session["ListadoPlatillos"] = null;
+                        }
+                        else
+                        {
+                            Session["ListadoPlatillos"] = ListadoPlatillos;
+                        }
                     }
                 }
                 if (Session["ListadoPlatillos"] != null)
@@ -134,6 +142,7 @@ namespace ARFood.Controllers
                             }
                         }
                     }
+                    ViewBag.SubTotal = SubTotal.ToString("###,##0.00");
                     Session["SubTotal"] = SubTotal.ToString("###,##0.00");
                     return PartialView("_MostrarPlatillos", ListadoPlatillos);
                 }
@@ -317,6 +326,27 @@ namespace ARFood.Controllers
                 }
             }
             return View(xpedidos);
+        }
+
+        [WebMethod]
+        public JsonResult BuscaMesasDisponibles(string xDate)
+        {
+            
+            List<MesasDisponibles> mesas = ARService.BuscarMesasDisponibles(xDate);
+            string[] xtemp = { "", "", "", "" };
+            string[][] xResult = { xtemp };
+            if (mesas.Count()>0)
+            { 
+                Array.Clear(xResult, xResult.GetUpperBound(0), 1);
+                for (int i = 0; i < mesas.Count(); i++)
+                {
+
+                    string[] xtemp1 = { mesas[i].ID.ToString(), mesas[i].IDMesa.ToString(), mesas[i].FechaInicio.ToString(), mesas[i].FechaFin.ToString() };
+                    Array.Resize(ref xResult, xResult.Length + 1);
+                    xResult[xResult.GetUpperBound(0)] = xtemp1;
+                }
+            }
+            return Json(xResult, JsonRequestBehavior.AllowGet);
         }
         public ActionResult About()
         {

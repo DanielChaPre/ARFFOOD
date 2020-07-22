@@ -15,6 +15,7 @@ namespace ARFood.Models
         public int ID { get; set; }
         public Guid IDDoc { get; set; }
         public int NPartida { get; set; }
+        public int IDMesa { get; set; }
         public int IDProd { get; set; }
         public string Descripcion { get; set; }
         public double Cantidad { get; set; }

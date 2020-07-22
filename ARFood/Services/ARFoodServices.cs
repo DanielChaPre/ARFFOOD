@@ -2,6 +2,7 @@
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Razor;
@@ -156,6 +157,50 @@ namespace ARFood.Services
             var consulta = from datos in contex.docPartidasPersonalizars
                             where xID.Contains( datos.IDDoc)
                             select datos;
+            return consulta.ToList();
+        }
+
+        public List<Salon> getSalon()
+        {
+            var consulta = from datos in contex.salons
+                           select datos;
+            return consulta.ToList();
+        }
+
+        public string SaveSalons(List<string> SalonDesign)
+        {
+            string xResult = "Error al guardar";
+            for (int i = 0; i < SalonDesign.Count; i++)
+            {
+                string[] words = SalonDesign[i].Split(',');
+                Salon salon = new Salon();
+                salon.Nombre = words[0].ToString();
+                salon.X = Convert.ToInt32(words[1].ToString());
+                salon.Y = Convert.ToInt32(words[2].ToString());
+                salon.width = Convert.ToInt32(words[3].ToString());
+                salon.height = Convert.ToInt32(words[4].ToString());
+                contex.salons.Add(salon);
+                contex.SaveChanges();
+            }
+            return xResult;
+        }
+
+        public List<MesasDisponibles> BuscarMesasDisponibles(string xFecha)
+        {
+            //DateTime xDate = Convert.ToDateTime(string.Format("yyyy-MM-dd hh:mm tt",xFecha));
+            DateTime xDate;
+            if (xFecha.Contains("undef"))
+            {
+                xDate = DateTime.Now;
+            }
+            else
+            {
+                xFecha = xFecha.Replace('.', '-');
+                xDate = DateTime.ParseExact(xFecha, "dd-MM-yyyy HH:mm", CultureInfo.InvariantCulture);
+            }
+            var consulta = from datos in contex.mesasdisponibles
+                           where datos.FechaInicio <= xDate && datos.FechaFin >= xDate
+                           select datos;
             return consulta.ToList();
         }
     }

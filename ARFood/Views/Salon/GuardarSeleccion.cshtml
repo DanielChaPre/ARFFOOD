@@ -1,0 +1,740 @@
+﻿<link href="~/Content/IMGStyle.css" rel="stylesheet" type="text/css">
+<link href="~/Content/Listas.css" rel="stylesheet" type="text/css">
+<link href="~/Content/ChechkBox.css" rel="stylesheet" type="text/css" />
+
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <meta charset="utf-8" />
+    <title>ARFood Salon Design</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+
+        .LayoutBG {
+            margin: 500;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f0f0f0;
+            background-image: url(../../IMG/Salon/Salon1.jpg);
+            background-repeat: no-repeat;
+            /*background-position: center;*/
+
+        }
+    </style>
+    <style>
+        
+    </style>
+</head>
+<body>
+    @for (int i = 0; i < 5; i++)
+    {
+        <table>
+            <tr>
+                <td>
+                    <label></label>
+                </td>
+            </tr>
+        </table>
+    }
+    <h2>Modal Example</h2>
+
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Seleccionar Mesa</p>
+            <div>
+
+                <div id="container"></div>
+                <script>
+
+
+                    var width = window.innerWidth;
+                    var height = window.innerHeight;
+
+                    function NewElemento() {
+                        xElement = ElementoNuevo.length;
+
+                        ElementoImg[xElement] = new Konva.Image({
+                            width: 50,
+                            height: 30,
+                            opacity: 0.5,
+                        });
+
+
+                        ctext[xElement] = new Konva.Text({
+                            x: 10,
+                            y: 10,
+                            text: xElement + 1,
+                            align: "center",
+                            fontSize: 30,
+                            fontFamily: 'Calibri',
+                            fill: 'green'
+                        });
+                        //        ElementoImg[xElement].globalAlpha = 0.2;
+
+                        ElementArray[ElementoImg[xElement]._id] = xElement;
+
+                        imageObj3[xElement] = new Image();
+                        imageObj3[xElement].onload = function () {
+                            ElementoImg[xElement].image(imageObj3[xElement]);
+                            layer.draw();
+                        };
+                        //imageObj3[xElement].src = '/IMG/Objetos/espana.gif';
+                        imageObj3[xElement].src = '/IMG/Salon/r_gris.png';
+
+                        ElementoNuevo[xElement] = new Konva.Group({
+                            x: 400,
+                            y: 500,
+                            draggable: true,
+                            globalAlpha: 0.2,
+                        });
+
+
+                        //alert(ElementoNuevo[xElement]._id);
+
+                        layer.add(ElementoNuevo[xElement]);
+                        ElementoNuevo[xElement].add(ElementoImg[xElement]);
+                        ElementoNuevo[xElement].add(ctext[xElement]);
+                        addAnchor(ElementoNuevo[xElement], 0, 0, 'topLeft');
+                        addAnchor(ElementoNuevo[xElement], 50, 0, 'topRight');
+                        addAnchor(ElementoNuevo[xElement], 50, 30, 'bottomRight');
+                        addAnchor(ElementoNuevo[xElement], 0, 30, 'bottomLeft');
+
+
+                        ElementoNuevo[xElement].on('click', function (event) {
+                            //alert(Object.keys(event.target));
+                            //alert(event.target._id);
+                            xElement = ElementArray[event.target._id];
+                        });
+
+
+                    }
+
+
+                    function SaveValues() {
+                        xElement = ElementArray.length;
+                        strResult = "";
+                        var chkarray = new Array();;
+                        chkarray[0] = 0;
+                        i = 0;
+                        ElementArray.forEach(function (elemento, indice, array) {
+                            strResult = '"' + (ElementArray[indice] + 1) + ',' + ElementoNuevo[ElementArray[indice]].getX() + "," + ElementoNuevo[ElementArray[indice]].getY() + "," + ElementoImg[ElementArray[indice]].width() + "," + ElementoImg[ElementArray[indice]].height() + '"';
+                            chkarray[i] = strResult;
+                            i++;
+                        });
+
+                        var xParametros = '{ MesasValues: [' + chkarray + '] }';
+
+                        $.ajax({
+                            type: "POST",
+                            traditional: true,
+                            async: false,
+                            cache: false,
+                            url: '/Salon/GuardaSalon',
+                            data: xParametros,
+                            dataType: "json",
+                            contentType: "application/json",
+                            success: function (algo) {
+                                alert(algo);
+                            },
+                            failure: function () {
+                                alert('Falla al guardar el Salon');
+                            }
+                        });
+                    }
+
+
+                    function LoadValues() {
+                        $.ajax({
+                            type: "POST",
+                            traditional: true,
+                            async: false,
+                            cache: false,
+                            url: '/Salon/CargarSalon',
+                            dataType: "json",
+                            contentType: "application/json",
+                            success: function (Mesas) {
+                                Mesas.forEach(function (elemento, indice, array) {
+                                    if (indice > 0) {
+
+                                        xElement = parseInt(elemento[0], 10) -1 ;
+
+                                        ElementoNuevo[xElement] = new Konva.Rect({
+                                            x: parseInt(elemento[1], 10),
+                                            y: parseInt(elemento[2], 10),
+                                            width: parseInt(elemento[3], 10),
+                                            height: parseInt(elemento[4], 10),
+                                            fill: (xElement % 5 == 0)?  'gray': 'orange',
+                                            stroke: 'black',
+                                            strokeWidth: 4,
+                                            opacity: 0.5,
+                                            name: "N:" + parseInt(elemento[0], 10),
+                                        });
+
+                                        ElementoNuevo[xElement].on('mouseover', function () {
+                                            this.stroke('black');
+                                            this.strokeWidth(5);
+                                            layer.draw();
+                                        });
+
+                                        ElementoNuevo[xElement].on('mouseout', function () {
+                                            this.stroke('black');
+                                            this.strokeWidth(1);
+                                            layer.draw();
+                                        });
+
+                                        ElementoNuevo[xElement].on('click', function (event) {
+                                            //alert('Hola' + event.target._id);
+                                            //alert(document.getElementById('IDPedido').value);
+                                            var NewColor = 'green';
+                                            if ('orange' == this.fill()) {
+                                                alert('La mesa no se encuentra disponible, favor de seleccionar otra');
+                                            }
+                                            else if ('green' == this.fill()) {
+                                                this.fill('gray');
+                                                layer.draw();
+                                            }
+                                            else {
+                                                this.fill(NewColor);
+                                                layer.draw();
+                                            }
+                                        });
+
+                                        layer.add(ElementoNuevo[xElement]);
+
+                                        Elementotext[xElement] = new Konva.Text({
+                                            x: parseInt(elemento[1], 10) + 10,
+                                            y: parseInt(elemento[2], 10) + 10,
+                                            text: (xElement + 1),
+                                            align: "center",
+                                            fontSize: 30,
+                                            fontFamily: 'Calibri',
+                                            fill: 'black'
+                                        });
+
+                                        layer.add(Elementotext[xElement]);
+                                    }
+                                 })
+                             },
+                            failure: function () {
+                                alert('Falla al guardar el Salon');
+                            }
+                        });
+                    }
+
+                    function SaveSeleccion(WillSave) {
+                        if (WillSave) {
+                            var chkarray = [];
+                            var i = 0;
+                            var e = 0;
+                            xElement = ElementoNuevo.length;
+                            for (i = 0; i < xElement; i++) {
+                                //alert(Object.keys(ElementoNuevo[i].attrs.fill));
+                                if ('green' == ElementoNuevo[i].attrs.fill) {
+                                    chkarray[e] = "'" + ElementoNuevo[i].attrs.name + "'";
+                                    e++;
+                                }
+                            }
+                            if (chkarray.length == 0) {
+                                alert('Debe seleccionar al menos una mesa');
+                                return;
+                            }
+                        }
+
+                            var xParametros = '{ xMesas: [' + chkarray + '] }';
+                            $.ajax({
+                                type: "POST",
+                                traditional: true,
+                                async: false,
+                                cache: false,
+                                url: '/Salon/SaveSeleccion',
+                                data: xParametros,
+                                dataType: "json",
+                                contentType: "application/json",
+                                success: function (algo) {
+                                    if (chkarray.length > 1) {
+                                        alert('Las mesas han sido apartadas exitosamente');
+                                    }
+                                    else if (chkarray.length == 1) {
+                                        alert('La mesa se ha apartado exitosamente')
+                                    }
+                                },
+                                failure: function () {
+                                    alert('Ocurrió un error al momento de guardar la información');
+                                }
+                            });
+                        //}
+                        var id = document.getElementById('IDPersonalizando');
+                        dataUrl = "@Url.Content("~/Home/Index")";
+                        window.location = dataUrl;
+                    }
+
+
+                    function update(activeAnchor) {
+                        var group = activeAnchor.getParent();
+
+                        var topLeft = group.get('.topLeft')[0];
+                        var topRight = group.get('.topRight')[0];
+                        var bottomRight = group.get('.bottomRight')[0];
+                        var bottomLeft = group.get('.bottomLeft')[0];
+                        var image = group.get('Image')[0];
+
+                        var anchorX = activeAnchor.getX();
+                        var anchorY = activeAnchor.getY();
+
+                        // update anchor positions
+                        switch (activeAnchor.getName()) {
+                            case 'topLeft':
+                                topRight.y(anchorY);
+                                bottomLeft.x(anchorX);
+                                break;
+                            case 'topRight':
+                                topLeft.y(anchorY);
+                                bottomRight.x(anchorX);
+                                break;
+                            case 'bottomRight':
+                                bottomLeft.y(anchorY);
+                                topRight.x(anchorX);
+                                break;
+                            case 'bottomLeft':
+                                bottomRight.y(anchorY);
+                                topLeft.x(anchorX);
+                                break;
+                        }
+
+                        image.position(topLeft.position());
+
+                        var width = topRight.getX() - topLeft.getX();
+                        var height = bottomLeft.getY() - topLeft.getY();
+                        if (width && height) {
+                            image.width(width);
+                            image.height(height);
+                            //ctext.width(width);
+                            //ctext.height(height);
+                        }
+                    }
+                    function addAnchor(group, x, y, name) {
+                        var stage = group.getStage();
+                        var layer = group.getLayer();
+
+                        var anchor = new Konva.Circle({
+                            x: x,
+                            y: y,
+                            stroke: '#666',
+                            fill: '#ddd',
+                            strokeWidth: 2,
+                            radius: 8,
+                            name: name,
+                            draggable: true,
+                            dragOnTop: false,
+                        });
+
+                        anchor.on('dragmove', function () {
+                            update(this);
+                            layer.draw();
+                        });
+                        anchor.on('mousedown touchstart', function () {
+                            group.draggable(false);
+                            this.moveToTop();
+                        });
+                        anchor.on('dragend', function () {
+                            group.draggable(true);
+                            layer.draw();
+                        });
+                        // add hover styling
+                        anchor.on('mouseover', function () {
+                            var layer = this.getLayer();
+                            document.body.style.cursor = 'pointer';
+                            this.strokeWidth(4);
+                            layer.draw();
+                        });
+                        anchor.on('mouseout', function () {
+                            var layer = this.getLayer();
+                            document.body.style.cursor = 'default';
+                            this.strokeWidth(2);
+                            layer.draw();;
+                        });
+
+                        group.add(anchor);
+                    }
+
+
+                  var stage = new Konva.Stage({
+                    container: 'container',
+                    width: width,
+                    height: height,
+                  });
+
+                  var layer = new Konva.Layer();
+
+                    if (document.getElementById('IDPedido').value == -25) {
+                        var btnSeleccionar = new Konva.Rect({
+                            x: 10,
+                            y: 300,
+                            width: 170,
+                            height: 50,
+                            fill: 'blue',
+                            stroke: 'black',
+                            strokeWidth: 4,
+                            cornerRadius: [0, 5, 10, 15],
+                        });
+                        // add the shape to the layer
+
+                        btnSeleccionar.on('mouseover', function () {
+                            this.stroke('black');
+                            this.strokeWidth(5);
+                            layer.draw();
+                        });
+
+                        btnSeleccionar.on('mouseout', function () {
+                            this.stroke('black');
+                            this.strokeWidth(1);
+                            layer.draw();
+                        });
+
+                        btnSeleccionar.on('click', function () {
+                            SaveSeleccion(true);
+                        });
+
+                        layer.add(btnSeleccionar);
+
+                        var btnSeleccionarText = new Konva.Text({
+                            x: 20,
+                            y: 310,
+                            text: "Apartar Mesas",
+                            align: "center",
+                            fontSize: 15,
+                            fontFamily: 'Calibri',
+                            fill: 'white'
+                        });
+
+                        btnSeleccionarText.on('click', function () {
+                            NewElemento();
+                        });
+
+                        layer.add(btnSeleccionarText);
+
+
+                        var btnCancelarSel = new Konva.Rect({
+                            x: 10,
+                            y: 500,
+                            width: 170,
+                            height: 50,
+                            fill: 'blue',
+                            stroke: 'black',
+                            strokeWidth: 4,
+                            cornerRadius: [0, 5, 10, 15],
+                        });
+                        // add the shape to the layer
+
+                        btnCancelarSel.on('mouseover', function () {
+                            this.stroke('black');
+                            this.strokeWidth(5);
+                            layer.draw();
+                        });
+
+                        btnCancelarSel.on('mouseout', function () {
+                            this.stroke('black');
+                            this.strokeWidth(1);
+                            layer.draw();
+                        });
+
+                        btnCancelarSel.on('click', function () {
+                            SaveSeleccion(false);
+                        });
+
+                        layer.add(btnCancelarSel);
+
+                        var btnCancelText = new Konva.Text({
+                            x: 20,
+                            y: 510,
+                            text: "Recoger en sucursal",
+                            align: "center",
+                            fontSize: 15,
+                            fontFamily: 'Calibri',
+                            fill: 'white'
+                        });
+
+                        btnCancelText.on('click', function () {
+                            NewElemento();
+                        });
+
+                        layer.add(btnCancelText);
+                    }
+                    else {
+                        var btnAddBack = new Konva.Rect({
+                            x: 10,
+                            y: 300,
+                            width: 170,
+                            height: 50,
+                            fill: 'blue',
+                            stroke: 'black',
+                            strokeWidth: 4,
+                            cornerRadius: [0, 5, 10, 15],
+                        });
+                        // add the shape to the layer
+
+                        btnAddBack.on('mouseover', function () {
+                            this.stroke('black');
+                            this.strokeWidth(5);
+                            layer.draw();
+                        });
+
+                        btnAddBack.on('mouseout', function () {
+                            this.stroke('black');
+                            this.strokeWidth(1);
+                            layer.draw();
+                        });
+
+                        btnAddBack.on('click', function () {
+                            NewElemento();
+                        });
+
+                        layer.add(btnAddBack);
+
+                        var btnAddText = new Konva.Text({
+                            x: 20,
+                            y: 310,
+                            text: "Agregar mesa a Layout",
+                            align: "center",
+                            fontSize: 15,
+                            fontFamily: 'Calibri',
+                            fill: 'white'
+                        });
+
+                        btnAddText.on('click', function () {
+                            NewElemento();
+                        });
+
+                        layer.add(btnAddText);
+
+
+                        var btnSave = new Konva.Rect({
+                            x: 10,
+                            y: 500,
+                            width: 170,
+                            height: 50,
+                            fill: 'blue',
+                            stroke: 'black',
+                            strokeWidth: 4,
+                            cornerRadius: [0, 5, 10, 15],
+                        });
+                        // add the shape to the layer
+
+                        btnSave.on('mouseover', function () {
+                            this.stroke('black');
+                            this.strokeWidth(5);
+                            layer.draw();
+                        });
+
+                        btnSave.on('mouseout', function () {
+                            this.stroke('black');
+                            this.strokeWidth(1);
+                            layer.draw();
+                        });
+
+                        btnSave.on('click', function () {
+                            SaveValues();
+                        });
+
+                        layer.add(btnSave);
+
+                        var btnSaveText = new Konva.Text({
+                            x: 20,
+                            y: 510,
+                            text: "Guardar Layout",
+                            align: "center",
+                            fontSize: 15,
+                            fontFamily: 'Calibri',
+                            fill: 'white'
+                        });
+
+                        btnSaveText.on('click', function () {
+                            SaveValues();
+                        });
+
+                        layer.add(btnSaveText);
+
+
+
+                        var btnLoadBack = new Konva.Rect({
+                            x: 10,
+                            y: 700,
+                            width: 170,
+                            height: 50,
+                            fill: 'blue',
+                            stroke: 'black',
+                            strokeWidth: 4,
+                            cornerRadius: [0, 5, 10, 15],
+                        });
+                        // add the shape to the layer
+
+                        btnLoadBack.on('mouseover', function () {
+                            this.stroke('black');
+                            this.strokeWidth(5);
+                            layer.draw();
+                        });
+
+                        btnLoadBack.on('mouseout', function () {
+                            this.stroke('black');
+                            this.strokeWidth(1);
+                            layer.draw();
+                        });
+
+                        btnLoadBack.on('click', function () {
+                            LoadValues();
+                        });
+
+                        layer.add(btnLoadBack);
+
+                        var btnLoadText = new Konva.Text({
+                            x: 20,
+                            y: 710,
+                            text: "Cargar Layout",
+                            align: "center",
+                            fontSize: 15,
+                            fontFamily: 'Calibri',
+                            fill: 'white'
+                        });
+
+                        btnLoadText.on('click', function () {
+                            LoadValues();
+                        });
+
+                        layer.add(btnLoadText);
+                    }
+
+
+
+                  // add the layer to the stage
+                    stage.add(layer);
+
+
+                    var ElementoImg = [];
+
+                    var ElementoNuevo = [];
+                    var Elementotext = [];
+
+                    var ElementArray = [];
+
+                    var ctext = [];
+
+                    var imageObj3 = [];
+
+                    LayoutIMG = new Konva.Image({
+                        width: 800,
+                        height: 1050,
+                    });
+
+                    LayoutObj = new Image();
+                    LayoutObj.onload = function () {
+                        LayoutIMG.image(LayoutObj);
+                        layer.draw();
+                    };
+                    LayoutObj.src = '/IMG/Salon/Salon1.jpg';
+
+                    LayerGroup = new Konva.Group({
+                        x: 180,
+                        y: 0,
+                        draggable: false,
+                    });
+
+                    layer.add(LayerGroup);
+                    LayerGroup.add(LayoutIMG);
+
+                    //imageObj.src = '/IMG/Salon/Salon1.jpg';
+
+                    LoadValues();
+                    layer.draw();
+
+                </script>
+            </LayoutBG>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+﻿body {
+}
+html {
+    margin: 1em;
+}
+
+.range {
+    position: relative;
+    &__input
+
+{
+    width: 100%;
+    -webkit-appearance: none;
+    &::-webkit-slider-runnable-track
+
+{
+    background: #ccc;
+}
+
+&::-moz-range-thumb {
+    background: #ccc;
+}
+
+&::-ms-track {
+    background: transparent;
+}
+
+&::-ms-fill-lower {
+    background: #e1e1e1;
+    border-radius: 10px;
+}
+
+&::-ms-fill-upper {
+    background: #eee;
+}
+
+}
+
+&__list {
+    display: flex;
+    justify-content: space-between;
+    height: auto;
+    overflow: hidden;
+    margin-top: 6px;
+    &__opt:before
+
+{
+    content: '';
+    display: block;
+    width: 0;
+    height: auto;
+    padding-left: 3px;
+    text-indent: 0;
+}
+
+}
+}

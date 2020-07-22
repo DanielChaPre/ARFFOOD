@@ -1,0 +1,127 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Arrastrar y soltar</title>
+</head>
+<style type="text/css">
+    /*estilo general: resetear*/
+    * {
+        margin: 0 auto;
+        padding: 0;
+    }
+    /*estilo de título y subtítulo*/
+    h1 {
+        font: bold 1.5em helvetica;
+        text-align: center;
+        color: navy;
+        margin: 0.5em;
+    }
+
+    h2 {
+        font: bold 1em helvetica;
+        text-align: center;
+        margin: 0.5em;
+    }
+    /*estilo de contenedores*/
+    #cont0 {
+        width: 80%;
+        height: 300px;
+    }
+
+    #cont1 {
+        width: 50%;
+        height: 300px;
+        background-color: #ccffff;
+        float: left;
+        overflow: auto;
+    }
+
+    #cont2 {
+        width: 50%;
+        height: 300px;
+        background-color: #ffccff;
+        float: left;
+        overflow: auto;
+    }
+</style>
+
+<script type="text/javascript">
+    //Recoger elemento arrastrable//
+    function evdragstart(ev, el) { //ev= el evento, el=elemento arrastrado.
+        cont1 = el.parentNode; //guardamos el elemento padre del elemento en una variable.
+        ev.dataTransfer.setData("t", ev.target.id);	//guardamos datos del elemento.
+    }
+    //mientras se arrastra:
+    function evdragover(ev) { //ev=el evento.
+        ev.preventDefault(); //quitar comportamiento por defecto.
+    }
+    //Al soltar el elemento arrastrado
+    function evdrop(ev, el) { //ev=el evento; el=receptor de soltado
+        ev.stopPropagation(); //impedir otras acciones
+        ev.preventDefault(); //quitar comportamiento por defecto
+        var data = ev.dataTransfer.getData("t"); //recogemos datos del elemento
+        mielem = ev.target.appendChild(document.getElementById(data)); //obtenemos el elemento arrastrado
+        //cont1.appendChild(mielem); //ponemos el elemento arrastrado en el mismo sitio donde estaba.
+        //mielem2 = mielem.cloneNode(true); //creamos una copia del elemento arrastrado.
+        //mielem2.setAttribute("draggable", "false"); //impedimos que el nuevo elemento pueda volver a arrastrarse
+        el.appendChild(mielem2); //colocamos la copia en el receptor de soltado
+    }
+</script>
+
+<body>
+    <h1>arrastrar y soltar</h1>
+    <h2>pon los elementos del contenedor de la izquierda en el de la derecha.</h2>
+    <div id="cont0">
+
+        <!--contenedor de salida-->
+        <div id="cont1">
+            <!-- Cada elemento está dentro de un contenedor, (div o span), lo cual permitirá
+             recuperarlo en su sitio después de ser arrastrado.-->
+            <div><p draggable="true" ondragstart="evdragstart(event,this)" id="e1">Elemento arrastrable</p></div>
+            <div>
+                <p draggable="true" ondragstart="evdragstart(event,this)" id="e2">
+                    Google:
+                    <a href="http://google.es" target="_blank">ir a Google</a>
+                </p>
+            </div>
+            <div>
+                <ul draggable="true" ondragstart="evdragstart(event,this)" id="e3">
+                    <li>Primer elemento</li>
+                    <li>Segundo elemento</li>
+                </ul>
+            </div>
+            <span>
+                <img src="~/IMG/objetos/espana.gif" alt="españa"
+                     draggable="true" ondragstart="evdragstart(event,this)" id="e4" height="20px" width="20px" />
+            </span>
+            <span>
+                <img src="~/IMG/objetos/europa.gif" alt="europa"
+                     draggable="true" ondragstart="evdragstart(event,this)" id="e5" height="20px" width="20px"/>
+            </span>
+            <span>
+                <img src="~/IMG/Objetos/italia.gif" alt="italia"
+                     draggable="true" ondragstart="evdragstart(event,this)" id="e6" height="20px" width="20px"/>
+            </span>
+        </div>
+        </div>
+            <div>
+                <!--receptor de soltado -->
+                <div>
+                    <table style="border:solid; background-image:url(../../IMG/Salon/Salon1.jpg); background-repeat:no-repeat">
+                        @for (int i = 0; i < 25; i++)
+                        {
+                            <tr style="border:solid; height:25px">
+                                @for (int e = 0; e < 55; e++)
+                                {
+                                    string IDCell = i.ToString() + "_" + e.ToString();
+                                    <td style="border:solid; width:100px" id="@IDCell" ondragover="evdragover(event)" ondrop="evdrop(event,this)">
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    </table>
+                </div>
+
+            </div>
+</body>
+</html>

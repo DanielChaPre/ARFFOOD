@@ -85,6 +85,7 @@
         });
         $('#Platillo').on('click', 'a[data-url]', function () {
             var dataUrl = $(this).data('url');
+            
             var idProdCustom;
             if (dataUrl.indexOf("MostrarPlatillos") > -1) {
                 $.ajax(
@@ -381,7 +382,24 @@
             }
         }
 
+        function btnSelectSalon() {
+            MesasDialog = document.getElementById('MesasDialog');
+            MesasDialog.showModal();
 
+            @*var id = document.getElementById('IDPersonalizando');
+            dataUrl = "@Url.Content("~/Salon/SalonDesign")" + "?IDPedido=" + -25;
 
+            window.location = dataUrl;*@
+        }
+
+        function btnCierraMesa() {
+            MesasDialog = document.getElementById('MesasDialog');
+            MesasDialog.close();
+
+        }
+
+        function AlgoAlo() {
+            alert('hola  aale');
+        }
     </script>
     }

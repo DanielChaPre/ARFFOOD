@@ -205,11 +205,13 @@
     <Compile Include="Models\Lotes.cs" />
     <Compile Include="Models\LotesInv.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MesasDisponibles.cs" />
     <Compile Include="Models\MINV.cs" />
     <Compile Include="Models\Municipios.cs" />
     <Compile Include="Models\Productos.cs" />
     <Compile Include="Models\Proveedores.cs" />
     <Compile Include="Models\Recetas.cs" />
+    <Compile Include="Models\Salon.cs" />
     <Compile Include="Models\TiposDoc.cs" />
     <Compile Include="Models\TiposProd.cs" />
     <Compile Include="Models\UnidadesMedidas.cs" />
@@ -225,9 +227,12 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ChechkBox.css" />
+    <Content Include="Content\datepicker.css" />
+    <Content Include="Content\datepicker.min.css" />
     <Content Include="Content\DragImg.css" />
     <Content Include="Content\IMGStyle.css" />
     <Content Include="Content\Listas.css" />
+    <Content Include="Content\ProgressBar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -854,6 +859,11 @@
     <Content Include="IMG\refrescos\ZUMO3.jpg" />
     <Content Include="IMG\refrescos\zumo4.jpg" />
     <Content Include="IMG\refrescos\ZUMO_DE_MELOCOTON.jpg" />
+    <Content Include="IMG\Salon\r_Blue.jpg" />
+    <Content Include="IMG\Salon\r_gris.png" />
+    <Content Include="IMG\Salon\r_red.jpg" />
+    <Content Include="IMG\Salon\Salon1.jpg" />
+    <Content Include="IMG\Salon\Salon2.jpg" />
     <Content Include="IMG\salsa.png" />
     <Content Include="IMG\sopas_y_caldos\sopas.jpg" />
     <Content Include="IMG\TORTACCIA.jpg" />
@@ -941,7 +951,10 @@
     <Content Include="IMG\varios\salsas.xps" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\datepicker.js" />
+    <Content Include="Scripts\datepicker.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -951,6 +964,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\konva.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -990,12 +1004,18 @@
     <Content Include="Views\Home\_MostrarDetalleFamilia.cshtml" />
     <Content Include="Views\Home\_MostrarPlatillos.cshtml" />
     <Content Include="Views\Home\_SubTotal.cshtml" />
-    <Content Include="Views\Salon\Index.cshtml" />
+    <Content Include="Views\Salon\Index_or.cshtml" />
     <Content Include="Views\Home\Pedido.cshtml" />
     <Content Include="Views\Home\Personalizar.cshtml" />
     <Content Include="Views\Home\OrdenCreada.cshtml" />
     <Content Include="Views\Home\LeerPersonalizar.cshtml" />
     <Content Include="Views\Cocina\Index.cshtml" />
+    <Content Include="Views\Salon\SalonDesign_original.cshtml" />
+    <Content Include="Views\Salon\OtroSalon.cshtml" />
+    <Content Include="Views\Salon\SalonDesign.cshtml" />
+    <Content Include="Views\Salon\Index.cshtml" />
+    <Content Include="Views\Salon\SelectSalon.cshtml" />
+    <Content Include="Views\Salon\GuardarSeleccion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
