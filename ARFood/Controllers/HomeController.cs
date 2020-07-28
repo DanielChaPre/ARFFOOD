@@ -59,6 +59,10 @@ namespace ARFood.Controllers
 
         public ActionResult MostrarPlatillos(int? id)
         {
+            if (Session["IsMesero"] != null)
+            {
+                ViewBag.IsMesero = true;
+            }
             if (id != null  )
             {
                 List<ProductosPedidos> ListadoPlatillos;
@@ -88,7 +92,7 @@ namespace ARFood.Controllers
                         }
                         Session["ListadoPlatillos"] = ListadoPlatillos;
                     }
-                    else
+                    if (id < 0)
                     {
                         ListadoPlatillos.Find(x => x.ID == (id.Value * -1)).Cantidad += -1;
                         if (ListadoPlatillos.Find(x => x.ID == (id.Value * -1)).Cantidad < 1)
@@ -267,14 +271,28 @@ namespace ARFood.Controllers
                 id = 1;
             }
             ListadoPlatillos = Session["ListadoPlatillos"] as List<ProductosPedidos>;
-            string xResult = ARService.GuardaPedido(ListadoPlatillos, id, Convert.ToInt32( Session["IDEmpleado"] ),  Convert.ToDouble(Session["SubTotal"]), HasDate);            
+            string idOrden = "";
+            string IDMesa = "";
+            if (Session["IDOrden"] != null)
+            {
+                idOrden = Session["IDOrden"].ToString();
+            }
+            if (Session["IDMesaApartada"] != null)
+            {
+                IDMesa = Session["IDMesaApartada"].ToString();
+            }
+            string xResult = ARService.GuardaPedido(ListadoPlatillos, id, Convert.ToInt32(Session["IDEmpleado"]), Convert.ToDouble(Session["SubTotal"]), HasDate, idOrden, IDMesa );
             if (xResult.Contains("GUID:"))
             {
                 Guid xID = Guid.Parse(xResult.Substring(5));
                 Session["Order-GUID"] = xID;
                 Session["ListadoPlatillos"] = null;
             }
-            return Json(xResult, JsonRequestBehavior.AllowGet);
+            if (Session["IDOrden"] != null)
+            {
+                xResult = "StayOnPage";
+            }
+                return Json(xResult, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult OrdenCreada(string txtQRCode)
@@ -348,6 +366,140 @@ namespace ARFood.Controllers
             }
             return Json(xResult, JsonRequestBehavior.AllowGet);
         }
+
+        [WebMethod]
+        public JsonResult GuardaNombreMesa(string NombreMesa)
+        {
+            List<MesasDisponibles> mesas = ARService.BuscarMesasDisponibles(NombreMesa);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        [WebMethod]
+        public JsonResult LlenaSessionInfo(string idOrden, string IDMesaApartada)
+        {
+            if ( idOrden != null)
+            {
+                if (idOrden.Length > 0)
+                {
+                    Session["ListadoPlatillos"] = null;
+                    Session["IsMesero"] = true;
+                    Session["IDOrden"] = idOrden;
+                    Session["IDMesaApartada"] = IDMesaApartada;
+                    vmPedidos xpedidos = new vmPedidos();
+
+                    List<Guid> xID = new List<Guid>();
+                    xID.Add(Guid.Parse(idOrden));
+
+                    List<Documentos> ListadoDocumentos = ARService.getDocumentos(xID);
+                    List<DocPartidas> ListadoDocPartidas = ARService.getDocumentosPartidas(xID);
+                    List<DocPartidasPersonalizar> ListadoDocPartidasPersonalizar = ARService.getDocumentosPartidasPersonalizar(xID);
+                    List<int> AddProd = new List<int>();
+                    int i = 0; 
+                    List<ProductosPedidos> ListadoPlatillos = new List<ProductosPedidos>();
+                    for(i = 0; i<ListadoDocPartidas.Count;i++)
+                    {
+                        AddProd.Add(ListadoDocPartidas[i].IDProd);
+                        ProductosPedidos xProd = new ProductosPedidos();
+                        xProd.ID = ListadoDocPartidas[i].IDProd;
+                        xProd.Cantidad = Convert.ToInt32( ListadoDocPartidas[i].Cantidad);
+                        xProd.Surtido = Convert.ToInt32(ListadoDocPartidas[i].Surtido);
+                        xProd.Descripcion = ListadoDocPartidas[i].Descripcion;
+                        xProd.Precio = ListadoDocPartidas[i].Precio;
+                        xProd.UnidadMedida = ListadoDocPartidas[i].UnidadMedida;
+                        ListadoPlatillos.Add(xProd);
+                    }
+
+                    if (ListadoDocPartidasPersonalizar.Count > 0)
+                    {
+                        List<ComplementoProductos> complementos = this.ARService.BuscarProductosComplementarios(AddProd);
+                        if (complementos != null)
+                        {
+                            if (complementos.Count() > 0)
+                            {
+                                for (i = 0; i < AddProd.Count(); i++)
+                                {
+                                    if (ListadoPlatillos.Find(x => x.ID == AddProd[i]).ComplementodeProducto == null)
+                                    {
+                                        IEnumerable<ComplementoProductos> xComplementos = complementos.Where(x => x.idProducto == AddProd[i]);
+                                        List<ComplementoProductos> xComplemento = new List<ComplementoProductos>();
+                                        for (int e = 0; e < xComplementos.Count(); e++)
+                                        {
+                                            xComplemento.Add(xComplementos.ElementAt(e) as ComplementoProductos);
+                                            if (ListadoDocPartidasPersonalizar.Find(x => x.IDProdAgregado == xComplemento[xComplemento.Count-1].idComplemento && x.IDProdPersonalizado == xComplemento[xComplemento.Count - 1].idProducto) != null)
+                                            {
+                                                xComplemento[xComplemento.Count - 1].Seleccionado = true;
+                                            }
+                                        }
+                                        ListadoPlatillos.Find(x => x.ID == AddProd[i]).ComplementodeProducto = xComplemento;
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                    Session["ListadoPlatillos"] = ListadoPlatillos;
+                }
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult MostrarListaPedidos()
+        {
+            if (Session["IDMesaSeleccionada"] != null)
+            {
+                int MesaID = Convert.ToInt32(Session["IDMesaSeleccionada"].ToString());
+                List<Documentos> MesasxDoc = ARService.GetOrdenesxMesa(MesaID);
+                ViewBag.MesasCargadas = MesasxDoc.Count();
+                Session["IDMessaApartada"] = MesasxDoc;
+                return PartialView("_MostrarListaPedidos",MesasxDoc);
+            }
+            return PartialView("_MostrarListaPedidos");
+        }
+
+        [WebMethod]
+        public JsonResult GuardarMesaSeleccionada(string IDMesa)
+        {
+            if (IDMesa != null)
+            {
+                if (IDMesa.Length > 0)
+                {
+                    Session["IDMesaSeleccionada"] = IDMesa.Substring(2);
+                }
+            }
+            return Json("Mesa Guardada:" + IDMesa, JsonRequestBehavior.AllowGet);
+        }
+
+        [WebMethod]
+        public JsonResult AgregaOrdenAMesa(string IDMesa)
+        {
+            if (IDMesa != null)
+            {
+                if (IDMesa.Length > 0)
+                {
+                    int id;
+                    if (User.Identity.GetUserId() != null)
+                    {
+                        id = Convert.ToInt32(User.Identity.GetUserId().ToString());
+                    }
+                    else
+                    {
+                        id = 1;
+                    }
+
+                    List<string> xNewDoc = ARService.GuardaNewBlankPedido(Convert.ToInt32(Session["IDEmpleado"]), id, IDMesa.Substring(2));
+                    Session["IsMesero"] = true;
+                    Session["IDOrden"] = xNewDoc[0].ToString(); ;
+                    Session["IDMesaApartada"] = xNewDoc[1].ToString();
+                }
+            }
+            return Json("Mesa Guardada", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult SurtePedido()
+        {
+            return PartialView("_SurtePedido");
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

@@ -1,0 +1,49 @@
+﻿@model ARFood.Models.DocPartidas
+
+
+    <link href="~/Content/Listas.css" rel="stylesheet" type="text/css">
+
+
+    <div id="ListaProd">
+        <table width="100%">
+            <tr>
+                <td width="20%">
+                    <label></label>
+                </td>
+                <td width="60%">
+                    <ol id="listaCircular">
+                        @foreach (var item in Model.GetDocPartidas)
+                        {
+                            <li>
+                                @item.Descripcion
+                                @if (item.Observaciones != null)
+                                {
+                                    if (item.Observaciones.Length > 0)
+                                    {
+                                        <ol>
+                                            Comentarios: @item.Observaciones
+                                        </ol>
+                                    }
+                                }
+                                @if (Model.GetDocPartidasPersonalizars.Count(x => x.IDProdPersonalizado == item.IDProd) > 0)
+                                {
+                                    <ol>
+                                        @{
+                                            IEnumerable<ARFood.Models.DocPartidasPersonalizar> xComplementos = Model.GetDocPartidasPersonalizars.Where(x => x.IDProdPersonalizado == item.IDProd);
+                                        }
+                                        @foreach (var subItem in xComplementos)
+                                        {
+                                            <lisub>@subItem.Descripcion</lisub>
+                                        }
+                                    </ol>
+                                }
+                            </li>
+                        }
+                    </ol>
+                </td>
+                <td width="20%">
+                    <label></label>
+                </td>
+            </tr>
+        </table>
+    </div>

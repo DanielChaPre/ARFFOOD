@@ -13,6 +13,8 @@ namespace ARFood.Models
         public Guid ID { get; set; }
         public int IDTipo { get; set; }
         public int IDCliente { get; set; }
+        public int IDMesa { get; set; }
+        public string Nombre { get; set; }
         public string Observaciones { get; set; }
         public double Total { get; set; }
         public double IVA { get; set; }

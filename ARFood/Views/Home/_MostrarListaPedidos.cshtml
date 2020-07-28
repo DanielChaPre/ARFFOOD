@@ -1,0 +1,151 @@
+﻿@model IEnumerable<ARFood.Models.Documentos>
+
+<link href="~/Content/IMGStyle.css" rel="stylesheet" type="text/css">
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 30px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button1 {
+        border-radius: 12px;
+    }
+</style>
+
+<a>
+    <div class="list-group" id="ListaDeOrdenesEnLaMesa">
+        <table id="tblPedidos">
+            <tr id="TRPedidos">
+                @{int i = 1;}
+                <td>
+                    <h2>Ordenes de la Mesa: @ViewBag.MesasCargadas </h2>
+                </td>
+                @if (Model != null)
+                {
+                    foreach (var Item in Model)
+                    {
+                        <td id="TD_@i">
+                            <div>
+                                <input type="button" class="button button1" onclick="SetOrderName(this)" value="@i" title="@Item.Nombre" />
+                                <input type="hidden" id="ID_@i" value="@Item.ID" />
+                                <input type="hidden" id="IDM_@i" value="@Item.IDMesa" />
+                            </div>
+                        </td>
+                        i++;
+                    }
+                }
+                <td>
+                    <input type="hidden" id="ICount" value="@i" />
+                    <button class="button button1" onclick="AgregaOrdenAMesa()">+</button>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <input type="text" id="lblOrden" style="background-color:#F06060;font-size:20px"/>
+    </div>
+</a>
+
+<script>
+
+    function SetOrderName(btnOrder) {
+        btnSaveOrder('StayOnPage');
+        var OrderName = document.getElementById('lblOrden');
+        OrderName.value = btnOrder.title;
+        var IDOrdern = document.getElementById('ID_' + btnOrder.value);
+        var IDMesaApartada = document.getElementById('IDM_' + btnOrder.value);
+        //alert(IDOrdern.value);
+        var xParametros = '{ IDOrden: "' + IDOrdern.value + '", IDMesaApartada: "' + IDMesaApartada.value + '" }';
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/home/LlenaSessionInfo',
+            data: xParametros,
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                var dataUrl = '/home/MostrarPlatillos?id=0'
+                    $.ajax(
+                        {
+                            url: dataUrl,
+                        }).done(function (data) {
+                            //alert('DespliegaPlatillos');
+                            $('#Platillo').html(data);
+                        }).fail(function () {
+                            alert('Error 2');
+                        });
+                $('#todos a').removeClass('active');
+                $(this).addClass('active');
+            },
+            failure: function () {
+                alert('Ocurrió un error al momento de guardar la información');
+            }
+        });
+
+
+    }
+
+    function AgregaOrdenAMesa() {
+        btnSaveOrder('StayOnPage');
+
+        var Mesa = document.getElementById('IDMesa');
+        
+        var xParametros = '{ IDMesa: "' + Mesa.value + '" }';
+        
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/home/AgregaOrdenAMesa',
+            data: xParametros,
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                //alert('Inicial');
+                var dataUrl = '/home/MostrarListaPedidos';
+                $.ajax(
+                    {
+                        url: dataUrl,
+                    }).done(function (data) {
+                        //alert('DespliegaPlatillos');
+                        $('#ListaPedidos').html(data);
+                    }).fail(function () {
+                        alert('Error 2');
+                    });
+                //$('#todos a').removeClass('active');
+                //$(this).addClass('active');
+
+
+                var dataUrl = '/home/MostrarPlatillos?id=0'
+                $.ajax(
+                    {
+                        url: dataUrl,
+                    }).done(function (data) {
+                        //alert('DespliegaPlatillos');
+                        $('#Platillo').html(data);
+                    }).fail(function () {
+                        alert('Error 2');
+                    });
+                //$('#todos a').removeClass('active');
+                //$(this).addClass('active');
+            },
+            failure: function () {
+                alert('Ocurrió un error al momento de guardar la información');
+            }
+        });
+    }
+
+    function GuardaNombreMesa() {
+
+    }
+</script>

@@ -60,11 +60,13 @@ namespace ARFood.Services
             return consulta.ToList();
         }
 
-        public string GuardaPedido(List<ProductosPedidos> productos, int IDCliente,  int IDUser, double subTotal, string hasDate)
+        public string GuardaPedido(List<ProductosPedidos> productos, int IDCliente,  int IDUser, double subTotal, string hasDate, string IDDocumento, string IDMesa)
         {
             string SeGuardo = "Error al Guardar, favor de intentarlo de nuevo";
+            bool NewElement = true;
+            DocPartidas xdocPartidas = null;
+            DocPartidasPersonalizar docPPersonalizar = null;
 
-            Guid xID = Guid.NewGuid();
             DateTime fecha = DateTime.Now;
             DateTime useDate = fecha; ;
             if (hasDate != null)
@@ -78,10 +80,20 @@ namespace ARFood.Services
                     }
                 }
             }
+            Guid xID = Guid.NewGuid();
             Documentos documentos = new Documentos();
+            if (IDDocumento != null)
+            {
+                if (IDDocumento.Length > 0)
+                {
+                    xID = Guid.Parse(IDDocumento);
+                    documentos = contex.Documentos.Where(x => x.ID == xID).FirstOrDefault();
+                }
+            }
             documentos.ID = xID;
             documentos.IDCliente = IDCliente;
             documentos.IDTipo = 1;
+            documentos.IDMesa = IDMesa != null? Convert.ToInt32(IDMesa) : 0;
             documentos.Observaciones = "";
             documentos.Fecha = fecha;
             documentos.FechaEntrega = useDate;
@@ -89,22 +101,43 @@ namespace ARFood.Services
             documentos.IVA = subTotal * 0.16;
             documentos.IDUsuario = IDUser;
             documentos.Pago = 0;
-            contex.Documentos.Add(documentos);
+            if (IDDocumento == null)
+            {
+                contex.Documentos.Add(documentos);
+            }
             contex.SaveChanges();
             int xPartida = 1;
             foreach (ProductosPedidos xPedido in productos)
             {
-                DocPartidas xdocPartidas = new DocPartidas();
-                xdocPartidas.IDDoc = xID;
-                xdocPartidas.NPartida = xPartida;
-                xdocPartidas.IDProd = xPedido.ID;
-                xdocPartidas.Descripcion = xPedido.Descripcion;
-                xdocPartidas.Cantidad = xPedido.Cantidad;
-                xdocPartidas.UnidadMedida = xPedido.UnidadMedida;
-                xdocPartidas.Observaciones = xPedido.Observaciones;
-                xdocPartidas.Precio = xPedido.Precio;
-                xdocPartidas.IVA = xPedido.IVA;
-                contex.DocPartidas.Add(xdocPartidas);
+                NewElement = true;
+                if (IDDocumento != null)
+                {
+                    if (IDDocumento.Length > 0)
+                    {
+                        xdocPartidas = contex.DocPartidas.Where(x => x.IDDoc == xID && x.IDProd == xPedido.ID).FirstOrDefault();
+                        NewElement = false;
+                    }
+                }
+                if (xdocPartidas == null)
+                {
+                    xdocPartidas = new DocPartidas();
+                    NewElement = true;
+                    xdocPartidas.IDDoc = xID;
+                    xdocPartidas.NPartida = xPartida;
+                    xdocPartidas.IDProd = xPedido.ID;
+                    xdocPartidas.IDMesa = IDMesa != null ? Convert.ToInt32(IDMesa) : 0;
+                    xdocPartidas.Descripcion = xPedido.Descripcion;
+                    xdocPartidas.Cantidad = xPedido.Cantidad;
+                    xdocPartidas.Surtido = xPedido.Surtido > 0 ? xPedido.Surtido : 0;
+                    xdocPartidas.UnidadMedida = xPedido.UnidadMedida;
+                    xdocPartidas.Observaciones = xPedido.Observaciones != null ? xPedido.Observaciones : "" ;
+                    xdocPartidas.Precio = xPedido.Precio;
+                    xdocPartidas.IVA = xPedido.IVA;
+                }
+                if (IDDocumento == null || NewElement)
+                {
+                    contex.DocPartidas.Add(xdocPartidas);
+                }
                 contex.SaveChanges();
                 List<int> idProdPersonalizado = new List<int>();
                 idProdPersonalizado.Add(xdocPartidas.IDProd);
@@ -115,7 +148,21 @@ namespace ARFood.Services
                     {
                         if (xComplemento.Seleccionado != DatosProductosComplementarios.Find(x => x.idComplemento == xComplemento.idComplemento).Seleccionado)
                         {
-                            DocPartidasPersonalizar docPPersonalizar = new DocPartidasPersonalizar();
+                            if (IDDocumento != null)
+                            {
+                                if (IDDocumento.Length > 0)
+                                {
+                                    docPPersonalizar = contex.docPartidasPersonalizars.Where(x => x.IDDoc == xID && x.IDProdPersonalizado == xPedido.ID && x.IDProdAgregado == xPedido.ComplementodeProducto.Find(y => y.idProducto == xPedido.ID && y.idComplemento == xComplemento.idComplemento).idComplemento).FirstOrDefault();
+                                    if (docPPersonalizar == null)
+                                    {
+                                        docPPersonalizar = new DocPartidasPersonalizar();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                docPPersonalizar = new DocPartidasPersonalizar();
+                            }
                             docPPersonalizar.IDDoc = xID;
                             docPPersonalizar.NPartida = xPartida;
                             docPPersonalizar.IDProdPersonalizado = xPedido.ID;
@@ -125,7 +172,10 @@ namespace ARFood.Services
                             docPPersonalizar.UnidadMedida = xComplemento.UnidadMedida;
                             docPPersonalizar.Precio = xComplemento.Precio;
                             docPPersonalizar.IVA = xComplemento.Precio * 0.16;
-                            contex.docPartidasPersonalizars.Add(docPPersonalizar);
+                            if (IDDocumento == null)
+                            {
+                                contex.docPartidasPersonalizars.Add(docPPersonalizar);
+                            }
                             contex.SaveChanges();
                         }
                     }
@@ -134,6 +184,44 @@ namespace ARFood.Services
             }
             return "GUID:" + xID.ToString() ;
         }
+
+        public List< string> GuardaNewBlankPedido(int IDCliente, int IDUser, string IDMesa)
+        {
+            string SeGuardo = "Error al Guardar, favor de intentarlo de nuevo";
+            
+            DateTime fecha = DateTime.Now;
+            DateTime useDate = fecha; ;
+
+            MesasDisponibles NewMesa = new MesasDisponibles();
+            NewMesa.IDMesa = Convert.ToInt32( IDMesa);
+            NewMesa.FechaInicio = fecha;
+            NewMesa.FechaFin = fecha;
+            contex.mesasdisponibles.Add(NewMesa);
+            contex.SaveChanges();
+
+
+            Guid xID = Guid.NewGuid();
+            Documentos documentos = new Documentos();
+            documentos.ID = xID;
+            documentos.IDCliente = IDCliente;
+            documentos.IDTipo = 1;
+            documentos.IDMesa = NewMesa.ID;
+            documentos.Observaciones = "";
+            documentos.Fecha = fecha;
+            documentos.FechaEntrega = useDate;
+            documentos.Total = 0;
+            documentos.IVA = 0;
+            documentos.IDUsuario = IDUser;
+            documentos.Pago = 0;
+            documentos.Estatus = "A";
+            contex.Documentos.Add(documentos);
+            contex.SaveChanges();
+            List<string> xReturn = new List<string>();    
+            xReturn.Add( xID.ToString());
+            xReturn.Add( NewMesa.ID.ToString());
+            return xReturn;
+        }
+
 
         public List<Documentos> getDocumentos(List<Guid> xID)
         {
@@ -202,6 +290,49 @@ namespace ARFood.Services
                            where datos.FechaInicio <= xDate && datos.FechaFin >= xDate
                            select datos;
             return consulta.ToList();
+        }
+
+        public List<Documentos> GetOrdenesxMesa(int Mesa)
+        {
+            var consulta = from datos in contex.Documentos
+                           join Mesasdi in contex.mesasdisponibles on datos.IDMesa equals Mesasdi.ID
+                           where Mesasdi.IDMesa == Mesa && datos.Estatus == "A" && (datos.Pago < (datos.Total + datos.IVA) || datos.Total ==0)
+                           select datos;
+            return consulta.ToList();
+        }
+
+        public void SaveAgregaOrdenAMesa(int Mesa)
+        {
+            MesasDisponibles newMesa = new MesasDisponibles();
+            DateTime xDate = DateTime.Now;
+            newMesa.IDMesa = Mesa;
+            newMesa.FechaInicio = xDate;
+            newMesa.FechaFin = xDate;
+            contex.mesasdisponibles.Add(newMesa);
+            contex.SaveChanges();
+            Documentos newDoc = new Documentos();
+            newDoc.ID = Guid.NewGuid();
+            newDoc.IDTipo = 1;
+            newDoc.IDCliente = 0;
+            newDoc.IDMesa = newMesa.ID;
+            newDoc.Nombre = Mesa.ToString() + "-" + xDate.ToString("HHMM");
+            newDoc.Observaciones = "";
+            newDoc.Total = 0;
+            newDoc.IVA = 0;
+            newDoc.IDUsuario = 0;
+            newDoc.Fecha = xDate;
+            newDoc.FechaEntrega = xDate;
+            newDoc.Pago = 0;
+            newDoc.Estatus = "A";
+            contex.Documentos.Add(newDoc);
+            contex.SaveChanges();
+        }
+
+        public void SaveNombreMesa(string NombreMesa, Guid IDDoc)
+        {
+            var consulta = contex.Documentos.Where(x => x.ID == IDDoc).FirstOrDefault();
+            consulta.Nombre = NombreMesa;
+            contex.SaveChanges();
         }
     }
 }

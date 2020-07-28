@@ -19,6 +19,7 @@ namespace ARFood.Models
         public int IDProd { get; set; }
         public string Descripcion { get; set; }
         public double Cantidad { get; set; }
+        public double Surtido { get; set; }
         public int UnidadMedida { get; set; }
         public string Observaciones { get; set; }
         public double Precio { get; set; }

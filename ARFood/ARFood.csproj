@@ -177,6 +177,7 @@
     <Compile Include="Controllers\CocinaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MeseroController.cs" />
     <Compile Include="Controllers\SalonController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -222,16 +223,21 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animations.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ChechkBox.css" />
+    <Content Include="Content\component.css" />
+    <Content Include="Content\ComponentLayout.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\datepicker.min.css" />
+    <Content Include="Content\default.css" />
     <Content Include="Content\DragImg.css" />
     <Content Include="Content\IMGStyle.css" />
     <Content Include="Content\Listas.css" />
+    <Content Include="Content\multilevelmenu.css" />
     <Content Include="Content\ProgressBar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -946,6 +952,7 @@
     <Content Include="IMG\vinos\viña turquesa.jpg" />
     <Content Include="IMG\vino\canepa-classico-carmenere.jpg" />
     <Content Include="IMG\vino\Chardonnay.jpg" />
+    <Content Include="Scripts\ARFoodMenu.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="IMG\varios\salsas.xps" />
@@ -953,6 +960,7 @@
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\boxlayout.js" />
     <Content Include="Scripts\datepicker.js" />
     <Content Include="Scripts\datepicker.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -960,12 +968,16 @@
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.dlmenu.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\konva.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\modernizr.custom.js" />
+    <Content Include="Scripts\pagetransitions.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1016,6 +1028,10 @@
     <Content Include="Views\Salon\Index.cshtml" />
     <Content Include="Views\Salon\SelectSalon.cshtml" />
     <Content Include="Views\Salon\GuardarSeleccion.cshtml" />
+    <Content Include="Views\Mesero\Index.cshtml" />
+    <Content Include="Views\Home\_MostrarListaPedidos.cshtml" />
+    <Content Include="Views\Mesero\ModalDialog.cshtml" />
+    <Content Include="Views\Home\_SurtePedido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
