@@ -67,12 +67,12 @@
                 onlyTimepicker: false,
                 dateTimeSeparator: ' ',
                 timeFormat: '',
-                minHours: 10,
-                maxHours: 21,
+                minHours: 0,
+                maxHours: 24,
                 minMinutes: 0,
                 maxMinutes: 59,
                 hoursStep: 1,
-                minutesStep: 5,
+                minutesStep: 1,
 
                 // events
                 onSelect: '',
@@ -444,6 +444,12 @@
                 return new RegExp('(^|>|' + symbols + ')(' + sign + ')($|<|' + symbols + ')', 'g');
             },
 
+
+            //Bulbonio
+            setManualDate: function (date) {
+                this.currentDate = date;
+                
+            },
 
             selectDate: function (date) {
                 var _this = this,

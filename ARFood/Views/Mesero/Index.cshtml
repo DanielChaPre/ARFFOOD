@@ -11,51 +11,52 @@
 <!-- Include English language -->
 <script src="dist/js/i18n/datepicker.en.js"></script>
 
-<style>
-    div.a {
-        height: 200px;
-        border: 1px solid black;
-    }
 
-    div.b {
-        width: 100%;
-        height: 308px;
-        border: 1px solid black;
-    }
-</style>
+    <style>
+        div.a {
+            height: 200px;
+            border: 1px solid black;
+        }
 
-<head>
-    <script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-</head>
+        div.b {
+            width: 100%;
+            height: 308px;
+            border: 1px solid black;
+        }
+    </style>
 
-<dialog id="PersonalizarDialog">
-    <form method="modal-dialog">
-        <section>
-            <p>
-                <span class="close" onclick="btnCierraMesa()">&times;</span>
-                <br />
-                <label>Información de la Mesa</label>
-                <input type="text" id="IDMesa" name="IDMesa" value="" />
-                <br />
-                <input type="button" id="OpenOrder" name="OpenOrder" onclick="fnOpenOrder()" value="Abrir Order" />
-            </p>
-        </section>
-    </form>
-</dialog>
-<dialog id="OrdenaLayout" class=" js no-touch cssanimations csstransitions" style="height:95%;width:95%;background-color:cyan">
-    <span class="close" onclick="btnCierraMesa()">&times;</span>
-    <div class="container" style="height:98%;width:95%;margin:0">
-        <div id="bl-main" class="bl-main" style="height:95%;width:95%;margin:0">
+    <head>
+        <script src="https://unpkg.com/konva@7.0.3/konva.min.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+    </head>
+
+    <dialog id="PersonalizarDialog">
+        <form method="modal-dialog">
             <section>
-                <div class="bl-box">
-                    <h2>Tomar Orden</h2>
-                </div>
-                <div class="bl-content">
-                    <div style="overflow-x:scroll" id="ListaPedidos">
-                        @Html.Action("MostrarListaPedidos", "Home")
+                <p>
+                    <span class="close" onclick="btnCierraMesa()">&times;</span>
+                    <br />
+                    <label>Información de la Mesa</label>
+                    <input type="text" id="IDMesa" name="IDMesa" value="" />
+                    <br />
+                    <input type="button" id="OpenOrder" name="OpenOrder" onclick="fnOpenOrder()" value="Abrir Order" />
+                </p>
+            </section>
+        </form>
+    </dialog>
+    <dialog id="OrdenaLayout" class=" js no-touch cssanimations csstransitions" style="height:95%;width:95%;background-color:cyan">
+        <span class="close" onclick="btnCierraMesa()">&times;</span>
+        <div class="container" style="height:98%;width:95%;margin:0">
+            <div id="bl-main" class="bl-main" style="height:95%;width:95%;margin:0">
+                <section>
+                    <div class="bl-box">
+                        <h2>Tomar Orden</h2>
                     </div>
+                    <div class="bl-content">
+                        <div style="overflow-x:scroll" id="ListaPedidos">
+                            @Html.Action("MostrarListaPedidos", "Home")
+                        </div>
                         <div class="row" id="AllMenu">
                             <table style="height:990px">
                                 <tr style="height:330px">
@@ -82,366 +83,436 @@
                             </table>
                         </div>
                         <script src="~/Scripts/ARFoodMenu.js"></script>
-                    </p>
-                </div>
-                <span class="bl-icon bl-icon-close" style="margin:0"></span>
-            </section>
-            <section id="bl-work-section">
-                <div class="bl-box">
-                    <h2>Consultas</h2>
-                </div>
-                <div class="bl-content">
-                    <h2>My Works</h2>
-                    <p>Mung bean maize dandelion sea lettuce catsear bunya nuts ricebean tatsoi caulie horseradish pea.</p>
-                </div>
-                <span class="bl-icon bl-icon-close"></span>
-            </section>
-            <section>
-                <div class="bl-box">
-                    <h2>Surtir Orden</h2>
-                </div>
-                <div class="bl-content">
-                    <h2>My Musings</h2>
-                    <article>
-                        <h3>Being a Freelance Designer</h3>
-                        <p>Stumptown helvetica cardigan, odd future seitan tattooed flannel. Kale chips direct trade cray beard. 8-bit etsy butcher post-ironic blog lo-fi mcsweeney's, sustainable pickled umami flexitarian DIY ethical plaid trust fund. Wolf cred organic, terry richardson aesthetic four loko occupy vegan chillwave readymade deep...</p>
-                    </article>
-                </div>
-                <span class="bl-icon bl-icon-close"></span>
-            </section>
-            <section>
-                <div class="bl-box">
-                    <h2>Cobrar</h2>
-                </div>
-                <div class="bl-content">
-                    <h2>Get in touch</h2>
-                    <p>Pinterest semiotics single-origin coffee craft beer thundercats irony, tumblr bushwick intelligentsia pickled. Narwhal mustache godard master cleanse street art, occupy ugh selfies put a bird on it cray salvia four loko gluten-free shoreditch. Occupy american apparel freegan cliche. Mustache trust fund 8-bit jean shorts mumblecore thundercats. Pour-over small batch forage cray, banjo post-ironic flannel keffiyeh cred ethnic semiotics next level tousled fashion axe. Sustainable cardigan keytar fap bushwick bespoke.</p>
-                </div>
-                <span class="bl-icon bl-icon-close"></span>
-            </section>
-            <!-- Panel items for the works -->
-            <div class="bl-panel-items" id="bl-panel-work-items">
-                <div data-panel="panel-1">
-                    <div>
-                        <img src="~/FullscreenLayout/1.jpg">
-                        <h3>Fixie bespoke</h3>
-                        <p>Iphone artisan direct trade ethical Austin. Fixie bespoke banh mi ugh, deep v vinyl hashtag. Tumblr gentrify keffiyeh pop-up iphone twee biodiesel. Occupy american apparel freegan cliche. Mustache trust fund 8-bit jean shorts mumblecore thundercats. Pour-over small batch forage cray, banjo post-ironic flannel keffiyeh cred ethnic semiotics next level tousled fashion axe. Sustainable cardigan keytar fap bushwick bespoke.</p>
+                        </p>
                     </div>
-                </div>
-                <div data-panel="panel-2">
-                    <div>
-                        <img src="~/FullscreenLayout/2.jpg">
-                        <h3>Chillwave mustache</h3>
-                        <p>Squid vinyl scenester literally pug, hashtag tofu try-hard typewriter polaroid craft beer mlkshk cardigan photo booth PBR. Chillwave 90's gentrify american apparel carles disrupt. Pinterest semiotics single-origin coffee craft beer thundercats irony, tumblr bushwick intelligentsia pickled. Narwhal mustache godard master cleanse street art, occupy ugh selfies put a bird on it cray salvia four loko gluten-free shoreditch.</p>
+                    <span class="bl-icon bl-icon-close" style="margin:0"></span>
+                </section>
+                <section id="bl-work-section">
+                    <div class="bl-box">
+                        <h2>Herramientas</h2>
                     </div>
-                </div>
-                <div data-panel="panel-3">
-                    <div>
-                        <img src="~/FullscreenLayout/3.jpg">
-                        <h3>Austin hella</h3>
-                        <p>Ethical cray wayfarers leggings vice, seitan banksy small batch ethnic master cleanse. Pug chillwave etsy, scenester meh occupy blue bottle tousled blog tonx pinterest selvage mixtape swag cosby sweater. Synth tousled direct trade, hella Austin craft beer ugh chambray.</p>
+                    <div class="bl-content">
+                        <div style="overflow-x:scroll" id="HerramientasMesero">
+                            @Html.Action("Herramientas", "Mesero")
+                            <input type="hidden" id="H_Transfer" value="" />
+                        </div>
                     </div>
-                </div>
-                <div data-panel="panel-4">
-                    <div>
-                        <img src="~/FullscreenLayout/4.jpg">
-                        <h3>Brooklyn dreamcatcher</h3>
-                        <p>Fashion axe 90's pug fap. Blog wayfarers brooklyn dreamcatcher, bicycle rights retro YOLO. Wes anderson lomo 90's food truck 3 wolf moon, twee jean shorts. Iphone small batch twee wolf yr before they sold out. Brooklyn echo park cred, portland pug selvage flannel seitan tousled mcsweeney's.</p>
+                    <span class="bl-icon bl-icon-close"></span>
+                </section>
+                <section>
+                    <div class="bl-box">
+                        <h2>Surtir Orden</h2>
                     </div>
-                </div>
+                    <div class="bl-content">
+                        <div style="overflow-x:scroll" id="ListaPedidosASurtir">
+                            @Html.Action("MostrarListaPedidosASurtir", "Mesero")
+                        </div>
+                        <div style="overflow-x:scroll" id="SurtidoDeOrden">
+                            @Html.Action("SurtePedido", "Mesero")
+                        </div>
+                    </div>
+                    <span class="bl-icon bl-icon-close"></span>
+                </section>
+                <section>
+                    <div class="bl-box">
+                        <h2>Cobrar</h2>
+                    </div>
+                    <div class="bl-content">
+                        @Html.Action("PagarOrdern", "Mesero")
+                    </div>
+                    <span class="bl-icon bl-icon-close"></span>
+                </section>
             </div>
         </div>
-    </div>
-</dialog>
-<div>
-    <table>
-        <tr>
-            <td>
-                <table>
-                    <tr>
-                        <td>
-                            <div class="datepicker-here" data-timepicker="true" data-language='es' onchange="CargarDisponibilidad(this)" id="MesaFecha"></div>
-                        </td>
-                    </tr>
-                    @for (int e = 0; e < 10; e++)
-                    {
-                        <tr><td><label></label></td></tr>
-                    }
-                    <tr>
-                        <td>
-                            <input type="button" id="GuardarMesaSel" name="GuardarMesaSel" onclick="SaveSeleccion(true)" value="Apartar Mesa" />
-                        </td>
-                    </tr>
-                    @for (int f = 0; f < 10; f++)
-                    {
-                        <tr><td><label></label></td></tr>
-                    }
-                    <tr>
-                        <td>
-                            <input type="button" id="CancelMesaSel" name="CancelMesaSel" onclick="SaveSeleccion(false)" value="Recoger en Sucursal" />
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                <div id="container">
-                    <script>
-                        var width = window.innerWidth - 180; //(1000 - 180); //window.innerWidth / 2 ;
-                        var height = window.innerHeight;
-
-                        function ActivaMesas(xMesas) {
-                            xElement = OrangeElements.length;
-                            var i = 0
-                            for (i = 0; i < xElement; i++) {
-                                ElementoNuevo[OrangeElements[i]].fill('gray');
-                            }
-                            OrangeElements = [];
-                            i = 0;
-                            xMesas.forEach(function (elemento, indice, array) {
-                                if (indice > 0) {
-                                    xElement = parseInt(elemento[1], 10) - 1;
-                                    ElementoNuevo[xElement].fill('orange');
-                                    OrangeElements[i] = xElement;
-                                    i++;
-                                }
-                            });
-                            layer.draw();
-
+    </dialog>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="datepicker-here" data-timepicker="true" data-language='es' onchange="CargarDisponibilidad(this)" id="MesaFecha"></div>
+                                <input id="AutoFecha" style="background-color:black" type="text" value="Original" />
+                                <input id="Fecha2" style="background-color:black" type="text"/>
+                            </td>
+                        </tr>
+                        @for (int e = 0; e < 10; e++)
+                        {
+                            <tr><td><label></label></td></tr>
                         }
-
-                        function LoadValues() {
-                            $.ajax({
-                                type: "POST",
-                                traditional: true,
-                                async: false,
-                                cache: false,
-                                url: '/Salon/CargarSalon',
-                                dataType: "json",
-                                contentType: "application/json",
-                                success: function (Mesas) {
-                                    Mesas.forEach(function (elemento, indice, array) {
-                                        if (indice > 0) {
-
-                                            xElement = parseInt(elemento[0], 10) - 1;
-
-                                            ElementoNuevo[xElement] = new Konva.Rect({
-                                                x: parseInt(elemento[1], 10) - 180,
-                                                y: parseInt(elemento[2], 10),
-                                                width: parseInt(elemento[3], 10),
-                                                height: parseInt(elemento[4], 10),
-                                                fill: 'gray',
-                                                stroke: 'black',
-                                                strokeWidth: 4,
-                                                opacity: 0.3,
-                                                name: "N:" + parseInt(elemento[0], 10),
-                                            });
-
-                                            ElementoNuevo[xElement].on('mouseover', function () {
-                                                this.stroke('black');
-                                                this.strokeWidth(5);
-                                                layer.draw();
-                                            });
-
-                                            ElementoNuevo[xElement].on('mouseout', function () {
-                                                this.stroke('black');
-                                                this.strokeWidth(1);
-                                                layer.draw();
-                                            });
-
-                                            ElementoNuevo[xElement].on('click', function (event) {
-                                                ShowMenuMesa(this.attrs.name);
-                                            });
-
-                                            layer.add(ElementoNuevo[xElement]);
-
-                                            Elementotext[xElement] = new Konva.Text({
-                                                x: parseInt(elemento[1], 10) + 10 - 180,
-                                                y: parseInt(elemento[2], 10) + 10,
-                                                text: (xElement + 1),
-                                                align: "center",
-                                                fontSize: 30,
-                                                fontFamily: 'Calibri',
-                                                fill: 'black'
-                                            });
-
-                                            layer.add(Elementotext[xElement]);
-                                            ElementoNuevo[xElement].moveToTop();
-                                        }
-                                    })
-                                },
-                                failure: function () {
-                                    alert('Falla al guardar el Salon');
-                                }
-                            });
+                        <tr>
+                            <td>
+                                <input type="button" id="GuardarMesaSel" name="GuardarMesaSel" onclick="SaveSeleccion(true)" value="Apartar Mesa" />
+                            </td>
+                        </tr>
+                        @for (int f = 0; f < 10; f++)
+                        {
+                            <tr><td><label></label></td></tr>
                         }
+                        <tr>
+                            <td>
+                                <input type="button" id="CancelMesaSel" name="CancelMesaSel" onclick="SaveSeleccion(false)" value="Recoger en Sucursal" />
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div id="container">
+                        <script>
+                            var width = window.innerWidth - 180; //(1000 - 180); //window.innerWidth / 2 ;
+                            var height = window.innerHeight;
 
-                        function SaveSeleccion(WillSave) {
-                            if (WillSave) {
-                                var chkarray = [];
-                                var i = 0;
-                                var e = 0;
-                                xElement = ElementoNuevo.length;
+                            function ActivaMesas(xMesas) {
+                                xElement = OrangeElements.length;
+                                var i = 0
                                 for (i = 0; i < xElement; i++) {
-                                    //alert(Object.keys(ElementoNuevo[i].attrs.fill));
-                                    if ('green' == ElementoNuevo[i].attrs.fill) {
-                                        chkarray[e] = "'" + ElementoNuevo[i].attrs.name + "'";
-                                        e++;
+                                    ElementoNuevo[OrangeElements[i]].fill('gray');
+                                }
+                                OrangeElements = [];
+                                i = 0;
+                                xMesas.forEach(function (elemento, indice, array) {
+                                    if (indice > 0) {
+                                        xElement = parseInt(elemento[1], 10) - 1;
+                                        ElementoNuevo[xElement].fill('orange');
+                                        OrangeElements[i] = xElement;
+                                        i++;
                                     }
-                                }
-                                if (chkarray.length == 0) {
-                                    alert('Debe seleccionar al menos una mesa');
-                                    return;
-                                }
+                                });
+                                layer.draw();
+
                             }
 
-                            var xParametros = '{ xMesas: [' + chkarray + '] }';
-                            $.ajax({
-                                type: "POST",
-                                traditional: true,
-                                async: false,
-                                cache: false,
-                                url: '/Salon/SaveSeleccion',
-                                data: xParametros,
-                                dataType: "json",
-                                contentType: "application/json",
-                                success: function (algo) {
-                                    if (chkarray.length > 1) {
-                                        alert('Las mesas han sido apartadas exitosamente');
+                            function LoadValues() {
+                                $.ajax({
+                                    type: "POST",
+                                    traditional: true,
+                                    async: false,
+                                    cache: false,
+                                    url: '/Salon/CargarSalon',
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    success: function (Mesas) {
+                                        Mesas.forEach(function (elemento, indice, array) {
+                                            if (indice > 0) {
+
+                                                xElement = parseInt(elemento[0], 10) - 1;
+
+                                                ElementoNuevo[xElement] = new Konva.Rect({
+                                                    x: parseInt(elemento[1], 10) - 180,
+                                                    y: parseInt(elemento[2], 10),
+                                                    width: parseInt(elemento[3], 10),
+                                                    height: parseInt(elemento[4], 10),
+                                                    fill: 'gray',
+                                                    stroke: 'black',
+                                                    strokeWidth: 4,
+                                                    opacity: 0.3,
+                                                    name: "N:" + parseInt(elemento[0], 10),
+                                                });
+
+                                                ElementoNuevo[xElement].on('mouseover', function () {
+                                                    this.stroke('black');
+                                                    this.strokeWidth(5);
+                                                    layer.draw();
+                                                });
+
+                                                ElementoNuevo[xElement].on('mouseout', function () {
+                                                    this.stroke('black');
+                                                    this.strokeWidth(1);
+                                                    layer.draw();
+                                                });
+
+                                                ElementoNuevo[xElement].on('click', function (event) {
+                                                    ShowMenuMesa(this.attrs.name);
+                                                });
+
+                                                layer.add(ElementoNuevo[xElement]);
+
+                                                Elementotext[xElement] = new Konva.Text({
+                                                    x: parseInt(elemento[1], 10) + 10 - 180,
+                                                    y: parseInt(elemento[2], 10) + 10,
+                                                    text: (xElement + 1),
+                                                    align: "center",
+                                                    fontSize: 30,
+                                                    fontFamily: 'Calibri',
+                                                    fill: 'black'
+                                                });
+
+                                                layer.add(Elementotext[xElement]);
+                                                ElementoNuevo[xElement].moveToTop();
+                                            }
+                                        })
+                                    },
+                                    failure: function () {
+                                        alert('Falla al guardar el Salon');
                                     }
-                                    else if (chkarray.length == 1) {
-                                        alert('La mesa se ha apartado exitosamente')
+                                });
+                            }
+
+                            function SaveSeleccion(WillSave) {
+                                if (WillSave) {
+                                    var chkarray = [];
+                                    var i = 0;
+                                    var e = 0;
+                                    xElement = ElementoNuevo.length;
+                                    for (i = 0; i < xElement; i++) {
+                                        //alert(Object.keys(ElementoNuevo[i].attrs.fill));
+                                        if ('green' == ElementoNuevo[i].attrs.fill) {
+                                            chkarray[e] = "'" + ElementoNuevo[i].attrs.name + "'";
+                                            e++;
+                                        }
                                     }
-                                },
-                                failure: function () {
-                                    alert('Ocurrió un error al momento de guardar la información');
+                                    if (chkarray.length == 0) {
+                                        alert('Debe seleccionar al menos una mesa');
+                                        return;
+                                    }
                                 }
+
+                                var xParametros = '{ xMesas: [' + chkarray + '] }';
+                                $.ajax({
+                                    type: "POST",
+                                    traditional: true,
+                                    async: false,
+                                    cache: false,
+                                    url: '/Salon/SaveSeleccion',
+                                    data: xParametros,
+                                    dataType: "json",
+                                    contentType: "application/json",
+                                    success: function (algo) {
+                                        if (chkarray.length > 1) {
+                                            alert('Las mesas han sido apartadas exitosamente');
+                                        }
+                                        else if (chkarray.length == 1) {
+                                            alert('La mesa se ha apartado exitosamente')
+                                        }
+                                    },
+                                    failure: function () {
+                                        alert('Ocurrió un error al momento de guardar la información');
+                                    }
+                                });
+
+                                MesasDialog = document.getElementById('MesasDialog');
+                                MesasDialog.close();
+                            }
+
+                            var stage = new Konva.Stage({
+                                container: 'container',
+                                width: width,
+                                height: height,
                             });
 
-                            MesasDialog = document.getElementById('MesasDialog');
-                            MesasDialog.close();
-                        }
-
-                        var stage = new Konva.Stage({
-                            container: 'container',
-                            width: width,
-                            height: height,
-                        });
-
-                        var layer = new Konva.Layer();
+                            var layer = new Konva.Layer();
 
 
-                        stage.add(layer);
+                            stage.add(layer);
 
 
-                        var ElementoImg = [];
+                            var ElementoImg = [];
 
-                        var ElementoNuevo = [];
-                        var Elementotext = [];
+                            var ElementoNuevo = [];
+                            var Elementotext = [];
 
-                        var ElementArray = [];
+                            var ElementArray = [];
 
-                        var ctext = [];
+                            var ctext = [];
 
-                        var imageObj3 = [];
-                        var OrangeElements = [];
+                            var imageObj3 = [];
+                            var OrangeElements = [];
 
-                        LayoutIMG = new Konva.Image({
-                            width: 800,
-                            height: 1050,
-                        });
+                            LayoutIMG = new Konva.Image({
+                                width: 800,
+                                height: 1050,
+                            });
 
-                        LayoutObj = new Image();
-                        LayoutObj.onload = function () {
-                            LayoutIMG.image(LayoutObj);
+                            LayoutObj = new Image();
+                            LayoutObj.onload = function () {
+                                LayoutIMG.image(LayoutObj);
+                                layer.draw();
+                            };
+                            LayoutObj.src = '/IMG/Salon/Salon1.jpg';
+
+                            LayerGroup = new Konva.Group({
+                                x: 0,
+                                y: 0,
+                                draggable: false,
+                            });
+
+                            layer.add(LayerGroup);
+                            LayerGroup.add(LayoutIMG);
+
+                            //imageObj.src = '/IMG/Salon/Salon1.jpg';
+
+                            LoadValues();
+                            BuscarDisponibilidad();
                             layer.draw();
-                        };
-                        LayoutObj.src = '/IMG/Salon/Salon1.jpg';
 
-                        LayerGroup = new Konva.Group({
-                            x: 0,
-                            y: 0,
-                            draggable: false,
-                        });
+                        </script>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-                        layer.add(LayerGroup);
-                        LayerGroup.add(LayoutIMG);
+    </div>
 
-                        //imageObj.src = '/IMG/Salon/Salon1.jpg';
-
-                        LoadValues();
-                        BuscarDisponibilidad();
-                        layer.draw();
-
-                    </script>
-                </div>
-            </td>
-        </tr>
-    </table>
-
-</div>
-
-<script src="~/Scripts/jquery.min.js"></script>
-<script src="~/Scripts/boxlayout.js"></script>
-<script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/boxlayout.js"></script>
+    <script>
 
 
-    $(function () {
-        Boxlayout.init();
-    });
-
-    function ShowMenuMesa(xMesa) {
-        var xDialog = document.getElementById('OrdenaLayout'); //'PersonalizarDialog');
-        var Mesa = document.getElementById('IDMesa');
-        Mesa.value = xMesa;
-
-        var xParametros = '{ IDMesa: "' + Mesa.value + '" }';
-
-        //
-        $.ajax({
-            type: "POST",
-            traditional: true,
-            async: false,
-            cache: false,
-            url: '/home/GuardarMesaSeleccionada',
-            data: xParametros,
-            dataType: "json",
-            contentType: "application/json",
-            success: function (algo) {
-                //alert(algo);
-            },
-            failure: function () {
-                alert('Ocurrió un error al momento de guardar la información');
-            }
+        $(function () {
+            Boxlayout.init();
+            setTimeout("SetAutoTime();", 5000);
         });
 
-        $.ajax({
-            type: "POST",
-            url: '/home/MostrarListaPedidos',
-            success: function (data) {
-                $('#ListaPedidos').html(data);
-            },
-            failure: function () {
-                alert('Ocurrió un error al momento de guardar la información');
+        function SetAutoTime() {
+            var xFecha = document.getElementById('AutoFecha');
+            var xFecha2 = document.getElementById('Fecha2');
+            var DTPicker = document.getElementById('MesaFecha');
+            momentoActual = new Date();
+            hora = momentoActual.getHours();
+            hora = Math.floor((Math.random() * 17) + 1)
+            minuto = momentoActual.getMinutes();
+            minuto = Math.floor((Math.random() * 59) + 1)
+            segundo = momentoActual.getSeconds();
+            dia = momentoActual.getDate();
+            mes = momentoActual.getMonth() +1;
+            anio = momentoActual.getFullYear();
+            xFecha.value = ("0" + dia).slice(-2) + "." + ("0" + mes).slice(-2) + "." + anio + " " + ("0" + hora ).slice(-2) + ":" + ("0" + minuto ).slice(-2);
+            DTPicker.value = xFecha.value;
+            xFecha2.value = DTPicker.value;
+            BuscarDisponibilidad();
+            //$('#MesaFecha').datepicker({
+            //    todayButton: new Date()
+            //})
+            setTimeout("SetAutoTime();", 5000);
+        }
+
+
+        function ShowMenuMesa(xMesa) {
+            var xShouldTranfer = document.getElementById('ShouldTransfer');
+            var xDialog = document.getElementById('OrdenaLayout'); //'PersonalizarDialog');
+            var Mesa = document.getElementById('IDMesa');
+            Mesa.value = xMesa;
+            if (xShouldTranfer.value.length > 0) {
+                if (xShouldTranfer.value.substring(0, 8) == "Transfer") {
+                    //alert(xShouldTranfer.value + " To " + Mesa.value);
+                    var xTransferParametros = '{ IDDoc: "' + xShouldTranfer.value.substring(8) + '" ,  IDMesa : "' + Mesa.value + '" }';
+                    //alert(xTransferParametros);
+                    $.ajax({
+                        type: "POST",
+                        traditional: true,
+                        async: false,
+                        cache: false,
+                        url: '/Mesero/TransferPedido',
+                        data: xTransferParametros,
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (algo) {
+                            alert("Pedido Exitosamente Transferido");
+                        },
+                        failure: function () {
+                            alert('Ocurrió un error al momento de guardar la información');
+                        }
+                    });
+
+                    xShouldTranfer.value = "";
+                    //xDialog.showModal();
+                }
             }
-        });
+            var xParametros = '{ IDMesa: "' + Mesa.value + '" }';
 
-        xDialog.show();
-        xDialog.style.zIndex = 1000;
-    }
+            //
+            $.ajax({
+                type: "POST",
+                traditional: true,
+                async: false,
+                cache: false,
+                url: '/home/GuardarMesaSeleccionada',
+                data: xParametros,
+                dataType: "json",
+                contentType: "application/json",
+                success: function (algo) {
+                    //alert(algo);
+                },
+                failure: function () {
+                    alert('Ocurrió un error al momento de guardar la información');
+                }
+            });
 
-    function btnCierraMesa() {
-        var xDialog = document.getElementById('OrdenaLayout');  //'PersonalizarDialog');
-        xDialog.close();
-    }
+            $.ajax({
+                type: "POST",
+                url: '/home/MostrarListaPedidos',
+                success: function (data) {
+                    $('#ListaPedidos').html(data);
+                },
+                failure: function () {
+                    alert('Ocurrió un error al momento de guardar la información');
+                }
+            });
 
-    function btnCierraMenu() {
-        var xDialog = document.getElementById('OrdenaLayout');  //'OrdenDialog');
-        xDialog.close();
-    }
 
-    function fnOpenOrder() {
-        btnCierraMesa();
-        var xMenu = document.getElementById('OrdenaLayout'); //'OrdenDialog');
-        xMenu.showModal();
-    }
-</script>
+            $.ajax({
+                type: "POST",
+                url: '/Mesero/MostrarListaPedidosASurtir',
+                success: function (data) {
+                    $('#ListaPedidosASurtir').html(data);
+                },
+                failure: function () {
+                    alert('Ocurrió un error al momento de guardar la información');
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '/Mesero/Herramientas',
+                success: function (data) {
+                    $('#HerramientasMesero').html(data);
+                },
+                failure: function () {
+                    alert('Ocurrió un error al momento de guardar la información');
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: '/Mesero/PagarOrdern',
+                success: function (data) {
+                    $('#ListaAPagar').html(data);
+                },
+                failure: function () {
+                    alert('Ocurrió un error al momento de guardar la información');
+                }
+            });
+
+            var dataUrl = '/Mesero/SurtePedido';
+            $.ajax(
+                {
+                    type: "POST",
+                    url: dataUrl,
+                }).done(function (data) {
+                    //alert('DespliegaPlatillos');
+                    $('#SurtidoDeOrden').html(data);
+                }).fail(function () {
+                    alert('Error 2');
+                });
+
+            xDialog.showModal();
+            //xDialog.style.zIndex = 1000;
+        }
+
+        function btnCierraMesa() {
+            var xDialog = document.getElementById('OrdenaLayout');  //'PersonalizarDialog');
+            xDialog.close();
+        }
+
+        function btnCierraMenu() {
+            var xDialog = document.getElementById('OrdenaLayout');  //'OrdenDialog');
+            xDialog.close();
+        }
+
+        function fnOpenOrder() {
+            btnCierraMesa();
+            var xMenu = document.getElementById('OrdenaLayout'); //'OrdenDialog');
+            xMenu.showModal();
+        }
+    </script>

@@ -1,0 +1,283 @@
+﻿@model IEnumerable<ARFood.Models.Documentos>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+    .boton {
+        width: 100px;
+        height: 100px;
+        background-color: #03800b;
+        margin: 5px;
+        padding: 10px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+        border-radius: 50px;
+        font-size: 20px;
+        line-height: 32px;
+        text-transform: uppercase;
+        float: left;
+    }
+
+        .boton:hover {
+            opacity: 0.50;
+            -moz-opacity: .50;
+            filter: alpha (opacity=50);
+        }
+
+        .boton a {
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 5px 5px 0;
+        }
+</style>
+
+
+<div id="ListaAPagar">
+    <table>
+        <tr>
+            <td>
+                <div class="w3-container" >
+                    <h2>Ordenes Disponibles </h2>
+                    <input type="hidden" id="ItemsAPagar" value="" />
+                    <ul class="w3-ul w3-card-4 w3-ul w3-hoverable" style="height=300px" style="overflow-y:scroll">
+                        @if (Model != null)
+                        {
+                            int i = 0;
+                            foreach (var Item in Model)
+                            {
+                                <li class="w3-bar" id="IDPedidoAPagar_@i" onclick="CheckDocAPagar(@i , @Item.Total)">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <div class="switch-button">
+                                                    <input class="switch-button__checkbox" id="IDPagar_@i" type="checkbox" onchange="ACtualizaTotalAPagar(@i, @Item.Total)" />
+                                                    <label class="switch-button__label" for="IDPagar_@i"></label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="w3-bar-item">
+                                                    <table class="w3-large">
+                                                        <tr>
+                                                            <td>
+                                                                <h2>Total:</h2>
+                                                            </td>
+                                                            <td>
+                                                                <h2> @Item.Total</h2>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <h3>
+                                                                    SubTotal:
+                                                                </h3>
+                                                            </td>
+                                                            <td>
+                                                                <h3>
+                                                                    @(Item.Total - Item.IVA)
+                                                                </h3>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <h3>
+                                                                    IVA:
+                                                                </h3>
+                                                            </td>
+                                                            <td>
+                                                                <h3>
+                                                                    @(Item.IVA)
+                                                                </h3>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <span>@Item.Nombre</span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <input type="hidden" id="IDPedidoMesaPagarID_@i" value="@Item.ID" />
+                                    <input type="hidden" id="IDPedidoMesaPagarIDM_@i" value="@Item.IDMesa" />
+                                </li>
+                                i++;
+                            }
+                            <input type="hidden" id="TotalOrdenesAPagar" value="@i" />
+                        }
+                    </ul>
+                </div>
+            </td>
+            <td>
+                <label></label>
+            </td>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <h1>Total:</h1>
+                        </td>
+                        <td>
+                            <label></label>
+                        </td>
+                        <td>
+                            <input type="text" style="font-size:48px" id="TotalAPagar" name="TotalAPagar" readonly="readonly" value="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h1>Pagar:</h1>
+                        </td>
+                        <td>
+                            <label></label>
+                        </td>
+                        <td>
+                            <input type="text" style="font-size:48px" readonly="readonly" id="MontoPagado" name="MontoPagado" value="">
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+
+                        <td>
+                            <input type="button" class="boton" value="7" onClick="ActualizaMontoPagado('7')">
+                        </td>
+                        <td>
+                            <input type="button" class="boton" value="8" onClick="ActualizaMontoPagado('8')">
+                        </td>
+                        <td>
+                            <input type="button" class="boton" value="9" onClick="ActualizaMontoPagado('9')">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" class="boton" value="4" onClick="ActualizaMontoPagado('4')">
+                        </td>
+                        <td>
+                            <input type="button" class="boton" value="5" onClick="ActualizaMontoPagado('5')">
+                        </td>
+                        <td>
+                            <input type="button" class="boton" value="6" onClick="ActualizaMontoPagado('6')">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" class="boton" value="1" onClick="ActualizaMontoPagado('1')">
+                        </td>
+                        <td>
+                            <input type="button" class="boton" value="2" onClick="ActualizaMontoPagado('2')">
+                        </td>
+                        <td>
+                            <input type="button" class="boton" value="3" onClick="ActualizaMontoPagado('3')">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" class="boton" value="0" onClick="ActualizaMontoPagado('0')">
+                        </td>
+                        <td>
+                            <input type="button" class="boton" value="." onClick="ActualizaMontoPagado('.')">
+                        </td>
+                        <td>
+                            <input type="button" class="boton" value="C" onClick="ActualizaMontoPagado('C')">
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <input type="text" readonly="readonly" id="xCambio" style="font-size:48px" />
+                <br />
+                <input type="button" class="boton" style="height:300px; width:200px" value="Pagar" onClick="RealizaPago()">
+            </td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    var xDecimal = false;
+    function CheckDocAPagar(IdElemt, NewTotal) {
+        var xElemento = document.getElementById('IDPagar_' + IdElemt);
+        if (xElemento.checked ) {
+            xElemento.checked = false;
+        }
+        else {
+            xElemento.checked = true;
+        }
+        ACtualizaTotalAPagar(IdElemt, NewTotal);
+    }
+
+    function ACtualizaTotalAPagar(xPed, NewTotal) {
+        var xTotal = document.getElementById('TotalAPagar');
+        var iTotal = 0;
+        if (xTotal.value != null) {
+            if (xTotal.value.length > 0) {
+                iTotal = parseFloat(xTotal.value);
+            }
+        }
+        var xElemento = document.getElementById('IDPagar_' + xPed);
+        if (xElemento.checked) {
+            iTotal += NewTotal;
+        }
+        else {
+            iTotal -= NewTotal;
+        }
+        if (iTotal < 0) {
+            iTotal = 0;
+        }
+        xTotal.value = Math.round(iTotal * 100) / 100;
+    }
+
+    function ActualizaMontoPagado(Elemento) {
+        var xTotal = document.getElementById('MontoPagado');
+        if (xDecimal) {
+            if (Elemento == ".") {
+                Elemento = "";
+            }
+        }
+        xTotal.value += Elemento;
+        if (Elemento == "C") {
+            xTotal.value = "";
+            xDecimal = false;
+        }
+        if (Elemento == ".") {
+            xDecimal = true;
+        }
+    }
+
+    function RealizaPago() {
+        var xTotal = document.getElementById('MontoPagado');
+        var fTotal = parseFloat(xTotal.value);
+        var aPagar = document.getElementById('TotalAPagar');
+        if (fTotal > 0) {
+            if (fTotal >= aPagar) {
+                var OrdenesAPagar = document.getElementById('TotalOrdenesAPagar');
+                var xParam = [];
+                for (i = 0; i < OrdenesAPagar.value; i++) {
+                    var xOrden = document.getElementById('IDPedidoMesaPagarID_' + i);
+                    xParam[i] = '"' + xOrden.value + '"';
+                }
+                var xParametros = '{ [' + xParam + '] }';
+                $.ajax({
+                    type: "POST",
+                    traditional: true,
+                    async: false,
+                    cache: false,
+                    url: '/Mesero/PagarOrden',
+                    data: xParametros,
+                    dataType: "json",
+                    contentType: "application/json",
+                    success: function (algo) {
+                        alert(algo);
+                        var xCambio = fTotal - aPagar;
+                        xTotal.value = "Cambio: $"  +  xCambio;
+                    },
+                    failure: function () {
+                        alert('Ocurrió un error al momento de guardar la información');
+                    }
+                });
+            }
+            else {
+                alert('No se ha cubierto el el total de la Orden');
+            }
+        }
+    }
+
+</script> 

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ARFood.Models.Documentos>
+
+<!DOCTYPE html>
+<html>
+<title>Herramientas</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+    <div class="w3-container">
+        <h2>Transferir Orden a Mesa</h2>
+        <input type="hidden" id="ShouldTransfer" value="" />
+        <ul class="w3-ul w3-card-4 w3-ul w3-hoverable">
+
+            @if (Model != null)
+            {
+                int i = 0;
+                foreach (var Item in Model)
+                {
+                    <li class="w3-bar" id="IDPedidoMesa_@i" onclick="TranferOrderTo(this)">
+                        <img src="img_avatar2.png" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
+                        <div class="w3-bar-item">
+                            <span class="w3-large">Migrar Pedido a Mesa</span><br>
+                            <span>@Item.Nombre</span>
+                        </div>
+                        <input type="hidden" id="IDPedidoMesaID_@i" value="@Item.ID" />
+                        <input type="hidden" id="IDPedidoMesaIDM_@i" value="@Item.IDMesa" />
+                    </li>
+                    i++;
+                }
+            }
+        </ul>
+    </div>
+
+</body>
+</html>
+
+<script>
+    function TranferOrderTo(elem) {
+        var xPed = elem.id;
+        var xIDPed = document.getElementById('IDPedidoMesaID_' + xPed.substring(13));
+        var xDialog = document.getElementById('OrdenaLayout');
+        var xShouldTranfer = document.getElementById('ShouldTransfer');
+        xShouldTranfer.value = "Transfer" + xIDPed.value;
+        xDialog.close();
+    }
+</script>

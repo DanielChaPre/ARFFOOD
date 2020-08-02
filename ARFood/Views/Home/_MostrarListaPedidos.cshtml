@@ -44,12 +44,12 @@
                 }
                 <td>
                     <input type="hidden" id="ICount" value="@i" />
-                    <button class="button button1" onclick="AgregaOrdenAMesa()">+</button>
+                    <button class="button button1" onclick="AgregaOrdenAMesa(this)">+</button>
                 </td>
             </tr>
         </table>
         <br />
-        <input type="text" id="lblOrden" style="background-color:#F06060;font-size:20px"/>
+        <input type="text" id="lblOrden" style="background-color:#F06060;font-size:20px" autocomplete="off" onchange="GuardaNombrePedido(this)"/>
     </div>
 </a>
 
@@ -59,6 +59,7 @@
         btnSaveOrder('StayOnPage');
         var OrderName = document.getElementById('lblOrden');
         OrderName.value = btnOrder.title;
+        OrderName.title = btnOrder.value;
         var IDOrdern = document.getElementById('ID_' + btnOrder.value);
         var IDMesaApartada = document.getElementById('IDM_' + btnOrder.value);
         //alert(IDOrdern.value);
@@ -145,7 +146,26 @@
         });
     }
 
-    function GuardaNombreMesa() {
-
+    function GuardaNombrePedido(elem) {
+        
+        var xName = document.getElementById('lblOrden');
+        var IDOrdern = document.getElementById('ID_' + elem.title);
+        var xParametros = '{ IDDoc: "' + IDOrdern.value + '",  Nombre: "' + xName.value + '" }';
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/Mesero/GuardaNombrePedido',
+            data: xParametros,
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                alert('Exito');
+            },
+            failure: function () {
+                alert('Ocurrió un error al momento de guardar la información');
+            }
+        });
     }
 </script>

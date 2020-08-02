@@ -1,0 +1,60 @@
+﻿@model IList<ARFood.Models.DocPartidas>
+
+
+    <link href="~/Content/Listas.css" rel="stylesheet" type="text/css">
+
+
+    <div id="ListaProd">
+        <table width="100%">
+            <tr>
+                <td width="20%">
+                    <label>Seleccionar Productos a Surtir</label>
+                </td>
+            </tr>>
+            <tr>
+                @if (Model != null)
+                {
+                    <td>
+                        <label></label>
+                    </td>
+                    <td width="90%" align="left">
+                        <ol id="listaCircular">
+                            @foreach (var item in Model)
+                            {
+                                <li>
+                                    <table width="90%">
+                                        <tr>
+                                            <td width="50%">
+                                                @item.Descripcion
+                                                @if (item.Observaciones != null)
+                                                {
+                                                    if (item.Observaciones.Length > 0)
+                                                    {
+                                                        <ol>
+                                                            Comentarios: @item.Observaciones
+                                                        </ol>
+                                                    }
+                                                }
+                                            </td>
+                                            <td width="10%">
+                                                <label></label>
+                                            </td>
+                                            <td width="40%">
+                                                <div class="switch-button">
+                                                    <input class="switch-button__checkbox" id="IDSurtir_@item.IDProd" type="checkbox" />
+                                                    <label class="switch-button__label" for="IDSurtir_@item.IDProd"></label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </li>
+                            }
+                        </ol>
+                    </td>
+                }
+                <td width="20%">
+                    <label></label>
+                </td>
+            </tr>
+        </table>
+    </div>

@@ -495,10 +495,7 @@ namespace ARFood.Controllers
             return Json("Mesa Guardada", JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult SurtePedido()
-        {
-            return PartialView("_SurtePedido");
-        }
+        
 
         public ActionResult About()
         {

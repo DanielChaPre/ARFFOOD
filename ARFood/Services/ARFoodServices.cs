@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Razor;
 using System.Web.UI.WebControls;
@@ -222,6 +223,41 @@ namespace ARFood.Services
             return xReturn;
         }
 
+        public void GuardaTransferPedido(string idPed, string IDMesa)
+        {
+            DateTime fecha = DateTime.Now;
+            DateTime useDate = fecha; ;
+
+            MesasDisponibles NewMesa = new MesasDisponibles();
+            NewMesa.IDMesa = Convert.ToInt32(IDMesa);
+            NewMesa.FechaInicio = fecha;
+            NewMesa.FechaFin = fecha;
+            contex.mesasdisponibles.Add(NewMesa);
+            contex.SaveChanges();
+
+            Guid xID = Guid.Parse(idPed);
+
+            var consulta = from datos in contex.Documentos
+                           where datos.ID == xID
+                           select datos;
+
+
+            Documentos documentos = consulta.FirstOrDefault();
+            documentos.IDMesa = NewMesa.ID;
+            contex.SaveChanges();
+
+            var consultaPartida = from datos in contex.DocPartidas
+                                  where datos.IDDoc == xID
+                                  select datos;
+
+            List<DocPartidas> docPartidas = consultaPartida.ToList();
+            foreach (var xPartida in docPartidas)
+            {
+                xPartida.IDMesa = NewMesa.ID;
+                contex.SaveChanges();
+            }
+        }
+
 
         public List<Documentos> getDocumentos(List<Guid> xID)
         {
@@ -297,6 +333,7 @@ namespace ARFood.Services
             var consulta = from datos in contex.Documentos
                            join Mesasdi in contex.mesasdisponibles on datos.IDMesa equals Mesasdi.ID
                            where Mesasdi.IDMesa == Mesa && datos.Estatus == "A" && (datos.Pago < (datos.Total + datos.IVA) || datos.Total ==0)
+                           orderby datos.Fecha
                            select datos;
             return consulta.ToList();
         }
@@ -328,11 +365,25 @@ namespace ARFood.Services
             contex.SaveChanges();
         }
 
-        public void SaveNombreMesa(string NombreMesa, Guid IDDoc)
+        public void SaveNombreMesa(string IDDoc, string NombreMesa )
         {
-            var consulta = contex.Documentos.Where(x => x.ID == IDDoc).FirstOrDefault();
+            Guid xID = Guid.Parse(IDDoc);
+            var consulta = contex.Documentos.Where(x => x.ID == xID).FirstOrDefault();
             consulta.Nombre = NombreMesa;
             contex.SaveChanges();
+        }
+
+        public void SavePagarOrden(List<Guid> xOrdenes)
+        {
+            var consulta = from datos in contex.Documentos
+                           where xOrdenes.Contains (datos.ID)
+                           select datos;
+            foreach(var Item in consulta)
+            {
+                Item.Estatus = "P";
+                Item.Pago = Item.Total;
+                contex.SaveChanges();
+            }
         }
     }
 }

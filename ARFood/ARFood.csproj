@@ -1031,7 +1031,11 @@
     <Content Include="Views\Mesero\Index.cshtml" />
     <Content Include="Views\Home\_MostrarListaPedidos.cshtml" />
     <Content Include="Views\Mesero\ModalDialog.cshtml" />
-    <Content Include="Views\Home\_SurtePedido.cshtml" />
+    <Content Include="Views\Mesero\_SurtePedido.cshtml" />
+    <Content Include="Views\Mesero\_MostrarListaPedidosASurtir.cshtml" />
+    <Content Include="Views\Mesero\Herramientas.cshtml" />
+    <Content Include="Views\Mesero\_Herramientas.cshtml" />
+    <Content Include="Views\Mesero\_PagarOrdern.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

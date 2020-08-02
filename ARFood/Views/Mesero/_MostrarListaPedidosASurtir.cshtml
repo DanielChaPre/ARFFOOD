@@ -1,0 +1,96 @@
+﻿@model IEnumerable<ARFood.Models.Documentos>
+
+<link href="~/Content/IMGStyle.css" rel="stylesheet" type="text/css">
+<style>
+    .button {
+        background-color: #4CAF50; /* Green */
+        border: none;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 30px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button1 {
+        border-radius: 12px;
+    }
+</style>
+
+<a>
+    <div class="list-group" id="ListaDeOrdenesEnLaMesaASurtir">
+        <table id="tblPedidos">
+            <tr id="TRPedidos">
+                @{int i = 1;}
+                <td>
+                    <h2>Ordenes de la Mesa: @ViewBag.MesasCargadas </h2>
+                </td>
+                @if (Model != null)
+                {
+                    foreach (var Item in Model)
+                    {
+                        <td id="TD_@i">
+                            <div>
+                                <input type="button" class="button button1" onclick="SetOrderNameASurtir(this)" value="@i" title="@Item.Nombre" />
+                                <input type="hidden" id="ID_@i" value="@Item.ID" />
+                                <input type="hidden" id="IDM_@i" value="@Item.IDMesa" />
+                            </div>
+                        </td>
+                        i++;
+                    }
+                }
+            </tr>
+        </table>
+        <br />
+        <input type="text" id="lblOrden" style="background-color:#F06060;font-size:20px" />
+    </div>
+</a>
+
+<script>
+
+    function SetOrderNameASurtir(btnOrder) {
+        
+        var OrderName = document.getElementById('lblOrden');
+        OrderName.value = btnOrder.title;
+        var IDOrdern = document.getElementById('ID_' + btnOrder.value);
+        var IDMesaApartada = document.getElementById('IDM_' + btnOrder.value);
+        
+        var xParametros = '{ IDOrden: "' + IDOrdern.value + '"}';
+        
+
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/home/LlenaSessionInfo',
+            data: xParametros,
+            dataType: "json",
+            contentType: "application/json",
+            success: function (data) {
+                var dataUrl = '/Mesero/SurtePedido';
+                if (IDOrdern.value.length > 0) {
+                    dataUrl+= '?IDOrden=' + IDOrdern.value;
+                }
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: dataUrl,
+                    }).done(function (data) {
+                        //alert('DespliegaPlatillos');
+                        $('#SurtidoDeOrden').html(data);
+                    }).fail(function () {
+                        alert('Error 2');
+                    });
+            },
+            failure: function () {
+                alert('Ocurrió un error al momento de guardar la información');
+            }
+        });
+    }
+
+
+</script>
