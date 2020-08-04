@@ -174,10 +174,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\CocinaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InventariosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeseroController.cs" />
     <Compile Include="Controllers\SalonController.cs" />
@@ -198,6 +196,7 @@
     <Compile Include="Models\DocPartidas.cs" />
     <Compile Include="Models\DocPartidasPersonalizar.cs" />
     <Compile Include="Models\Documentos.cs" />
+    <Compile Include="Models\ESP32.cs" />
     <Compile Include="Models\Estados.cs" />
     <Compile Include="Models\Familias.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -237,6 +236,7 @@
     <Content Include="Content\datepicker.min.css" />
     <Content Include="Content\default.css" />
     <Content Include="Content\DragImg.css" />
+    <Content Include="Content\FlexPanels.css" />
     <Content Include="Content\IMGStyle.css" />
     <Content Include="Content\Listas.css" />
     <Content Include="Content\multilevelmenu.css" />
@@ -1038,16 +1038,13 @@
     <Content Include="Views\Mesero\Herramientas.cshtml" />
     <Content Include="Views\Mesero\_Herramientas.cshtml" />
     <Content Include="Views\Mesero\_PagarOrdern.cshtml" />
-    <Content Include="Views\Clientes\Create.cshtml" />
-    <Content Include="Views\Clientes\Delete.cshtml" />
-    <Content Include="Views\Clientes\Details.cshtml" />
-    <Content Include="Views\Clientes\Edit.cshtml" />
-    <Content Include="Views\Clientes\Index.cshtml" />
-    <Content Include="Views\Inventarios\Create.cshtml" />
-    <Content Include="Views\Inventarios\Delete.cshtml" />
-    <Content Include="Views\Inventarios\Details.cshtml" />
-    <Content Include="Views\Inventarios\Edit.cshtml" />
-    <Content Include="Views\Inventarios\Index.cshtml" />
+    <Content Include="Views\Cocina\Cocinero.cshtml" />
+    <Content Include="Views\Cocina\ListaPedidos.cshtml" />
+    <Content Include="Views\Cocina\_ListaPedidos.cshtml" />
+    <Content Include="Views\Cocina\RecibeESP32.cshtml" />
+    <Content Include="Views\Cocina\VisualizarESP32.cshtml" />
+    <Content Include="Views\Cocina\DatosPedido.cshtml" />
+    <Content Include="Views\Cocina\_DatosPedido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

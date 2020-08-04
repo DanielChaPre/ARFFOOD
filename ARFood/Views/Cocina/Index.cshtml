@@ -1,17 +1,229 @@
-﻿
+﻿@model IEnumerable<ARFood.Models.Documentos>
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    .flex-container {
+        display: flex;
+        flex-wrap: nowrap;
+        background-color: DodgerBlue;
+        height: 85vh;
+        width: 100%;
+    }
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
+    .flex-container1 {
+        background-color: #eac435;
+        width: 180px;
+        margin: 10px;
+        text-align: center;
+        line-height: 75px;
+        font-size: 30px;
+        transition: width 0.5s;
+    }
+
+    .flex-container2 {
+        background-color: #e40066;
+        width: 180px;
+        margin: 10px;
+        text-align: center;
+        line-height: 75px;
+        font-size: 30px;
+        transition: width 0.5s;
+    }
+
+    .flex-container3 {
+        background-color: #03cea4;
+        width: 180px;
+        margin: 10px;
+        text-align: center;
+        line-height: 75px;
+        font-size: 30px;
+        transition: width 0.5s;
+    }
+</style>
+
 <body>
-    <div> 
+    <table>
+        @for (int i = 0; i < 2; i++)
+        {
+            <tr>
+                <td>
+                    <label></label>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td>
+                <input type="hidden" id="PanelActual" value="1" />
+            </td>
+        </tr>
+    </table>
+    <div class="flex-container">
+        <div class="flex-container1" style="width:80%" id="Panel1" >
+            <input type="button" onclick="AbrirPanel(1)" style="background-color:transparent" value="Pedidos" />
+            <div id="ListadePedidosRealizados" style="overflow-y:scroll">
+                @{Html.RenderAction("ListaPedidos");
+                }
+            </div>
+        </div>
+        <div class="flex-container2" style="width:10%" id="Panel2">
+            <input type="button" onclick="AbrirPanel(2)" style="background-color:transparent" value="Datos" />
+        </div>
+        <div class="flex-container3" style="width:10%" id="Panel3">
+            <input type="button" onclick="AbrirPanel(3)" style="background-color:transparent" value="Acción" />
+        </div>
     </div>
 </body>
-</html>
+
+<script>
+    setTimeout("SetAutoTime();", 1000);
+
+    function AbrirPanel(iPanel) {
+        var xPanel = document.getElementById('PanelActual');
+        if (iPanel != xPanel.value) {
+            for (i = 1; i < 4; i++) {
+                var xPanel = document.getElementById('Panel' + i);
+                xclass = document.createAttribute("style");
+                xclass.value = "width: 15%;";
+                xPanel.setAttributeNode(xclass);
+            }
+            xPanel = document.getElementById('Panel' + iPanel);
+            xclass = document.createAttribute("style");
+            xclass.value = "width: 90%;";
+            xPanel.setAttributeNode(xclass);
+            if (iPanel == 1) {
+                CargaPedidos(true);
+            }
+            else {
+                CargaPedidos(false);
+            }
+            xPanel.value = iPanel;
+        }
+    }
+
+    function CargaPedidos(IsRender) {
+        if (IsRender) {
+            $.ajax({
+                type: "POST",
+                url: '/Cocina/ListaPedidos',
+                success: function (data) {
+                    $('#ListadePedidosRealizados').html(data);
+                },
+                failure: function () {
+                    alert('Ocurrió un error al momento de guardar la información');
+                }
+            });
+        }
+        else {
+            $('#ListadePedidosRealizados').html("");
+        }
+    }
+
+    function CerrarPanel() {
+        var xPanel = document.getElementById('Panel2');
+        xclass = document.createAttribute("style");
+        xclass.value = "";
+        xPanel.setAttributeNode(xclass);
+    }
+
+    function SetAutoTime() {
+        momentoActual = new Date();
+        hora = momentoActual.getHours();
+        minuto = momentoActual.getMinutes();
+        segundo = momentoActual.getSeconds();
+        dia = momentoActual.getDate();
+        mes = momentoActual.getMonth() + 1;
+        anio = momentoActual.getFullYear();
+        BuscarMovimientos();
+        setTimeout("SetAutoTime();", 1000);
+    }
+
+    function BuscarMovimientos() {
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/Cocina/VerificaMovimientos',
+            dataType: "json",
+            contentType: "application/json",
+            success: function (dato) {
+                dato.forEach(function (elemento, indice, array) {
+                    var xPanel = document.getElementById('PanelActual');
+                    var iPanel = 1;
+                    if (xPanel.value != null) {
+                        if (xPanel.value.length > 0) {
+                            iPanel = parseInt(xPanel.value);
+                        }
+                    }
+                    if (iPanel < 1) {
+                        iPanel = 1;
+                    }
+                    if (iPanel > 3) {
+                        iPanel = 3;
+                    }
+                    if (iPanel == 1) {
+                        if (elemento == "L") {
+                            iPanel--;
+                            if (iPanel < 1) {
+                                iPanel = 1;
+                            }
+                            AbrirPanel(iPanel);
+                        }
+                        if (elemento == "R") {
+                            iPanel++;
+                            AbrirPanel(iPanel);
+                        }
+                        if (elemento == "U") {
+                            Arriba();
+                        }
+                        if (elemento == "D") {
+                            Abajo();
+                        }
+                        if (elemento == "OK") {
+
+                        }
+                    }
+                    if (iPanel == 2) {
+                        if (elemento == "L") {
+                            iPanel--;
+                            if (iPanel < 1) {
+                                iPanel = 1;
+                            }
+                            if (iPanel > 3) {
+                                iPanel = 3;
+                            }
+                            AbrirPanel(iPanel);
+                        }
+                        if (elemento == "R") {
+                            if (iPanel < 1) {
+                                iPanel = 1;
+                            }
+                            if (iPanel > 3) {
+                                iPanel = 3;
+                            }
+                            iPanel++;
+                            AbrirPanel(iPanel);
+                        }
+                        if (elemento == "U") {
+                            ArribaP();
+                        }
+                        if (elemento == "D") {
+                            AbajoP();
+                        }
+                        if (elemento == "OK") {
+
+                        }
+                    }
+                    xPanel.value = iPanel;
+                });
+            },
+            failure: function () {
+                alert('Ocurrió un error al momento de guardar la información');
+            }
+        });
+    }
+
+</script>

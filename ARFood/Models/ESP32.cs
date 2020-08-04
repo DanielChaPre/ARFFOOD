@@ -7,15 +7,13 @@ using System.Web;
 
 namespace ARFood.Models
 {
-    public class Ingredientes
+    public class ESP32
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public int IDProd { get; set; }
-        public int IDIngrediente { get; set; }
-        public double Cantidad { get; set; }
-        public int IDUM { get; set; }
-        public string Obs { get; set; }
+        public string Texto { get; set; }
+        public DateTime Fecha { get; set; }
+        public int Ya { get; set; }
     }
 }

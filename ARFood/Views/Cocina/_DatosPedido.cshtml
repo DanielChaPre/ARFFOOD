@@ -1,0 +1,77 @@
+﻿
+@model IList<ARFood.Models.Productos>
+
+
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+    <div class="w3-container">
+        <h2>Productos Solicitadas</h2>
+        <input type="hidden" value="Abajo" onclick="Abajo()" />
+        <input type="hidden" value="Arriba" onclick="Arriba()" />
+        <input type="hidden" id="IDProductoSeleccionado" value="0" />
+        <input type="hidden" id="ProductosSolicitadas" value="0" />
+        <ul class="w3-ul w3-card-4 w3-ul w3-hoverable">
+
+            @if (Model != null)
+            {
+                int i = 0;
+                foreach (var Item in Model)
+                {
+                    <li class="w3-bar" id="IDPedidoProducto_@i" onclick="ViewPedidoDetails(this)" style="background-color:aquamarine">
+                        <img src="@Item.Imagen" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
+                        <div class="w3-bar-item">
+                            <span class="w3-large">@Item.Descripcion</span><br>
+                        </div>
+                        <input type="hidden" id="IDPedidoMesaID_@i" value="@Item.ID" />
+                    </li>
+                    i++;
+                }
+                <input type="hidden" id="TotalProductosARealizar" value="@i" />
+            }
+        </ul>
+    </div>
+</body>
+</html>
+
+<script>
+    function AbajoP() {
+        var xOrder = document.getElementById("IDProductoSeleccionado");
+        indice = 0;
+        indice = parseInt(xOrder.value) + 1;
+        var xMax = document.getElementById("TotalProductosARealizar");
+        if (indice > xMax.value) {
+            indice = xMax.value;
+        }
+        xOrder.value = indice;
+        MueveSeleccionP();
+    }
+
+    function ArribaP() {
+        var xOrder = document.getElementById("IDProductoSeleccionado");
+        indice = parseInt(xOrder.value) - 1;
+        if (indice < 0) {
+            indice = 0;
+        }
+        xOrder.value = indice;
+        MueveSeleccionP();
+    }
+
+    function MueveSeleccionP() {
+        var Tope = document.getElementById("TotalProductosARealizar");
+        for (i = 0; i < Tope.value; i++) {
+            var xNodo = document.getElementById("IDPedidoProducto_" + i);
+            xclass = document.createAttribute("style");
+            xclass.value = "background-color:aquamarine;";
+            xNodo.setAttributeNode(xclass);
+        }
+        var xOrder = document.getElementById("IDProductoSeleccionado");
+        var xSel = document.getElementById("IDPedidoProducto_" + xOrder.value);
+        xclass = document.createAttribute("style");
+        xclass.value = "background-color:darkturquoise;";
+        xSel.setAttributeNode(xclass);
+    }
+</script>

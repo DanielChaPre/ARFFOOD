@@ -1,0 +1,38 @@
+﻿@model IEnumerable<ARFood.Models.ESP32>
+
+@{
+    ViewBag.Title = "VisualizarESP32";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>VisualizarESP32</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Texto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ya)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Texto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fecha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ya)
+        </td>
+    </tr>
+}
+
+</table>

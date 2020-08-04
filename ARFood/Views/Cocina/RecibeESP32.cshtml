@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "RecibeESP32";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Esperando Información</h2>
+
+@if (ViewBag.Datos != null)
+{
+    <label>@ViewBag.Datos</label>
+}
+else
+{
+    <label>No valor recibido</label>
+}

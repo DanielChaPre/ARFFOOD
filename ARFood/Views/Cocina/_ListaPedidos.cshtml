@@ -1,0 +1,77 @@
+﻿@model IEnumerable<ARFood.Models.Documentos>
+
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+    <div class="w3-container">
+        <h2>Ordenes Solicitadas</h2>
+        <input type="hidden" value="Abajo" onclick="Abajo()" />
+        <input type="hidden" value="Arriba" onclick="Arriba()" />
+        <input type="hidden" id="IDOrdenSeleccionada" value="0"/>
+        <input type="hidden" id="OrdenesSolicitadas" value="0" />
+        <ul class="w3-ul w3-card-4 w3-ul w3-hoverable">
+
+            @if (Model != null)
+            {
+                int i = 0;
+                foreach (var Item in Model)
+                {
+                    <li class="w3-bar" id="IDPedido_@i" onclick="ViewPedidoDetails(this)" style="background-color:aquamarine">
+                        <img src="img_avatar2.png" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
+                        <div class="w3-bar-item">
+                            <span class="w3-large">@Item.Nombre</span><br>
+                        </div>
+                        <input type="hidden" id="IDPedidoMesaID_@i" value="@Item.ID" />
+                        <input type="hidden" id="IDPedidoMesaIDM_@i" value="@Item.IDMesa" />
+                    </li>
+                    i++;
+                }
+                <input type="hidden" id="TotalPedidosARealizar" value="@i" />
+            }
+        </ul>
+    </div>
+
+</body>
+</html>
+
+<script>
+    function Abajo() {
+        var xOrder = document.getElementById("IDOrdenSeleccionada");
+        indice = 0;
+        indice = parseInt(xOrder.value) + 1;
+        var xMax = document.getElementById("TotalPedidosARealizar");
+        if (indice > xMax.value) {
+            indice = xMax.value;
+        }
+        xOrder.value = indice;
+        MueveSeleccion();
+    }
+
+    function Arriba() {
+        var xOrder = document.getElementById("IDOrdenSeleccionada");
+        indice = parseInt(xOrder.value) - 1;
+        if (indice < 0) {
+            indice = 0;
+        }
+        xOrder.value = indice;
+        MueveSeleccion();
+    }
+
+    function MueveSeleccion() {
+        var Tope = document.getElementById("TotalPedidosARealizar");
+        for (i = 0; i < Tope.value; i++) {
+            var xNodo = document.getElementById("IDPedido_" + i);
+            xclass = document.createAttribute("style");
+            xclass.value = "background-color:aquamarine;";
+            xNodo.setAttributeNode(xclass);
+        }
+        var xOrder = document.getElementById("IDOrdenSeleccionada");
+        var xSel = document.getElementById("IDPedido_" + xOrder.value);
+        xclass = document.createAttribute("style");
+        xclass.value = "background-color:darkturquoise;";
+        xSel.setAttributeNode(xclass);
+    }
+</script>
