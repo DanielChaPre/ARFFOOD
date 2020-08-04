@@ -25,7 +25,7 @@ namespace ARFood.Services
         }
         public List<Productos> GetProductos(int Familia)
         {
-            if (Familia >0 )
+            if (Familia > 0)
             {
                 var consulta = from datos in contex.Productos
                                where Familia.Equals(datos.Familia)
@@ -40,14 +40,14 @@ namespace ARFood.Services
             var consulta = from datos in contex.Productos
                            where Productos.Contains(datos.ID)
                            select datos;
-                           //{
-                           //    ID = datos.ID,
-                           //    Producto = datos.Producto,
-                           //    Descripcion = datos.Descripcion,
-                           //    Cantidad = datos.Cantidad,
-                           //    Precio = datos.Precio,
-                           //    IVA = datos.IVA
-                           //};
+            //{
+            //    ID = datos.ID,
+            //    Producto = datos.Producto,
+            //    Descripcion = datos.Descripcion,
+            //    Cantidad = datos.Cantidad,
+            //    Precio = datos.Precio,
+            //    IVA = datos.IVA
+            //};
             return consulta.ToList();
 
         }
@@ -61,7 +61,7 @@ namespace ARFood.Services
             return consulta.ToList();
         }
 
-        public string GuardaPedido(List<ProductosPedidos> productos, int IDCliente,  int IDUser, double subTotal, string hasDate, string IDDocumento, string IDMesa)
+        public string GuardaPedido(List<ProductosPedidos> productos, int IDCliente, int IDUser, double subTotal, string hasDate, string IDDocumento, string IDMesa)
         {
             string SeGuardo = "Error al Guardar, favor de intentarlo de nuevo";
             bool NewElement = true;
@@ -94,7 +94,7 @@ namespace ARFood.Services
             documentos.ID = xID;
             documentos.IDCliente = IDCliente;
             documentos.IDTipo = 1;
-            documentos.IDMesa = IDMesa != null? Convert.ToInt32(IDMesa) : 0;
+            documentos.IDMesa = IDMesa != null ? Convert.ToInt32(IDMesa) : 0;
             documentos.Observaciones = "";
             documentos.Fecha = fecha;
             documentos.FechaEntrega = useDate;
@@ -131,7 +131,7 @@ namespace ARFood.Services
                     xdocPartidas.Cantidad = xPedido.Cantidad;
                     xdocPartidas.Surtido = xPedido.Surtido > 0 ? xPedido.Surtido : 0;
                     xdocPartidas.UnidadMedida = xPedido.UnidadMedida;
-                    xdocPartidas.Observaciones = xPedido.Observaciones != null ? xPedido.Observaciones : "" ;
+                    xdocPartidas.Observaciones = xPedido.Observaciones != null ? xPedido.Observaciones : "";
                     xdocPartidas.Precio = xPedido.Precio;
                     xdocPartidas.IVA = xPedido.IVA;
                 }
@@ -183,18 +183,18 @@ namespace ARFood.Services
                 }
                 xPartida++;
             }
-            return "GUID:" + xID.ToString() ;
+            return "GUID:" + xID.ToString();
         }
 
-        public List< string> GuardaNewBlankPedido(int IDCliente, int IDUser, string IDMesa)
+        public List<string> GuardaNewBlankPedido(int IDCliente, int IDUser, string IDMesa)
         {
             string SeGuardo = "Error al Guardar, favor de intentarlo de nuevo";
-            
+
             DateTime fecha = DateTime.Now;
             DateTime useDate = fecha; ;
 
             MesasDisponibles NewMesa = new MesasDisponibles();
-            NewMesa.IDMesa = Convert.ToInt32( IDMesa);
+            NewMesa.IDMesa = Convert.ToInt32(IDMesa);
             NewMesa.FechaInicio = fecha;
             NewMesa.FechaFin = fecha;
             contex.mesasdisponibles.Add(NewMesa);
@@ -217,9 +217,9 @@ namespace ARFood.Services
             documentos.Estatus = "A";
             contex.Documentos.Add(documentos);
             contex.SaveChanges();
-            List<string> xReturn = new List<string>();    
-            xReturn.Add( xID.ToString());
-            xReturn.Add( NewMesa.ID.ToString());
+            List<string> xReturn = new List<string>();
+            xReturn.Add(xID.ToString());
+            xReturn.Add(NewMesa.ID.ToString());
             return xReturn;
         }
 
@@ -261,26 +261,26 @@ namespace ARFood.Services
 
         public List<Documentos> getDocumentos(List<Guid> xID)
         {
-//                Guid xID = Guid.Parse(IDDoc);
+            //                Guid xID = Guid.Parse(IDDoc);
             var consulta = from datos in contex.Documentos
-                            where xID.Contains( datos.ID) 
-                            select datos;
+                           where xID.Contains(datos.ID)
+                           select datos;
             return consulta.ToList();
         }
 
         public List<DocPartidas> getDocumentosPartidas(List<Guid> xID)
         {
             var consulta = from datos in contex.DocPartidas
-                            where xID.Contains( datos.IDDoc) 
-                            select datos;
+                           where xID.Contains(datos.IDDoc)
+                           select datos;
             return consulta.ToList();
         }
 
         public List<DocPartidasPersonalizar> getDocumentosPartidasPersonalizar(List<Guid> xID)
         {
             var consulta = from datos in contex.docPartidasPersonalizars
-                            where xID.Contains( datos.IDDoc)
-                            select datos;
+                           where xID.Contains(datos.IDDoc)
+                           select datos;
             return consulta.ToList();
         }
 
@@ -332,7 +332,17 @@ namespace ARFood.Services
         {
             var consulta = from datos in contex.Documentos
                            join Mesasdi in contex.mesasdisponibles on datos.IDMesa equals Mesasdi.ID
-                           where Mesasdi.IDMesa == Mesa && datos.Estatus == "A" && (datos.Pago < (datos.Total + datos.IVA) || datos.Total ==0)
+                           where Mesasdi.IDMesa == Mesa && datos.Estatus == "A" && (datos.Pago < (datos.Total + datos.IVA) || datos.Total == 0)
+                           orderby datos.Fecha
+                           select datos;
+            return consulta.ToList();
+        }
+
+        public List<Documentos> GetAllOrdenesxMesa()
+        {
+            var consulta = from datos in contex.Documentos
+                           join Mesasdi in contex.mesasdisponibles on datos.IDMesa equals Mesasdi.ID
+                           where datos.Estatus == "A" && (datos.Pago < (datos.Total + datos.IVA) || datos.Total == 0)
                            orderby datos.Fecha
                            select datos;
             return consulta.ToList();
@@ -365,7 +375,7 @@ namespace ARFood.Services
             contex.SaveChanges();
         }
 
-        public void SaveNombreMesa(string IDDoc, string NombreMesa )
+        public void SaveNombreMesa(string IDDoc, string NombreMesa)
         {
             Guid xID = Guid.Parse(IDDoc);
             var consulta = contex.Documentos.Where(x => x.ID == xID).FirstOrDefault();
@@ -376,14 +386,32 @@ namespace ARFood.Services
         public void SavePagarOrden(List<Guid> xOrdenes)
         {
             var consulta = from datos in contex.Documentos
-                           where xOrdenes.Contains (datos.ID)
+                           where xOrdenes.Contains(datos.ID)
                            select datos;
-            foreach(var Item in consulta)
+            foreach (var Item in consulta)
             {
                 Item.Estatus = "P";
                 Item.Pago = Item.Total;
                 contex.SaveChanges();
             }
+        }
+
+        public void EntradaESP32(string Datos)
+        {
+            ESP32 eSP = new ESP32();
+            eSP.Texto = Datos;
+            eSP.Fecha = DateTime.Now;
+            contex.esp32.Add(eSP);
+            contex.SaveChanges();
+        }
+
+        public List<ESP32> VusualizaEntradasESP32(bool OnlyNews)
+        {
+            if (OnlyNews)
+            {
+
+            }
+            return contex.esp32.ToList();
         }
     }
 }
