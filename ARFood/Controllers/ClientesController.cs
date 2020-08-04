@@ -17,7 +17,7 @@ namespace ARFood.Controllers
         // GET: Clientes
         public ActionResult Index()
         {
-            try
+            try 
             {
                 return View(db.Clientes.ToList());
             }
