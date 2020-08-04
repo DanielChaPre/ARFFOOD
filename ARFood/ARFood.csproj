@@ -174,8 +174,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\CocinaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventariosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MeseroController.cs" />
     <Compile Include="Controllers\SalonController.cs" />
@@ -1036,6 +1038,16 @@
     <Content Include="Views\Mesero\Herramientas.cshtml" />
     <Content Include="Views\Mesero\_Herramientas.cshtml" />
     <Content Include="Views\Mesero\_PagarOrdern.cshtml" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
+    <Content Include="Views\Inventarios\Create.cshtml" />
+    <Content Include="Views\Inventarios\Delete.cshtml" />
+    <Content Include="Views\Inventarios\Details.cshtml" />
+    <Content Include="Views\Inventarios\Edit.cshtml" />
+    <Content Include="Views\Inventarios\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<ARFood.Models.Clientes>
+
+@{
+    ViewBag.Title = "";
+}
+<br />
+<br />
+<h2>Clientes</h2>
+<p>
+    @Html.ActionLink("Registrar", "Create")
+</p>
+<table class="table ">
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RFC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RazonSocial)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Calle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cuidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Localidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tel1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tel2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Correo)
+            </th>
+            <th>
+                @Html.Label("Editar")
+            </th>
+            <th>
+                @Html.Label("Detalle")
+            </th>
+            <th>
+                @Html.Label("Eliminar")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model)
+    {
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RFC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RazonSocial)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Calle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cuidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Localidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tel1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tel2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Correo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+            </td>
+            <td>
+                @Html.ActionLink("Detalle", "Details", new { id = item.ID })
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    </tbody>
+            }
+
+    </table>

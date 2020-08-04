@@ -1,0 +1,114 @@
+﻿@model ARFood.Models.Clientes
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Clientes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RFC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RFC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RazonSocial)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RazonSocial)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Calle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Calle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cuidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cuidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Localidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Localidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tel1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tel1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tel2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tel2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Correo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Correo)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

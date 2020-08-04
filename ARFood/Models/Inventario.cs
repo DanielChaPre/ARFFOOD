@@ -11,6 +11,7 @@ namespace ARFood.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int ID { get; set; }
         public int IDAlm { get; set; }
         public int IDProd { get; set; }

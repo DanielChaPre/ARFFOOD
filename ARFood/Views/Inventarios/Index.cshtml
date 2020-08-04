@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ARFood.Models.Inventario>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<br />
+<br />
+<h2>Inventario</h2>
+
+<p>
+    @Html.ActionLink("Registrar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDAlm)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IDProd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entradas)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salidad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Existencias)
+        </th>
+        <th>
+            @Html.Label("Editar")
+        </th>
+        <th>
+            @Html.Label("Detalle")
+        </th>
+        <th>
+            @Html.Label("Eliminar")
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDAlm)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDProd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Entradas)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Salidad)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Existencias)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.ID })
+        </td>
+        <td>
+            @Html.ActionLink("Detalle", "Details", new { id = item.ID })
+        </td>
+        <td>
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.ID })
+        </td>
+    </tr>
+}
+
+</table>

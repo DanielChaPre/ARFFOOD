@@ -1,0 +1,58 @@
+﻿@model ARFood.Models.Inventario
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Inventario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IDAlm)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDAlm)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IDProd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IDProd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entradas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entradas)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Salidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Salidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Existencias)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Existencias)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
