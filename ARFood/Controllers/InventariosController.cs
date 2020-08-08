@@ -20,6 +20,7 @@ namespace ARFood.Controllers
             return View(db.inventarios.ToList());
         }
 
+
         // GET: Inventarios/Details/5
         public ActionResult Details(int? id) 
         {
