@@ -270,6 +270,10 @@ namespace ARFood.Controllers
             {
                 id = 1;
             }
+            if (HasDate != null)
+            {
+                DateTime xDate;
+            }
             ListadoPlatillos = Session["ListadoPlatillos"] as List<ProductosPedidos>;
             string idOrden = "";
             string IDMesa = "";
@@ -277,9 +281,10 @@ namespace ARFood.Controllers
             {
                 idOrden = Session["IDOrden"].ToString();
             }
-            if (Session["IDMesaApartada"] != null)
+            if (Session["MesasSeleccionadas"] != null)
             {
-                IDMesa = Session["IDMesaApartada"].ToString();
+                List<string> xMesas = Session["MesasSeleccionadas"] as List<string>;
+                IDMesa = xMesas[0].Substring(2);
             }
             string xResult = ARService.GuardaPedido(ListadoPlatillos, id, Convert.ToInt32(Session["IDEmpleado"]), Convert.ToDouble(Session["SubTotal"]), HasDate, idOrden, IDMesa );
             if (xResult.Contains("GUID:"))

@@ -26,8 +26,8 @@ namespace ARFood.Controllers
 
         public ActionResult ListaPedidos()
         {
-            List<Documentos> PedidosDoc = ARService.GetAllOrdenesxMesa();
-            return PartialView("_ListaPedidos", PedidosDoc);
+            CocineroData xCheft = ARService.GetAllOrdenesxMesa();
+            return PartialView("_ListaPedidos", xCheft);
         }
 
         public ActionResult DatosPedido()
@@ -45,16 +45,16 @@ namespace ARFood.Controllers
             return View();
         }
 
-        public ActionResult RecibeESP32(string Datos)
+        public ActionResult RecibeESP32(string Dato)
         {
-            if (Datos != null)
+            if (Dato != null)
             {
-                if (Datos.Length > 0)
+                if (Dato.Length > 0)
                 {
-                    ARService.EntradaESP32(Datos);
+                    ARService.EntradaESP32(Dato);
                 }
             }
-            ViewBag.Dato = Datos;
+            ViewBag.Dato = Dato;
             return View();
         }
 

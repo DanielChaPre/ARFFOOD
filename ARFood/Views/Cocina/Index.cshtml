@@ -56,14 +56,14 @@
         }
         <tr>
             <td>
-                <input type="hidden" id="PanelActual" value="1" />
+                <input type="text" id="PanelActual" value="1" />
             </td>
         </tr>
     </table>
     <div class="flex-container">
         <div class="flex-container1" style="width:80%" id="Panel1" >
             <input type="button" onclick="AbrirPanel(1)" style="background-color:transparent" value="Pedidos" />
-            <div id="ListadePedidosRealizados" style="overflow-y:scroll">
+            <div id="ListadePedidosRealizados" style="overflow-y:scroll;height:650px">
                 @{Html.RenderAction("ListaPedidos");
                 }
             </div>

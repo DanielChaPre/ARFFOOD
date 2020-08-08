@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ARFood.Models.Documentos>
+﻿@model ARFood.Models.CocineroData
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +7,6 @@
 <body>
 
     <div class="w3-container">
-        <h2>Ordenes Solicitadas</h2>
         <input type="hidden" value="Abajo" onclick="Abajo()" />
         <input type="hidden" value="Arriba" onclick="Arriba()" />
         <input type="hidden" id="IDOrdenSeleccionada" value="0"/>
@@ -17,15 +16,34 @@
             @if (Model != null)
             {
                 int i = 0;
-                foreach (var Item in Model)
+                foreach (var ItemDoc in Model.GetDocumentos)
                 {
+                    int f = 0;
                     <li class="w3-bar" id="IDPedido_@i" onclick="ViewPedidoDetails(this)" style="background-color:aquamarine">
-                        <img src="img_avatar2.png" class="w3-bar-item w3-circle w3-hide-small" style="width:85px">
-                        <div class="w3-bar-item">
-                            <span class="w3-large">@Item.Nombre</span><br>
+                        <div class="w3-bar-item" style="border-style:inset">
+                            <span class="w3-large">
+                                @ItemDoc.Nombre
+                            </span>
+                            <div>
+                                @foreach (var ItemPartida in Model.GetDocPartidas)
+                                {
+                                    string IDPartidaxPedido = i.ToString() + "_" + f.ToString();
+                                    string xFoto = Model.GetProductos.Where(x => x.ID == ItemPartida.IDProd).FirstOrDefault().Imagen;
+                                    f++;
+                                    if (xFoto.Length < 1)
+                                    {
+                                        xFoto = "~/IMG/ARFood/Logo.jpeg";
+                                    }
+                                    <div class="w3-bar">
+                                        <img src="@Url.Content(xFoto)" class="w3-bar-item" style="width:200px;height:200px" />
+                                        <span class="w3-bar-item">@ItemPartida.Descripcion</span>
+                                        <input type="hidden" id="IDPedidoMesaID_@IDPartidaxPedido" value="@ItemPartida.IDProd" />
+                                    </div>
+                                }
+                            </div>
                         </div>
-                        <input type="hidden" id="IDPedidoMesaID_@i" value="@Item.ID" />
-                        <input type="hidden" id="IDPedidoMesaIDM_@i" value="@Item.IDMesa" />
+                        <input type="hidden" id="IDPedidoMesaID_@i" value="@ItemDoc.ID" />
+                        <input type="hidden" id="IDPedidoMesaIDM_@i" value="@ItemDoc.IDMesa" />
                     </li>
                     i++;
                 }

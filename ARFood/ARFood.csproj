@@ -191,6 +191,7 @@
     <Compile Include="Models\Almacenes.cs" />
     <Compile Include="Models\CalendarioMenu.cs" />
     <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\CocineroData.cs" />
     <Compile Include="Models\Colonias.cs" />
     <Compile Include="Models\CP.cs" />
     <Compile Include="Models\DocPartidas.cs" />

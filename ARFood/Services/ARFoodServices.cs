@@ -79,8 +79,20 @@ namespace ARFood.Services
                     {
                         return "Sólo se puede programar con al menos 15 minutos de diferencia";
                     }
+                    useDate = useDate.AddMinutes(-90);
                 }
             }
+
+            MesasDisponibles NewMesa = new MesasDisponibles();
+            if (IDMesa != null)
+            {
+                NewMesa.IDMesa = Convert.ToInt32(IDMesa);
+                NewMesa.FechaInicio = fecha;
+                NewMesa.FechaFin = fecha;
+                contex.mesasdisponibles.Add(NewMesa);
+                contex.SaveChanges();
+            }
+
             Guid xID = Guid.NewGuid();
             Documentos documentos = new Documentos();
             if (IDDocumento != null)
@@ -94,7 +106,7 @@ namespace ARFood.Services
             documentos.ID = xID;
             documentos.IDCliente = IDCliente;
             documentos.IDTipo = 1;
-            documentos.IDMesa = IDMesa != null ? Convert.ToInt32(IDMesa) : 0;
+            documentos.IDMesa = IDMesa != null ? NewMesa.ID : 0;
             documentos.Observaciones = "";
             documentos.Fecha = fecha;
             documentos.FechaEntrega = useDate;
@@ -107,6 +119,9 @@ namespace ARFood.Services
                 contex.Documentos.Add(documentos);
             }
             contex.SaveChanges();
+
+            
+
             int xPartida = 1;
             foreach (ProductosPedidos xPedido in productos)
             {
@@ -338,14 +353,44 @@ namespace ARFood.Services
             return consulta.ToList();
         }
 
-        public List<Documentos> GetAllOrdenesxMesa()
+        public CocineroData GetAllOrdenesxMesa()
         {
-            var consulta = from datos in contex.Documentos
-                           join Mesasdi in contex.mesasdisponibles on datos.IDMesa equals Mesasdi.ID
-                           where datos.Estatus == "A" && (datos.Pago < (datos.Total + datos.IVA) || datos.Total == 0)
-                           orderby datos.Fecha
+            CocineroData tempCocinero = new CocineroData();
+
+            var cDatos = from datos in contex.Documentos
+                           where datos.Estatus == "A" && datos.IDMesa > 0
                            select datos;
-            return consulta.ToList();
+
+            tempCocinero.GetDocumentos = cDatos.ToList();
+            List<string> xGuid = new List<string>();
+            List<string> IDProd = new List<string>();
+            foreach (var itemDoc in tempCocinero.GetDocumentos)
+            {
+                xGuid.Add(itemDoc.ID.ToString());
+            }
+
+            var cDPartida = from datos in contex.DocPartidas
+                            where xGuid.Contains(datos.IDDoc.ToString())
+                            select datos;
+
+            tempCocinero.GetDocPartidas = cDPartida.ToList();
+            foreach (var ItemPartida in tempCocinero.GetDocPartidas)
+            {
+                IDProd.Add(ItemPartida.IDProd.ToString());
+            }
+
+            var cProductos = from datos in contex.Productos
+                             where IDProd.Contains(datos.ID.ToString())
+                             select datos;
+
+            tempCocinero.GetProductos = cProductos.ToList();
+            foreach(var ItemProd in tempCocinero.GetProductos)
+            {
+
+            }
+
+
+            return tempCocinero;
         }
 
         public void SaveAgregaOrdenAMesa(int Mesa)
