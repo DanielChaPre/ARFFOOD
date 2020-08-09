@@ -206,6 +206,7 @@
     <Compile Include="Models\Ingredientes.cs" />
     <Compile Include="Models\IngredientesxReceta.cs" />
     <Compile Include="Models\Inventario.cs" />
+    <Compile Include="Models\LED.cs" />
     <Compile Include="Models\Localidades.cs" />
     <Compile Include="Models\Lotes.cs" />
     <Compile Include="Models\LotesInv.cs" />
@@ -870,6 +871,9 @@
     <Content Include="IMG\refrescos\ZUMO3.jpg" />
     <Content Include="IMG\refrescos\zumo4.jpg" />
     <Content Include="IMG\refrescos\ZUMO_DE_MELOCOTON.jpg" />
+    <Content Include="IMG\Salon\MesaRedondajpg.jpg" />
+    <Content Include="IMG\Salon\Rectangular.jpg" />
+    <Content Include="IMG\Salon\Redonda.jpg" />
     <Content Include="IMG\Salon\r_Blue.jpg" />
     <Content Include="IMG\Salon\r_gris.png" />
     <Content Include="IMG\Salon\r_red.jpg" />
@@ -1058,6 +1062,10 @@
     <Content Include="Views\Inventarios\Details.cshtml" />
     <Content Include="Views\Inventarios\Edit.cshtml" />
     <Content Include="Views\Inventarios\Index.cshtml" />
+    <Content Include="Views\Salon\Banquetes.cshtml" />
+    <Content Include="Views\Cocina\PrendeLED.cshtml" />
+    <Content Include="Views\Cocina\_LEDs.cshtml" />
+    <Content Include="Views\Cocina\PrendeLEDs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

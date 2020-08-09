@@ -84,5 +84,75 @@ namespace ARFood.Controllers
 
             return Json(xtemp, JsonRequestBehavior.AllowGet);
         }
+
+
+        public ActionResult PrendeLED()
+        {
+            //List<string> xLEDs = new List<string>();
+            //xLEDs.Add (LED1 != null ? LED1 : "N");
+            //xLEDs.Add(LED2 != null ? LED2 : "N");
+            //xLEDs.Add(LED3 != null ? LED3 : "N");
+            //xLEDs.Add(LED4 != null ? LED4 : "N");
+            //xLEDs.Add(LED5 != null ? LED5 : "N");
+            //xLEDs.Add(LED6 != null ? LED6 : "N");
+            //ARService.SaveLEDs(xLEDs);
+
+            return View();
+        }
+
+        public ActionResult LEDs()
+        {
+            return Redirect("http://192.168.0.37/VVVRRR");
+            //return PartialView("_LEDs");
+        }
+
+        [WebMethod]
+        public ActionResult WebLED()
+        {
+            return Json(new { url = "http://192.168.0.37/VVVRRR" });
+            //return Redirect("http://www.google.com");
+        }
+
+        [WebMethod]
+        public JsonResult GuardaLED(List<string> sLEDs)
+        {
+            if (sLEDs != null)
+            {
+                List<string> xLEDs = new List<string>();
+                for (int i = 0; i < sLEDs.Count; i++)
+                {
+                    xLEDs.Add(sLEDs[i].ToString());
+                }
+                ARService.SaveLEDs(xLEDs);
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult PrendeLEDs()
+        {
+            return View();
+        }
+
+        [WebMethod]
+        public JsonResult VerificaLEDs()
+        {
+            ApplicationDbContext xAR = new ApplicationDbContext();
+            var consulta = from datos in xAR.LEDs
+                           orderby datos.ID
+                           select datos;
+
+            List<LED> xLED = consulta.ToList();
+
+            string xtemp = "http://192.168.0.37/";
+            if (xLED.Count > 0)
+            {
+                foreach(LED item in xLED)
+                {
+                    xtemp += item.Estado;
+                }
+            }
+
+            return Json(xtemp, JsonRequestBehavior.AllowGet);
+        }
     }
 }

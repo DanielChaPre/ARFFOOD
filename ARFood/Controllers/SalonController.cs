@@ -131,5 +131,10 @@ namespace ARFood.Controllers
             }
             return Json(xResult, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult Banquetes()
+        {
+            return View();
+        }
     }
 }

@@ -59,5 +59,6 @@ namespace ARFood.Models
         public DbSet<Salon> salons { get; set; }
         public DbSet<MesasDisponibles> mesasdisponibles { get; set; }
         public DbSet<ESP32> esp32 { get; set; }
+        public DbSet<LED> LEDs { get; set; }
     }
 }

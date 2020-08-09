@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "PrendeLEDs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PrendeLEDs</h2>
+
+<iframe id="ILEDS"></iframe>
+
+<script>
+    setTimeout("SetAutoTime();", 500);
+
+    function SetAutoTime() {
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/Cocina/VerificaLEDs',
+            dataType: "json",
+            contentType: "application/json",
+            success: function (dato) {
+                var xLed = document.getElementById('ILEDS');
+                xLed.src = dato;
+            },
+            failure: function () {
+                alert('Ocurrió un error al momento de guardar la información');
+            }
+        });
+        setTimeout("SetAutoTime();", 500);
+    }
+</script>

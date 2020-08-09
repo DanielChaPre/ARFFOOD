@@ -1,0 +1,254 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="~/Scripts/konva.min.js"></script>
+    <meta charset="utf-8" />
+    <title>Konva Image Resize Demo</title>
+    <style>
+        #elemento {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            background-image: url(../../IMG/Salon/Salon1.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <table>
+                    <tr>
+                        <td>
+                            <input id="NewElement" type="button" onclick="NewElemento()" value="Agregar mesa a layout" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input id="SaveSalon" type="button" onclick="GetValues()" value="Guardar Salon" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <div id="elemento">
+                    <div id="container">
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
+
+
+<script>
+    var width = window.innerWidth;
+    var height = window.innerHeight;
+
+    function NewElemento() {
+        xElement = ElementoNuevo.length;
+
+        ElementoImg[xElement] = new Konva.Image({
+            width: 50,
+            height: 30,
+            opacity: 0.5,
+        });
+
+
+        ctext[xElement] = new Konva.Text({
+            x: 10,
+            y: 10,
+            text: xElement + 1,
+            align: "center",
+            fontSize: 40,
+            fontFamily: 'Calibri',
+            fill: 'green'
+        });
+//        ElementoImg[xElement].globalAlpha = 0.2;
+
+        ElementArray[ElementoImg[xElement]._id] = xElement;
+
+        imageObj3[xElement] = new Image();
+        imageObj3[xElement].onload = function () {
+            ElementoImg[xElement].image(imageObj3[xElement]);
+            layer.draw();
+        };
+        //imageObj3[xElement].src = '/IMG/Objetos/espana.gif';
+        imageObj3[xElement].src = '/IMG/Salon/r_gris.png';
+
+        ElementoNuevo[xElement] = new Konva.Group({
+            x: 180,
+            y: 50,
+            draggable: true,
+            globalAlpha: 0.2,
+        });
+
+
+        //alert(ElementoNuevo[xElement]._id);
+
+        layer.add(ElementoNuevo[xElement]);
+        ElementoNuevo[xElement].add(ElementoImg[xElement]);
+        ElementoNuevo[xElement].add(ctext[xElement]);
+        addAnchor(ElementoNuevo[xElement], 0, 0, 'topLeft');
+        addAnchor(ElementoNuevo[xElement], 50, 0, 'topRight');
+        addAnchor(ElementoNuevo[xElement], 50, 30, 'bottomRight');
+        addAnchor(ElementoNuevo[xElement], 0, 30, 'bottomLeft');
+
+
+            //addAnchor(yodaGroup, 0, 0, 'topLeft');
+    //addAnchor(yodaGroup, 93, 0, 'topRight');
+    //addAnchor(yodaGroup, 93, 104, 'bottomRight');
+    //addAnchor(yodaGroup, 0, 104, 'bottomLeft');
+
+        ElementoNuevo[xElement].on('click', function (event) {
+            //alert(Object.keys(event.target));
+            //alert(event.target._id);
+            //xElement = ElementArray[event.target._id];
+            //if (xElement == 1) {
+            //    imageObj3[xElement].src = '/IMG/Salon/r_blue.jpg';
+            //}
+            //if (xElement == 2) {
+            //    imageObj3[xElement].src = '/IMG/Salon/r_red.jpg';
+            //}
+            //alert(ElementoNuevo[xElement].getX());
+        });
+
+
+    }
+
+
+
+    function GetValues() {
+        xElement = ElementoNuevo.length;
+        strResult = "";
+        for (i = 0; i < xElement; i++) {
+            strResult = strResult + "\n" + i + " " + ElementoNuevo[i].getX() + "-" + ElementoNuevo[i].getY();
+        }
+        alert(strResult);
+    }
+
+    function update(activeAnchor) {
+        var group = activeAnchor.getParent();
+
+        var topLeft = group.get('.topLeft')[0];
+        var topRight = group.get('.topRight')[0];
+        var bottomRight = group.get('.bottomRight')[0];
+        var bottomLeft = group.get('.bottomLeft')[0];
+        var image = group.get('Image')[0];
+
+        var anchorX = activeAnchor.getX();
+        var anchorY = activeAnchor.getY();
+
+        // update anchor positions
+        switch (activeAnchor.getName()) {
+            case 'topLeft':
+                topRight.y(anchorY);
+                bottomLeft.x(anchorX);
+                break;
+            case 'topRight':
+                topLeft.y(anchorY);
+                bottomRight.x(anchorX);
+                break;
+            case 'bottomRight':
+                bottomLeft.y(anchorY);
+                topRight.x(anchorX);
+                break;
+            case 'bottomLeft':
+                bottomRight.y(anchorY);
+                topLeft.x(anchorX);
+                break;
+        }
+
+        image.position(topLeft.position());
+
+        var width = topRight.getX() - topLeft.getX();
+        var height = bottomLeft.getY() - topLeft.getY();
+        if (width && height) {
+            image.width(width);
+            image.height(height);
+            //ctext.width(width);
+            //ctext.height(height);
+        }
+    }
+    function addAnchor(group, x, y, name) {
+        var stage = group.getStage();
+        var layer = group.getLayer();
+
+        var anchor = new Konva.Circle({
+            x: x,
+            y: y,
+            stroke: '#666',
+            fill: '#ddd',
+            strokeWidth: 2,
+            radius: 8,
+            name: name,
+            draggable: true,
+            dragOnTop: false,
+        });
+
+        anchor.on('dragmove', function () {
+            update(this);
+            layer.draw();
+        });
+        anchor.on('mousedown touchstart', function () {
+            group.draggable(false);
+            this.moveToTop();
+        });
+        anchor.on('dragend', function () {
+            group.draggable(true);
+            layer.draw();
+        });
+        // add hover styling
+        anchor.on('mouseover', function () {
+            var layer = this.getLayer();
+            document.body.style.cursor = 'pointer';
+            this.strokeWidth(4);
+            layer.draw();
+        });
+        anchor.on('mouseout', function () {
+            var layer = this.getLayer();
+            document.body.style.cursor = 'default';
+            this.strokeWidth(2);
+            layer.draw();;
+        });
+
+        group.add(anchor);
+    }
+
+    var stage = new Konva.Stage({
+        container: 'container',
+        width: width,
+        height: height,
+    });
+
+    var layer = new Konva.Layer();
+    stage.add(layer);
+
+     darth vader
+    var darthVaderImg = new Konva.Image({
+        width: 200,
+        height: 137,
+    });
+
+    //// yoda
+    //var yodaImg = new Konva.Image({
+    //    width: 93,
+    //    height: 104,
+    //});
+
+    var ElementoImg = [];
+
+    var ElementoNuevo = [];
+
+    var ElementArray = [];
+
+    var ctext = [];
+
+    var imageObj3 = [];

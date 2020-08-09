@@ -6,9 +6,11 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
+using System.Web.Configuration;
 using System.Web.Razor;
 using System.Web.UI.WebControls;
 using System.Windows.Markup;
+using System.Xml.Schema;
 
 namespace ARFood.Services
 {
@@ -457,6 +459,24 @@ namespace ARFood.Services
 
             }
             return contex.esp32.ToList();
+        }
+
+        public void SaveLEDs(List<string> sLED)
+        {
+            List<LED> xLED = VizualizaLEDs();
+            for (int i = 1; i<= sLED.Count; i++)
+            {
+                xLED.Where(x => x.ID == i).FirstOrDefault().Estado = sLED[i - 1];
+                contex.SaveChanges();
+            }
+
+        }
+
+        public List<LED> VizualizaLEDs()
+        {
+            var consulta = from datos in contex.LEDs
+                           select datos;
+            return consulta.ToList();
         }
     }
 }
