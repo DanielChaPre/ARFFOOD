@@ -136,24 +136,5 @@ namespace ARFood.Controllers
         {
             return View();
         }
-
-
-        [WebMethod]
-        [HttpGet]
-        public JsonResult SalonsForUnity()
-        {
-            
-            string xtemp = "Hola";
-            return Json(xtemp, JsonRequestBehavior.AllowGet);
-        }
-
-        [WebMethod]
-        [HttpGet]
-        public JsonResult ReceiveFromUnity(string item)
-        {
-
-            ARService.EntradaESP32(item);
-            return Json("Guardado", JsonRequestBehavior.AllowGet);
-        }
     }
 }

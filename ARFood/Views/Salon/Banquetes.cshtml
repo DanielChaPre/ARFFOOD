@@ -3,8 +3,6 @@
 <html>
 <head>
     <script src="~/Scripts/konva.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/konva/3.2.5/konva.min.js"></script>
     <meta charset="utf-8" />
     <title>Konva Image Resize Demo</title>
     <style>
@@ -12,7 +10,7 @@
             margin: 0;
             padding: 0;
             background-color: #f0f0f0;
-            /*background-image: url(../../IMG/Salon/Salon1.jpg);*/
+            background-image: url(../../IMG/Salon/Salon1.jpg);
             background-repeat: no-repeat;
             background-position: center;
         }
@@ -20,58 +18,15 @@
 </head>
 
 <body>
-
     <table>
-        @for(int i = 0; i<5;i++)
-        {
-            <tr>
-                <td>
-                    <label></label>
-                </td>
-            </tr>
-        }
         <tr>
             <td>
                 <table>
                     <tr>
                         <td>
-                            <div>
-                                <input type="file" id="file_input" />
-                                @*<script>
-                                    $("#file_input").change(function (e) {
-                                        alert('hola');
-                                    });
-                                </script>*@
-                            </div>
+                            <input id="NewElement" type="button" onclick="NewElemento()" value="Agregar mesa a layout" />
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <input id="NewElement" type="image" src="~/IMG/Salon/MesaRedondajpg.jpg" onclick="NewElemento(this)" value="Agregar mesa a layout" style="width:200px;height:200px" title="Mesa Redonda Arriba" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input id="NewElement" type="image" src="~/IMG/Salon/Rectangular.jpg" onclick="NewElemento(this)" value="Agregar mesa a layout" style="width:200px;height:200px" title="Mesa Rectangular" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input id="NewElement" type="image" src="~/IMG/Salon/Redonda.jpg" onclick="NewElemento(this)" value="Agregar mesa a layout" style="width:200px;height:200px" title="Mesa Redonda" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input id="NewElement" type="image" src="~/IMG/Salon/r_gris.png" onclick="NewElemento(this)" value="Agregar mesa a layout" style="width:200px;height:20px" title="Pared" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="hidden" id="files" onclick="OpenBackground(this)" name="files[]" multiple />
-                            <output id="list"></output>
-                        </td>
-                    </tr>
-
                     <tr>
                         <td>
                             <input id="SaveSalon" type="button" onclick="GetValues()" value="Guardar Salon" />
@@ -97,13 +52,13 @@
     var width = window.innerWidth;
     var height = window.innerHeight;
 
-    
-   function NewElemento(elem) {
+    function NewElemento() {
         xElement = ElementoNuevo.length;
 
         ElementoImg[xElement] = new Konva.Image({
-            width: 200,
-            height: 200,
+            width: 50,
+            height: 30,
+            opacity: 0.5,
         });
 
 
@@ -116,7 +71,7 @@
             fontFamily: 'Calibri',
             fill: 'green'
         });
-        ElementoImg[xElement].globalAlpha = 0.2;
+//        ElementoImg[xElement].globalAlpha = 0.2;
 
         ElementArray[ElementoImg[xElement]._id] = xElement;
 
@@ -125,26 +80,47 @@
             ElementoImg[xElement].image(imageObj3[xElement]);
             layer.draw();
         };
-        var n = elem.src.indexOf("/IMG");
-        //imageObj3[xElement].src = '/IMG/Salon/MesaRedondajpg.jpg';
-        imageObj3[xElement].src = elem.src.substring(n);
+        //imageObj3[xElement].src = '/IMG/Objetos/espana.gif';
+        imageObj3[xElement].src = '/IMG/Salon/r_gris.png';
 
         ElementoNuevo[xElement] = new Konva.Group({
             x: 180,
             y: 50,
             draggable: true,
+            globalAlpha: 0.2,
         });
+
+
+        //alert(ElementoNuevo[xElement]._id);
 
         layer.add(ElementoNuevo[xElement]);
         ElementoNuevo[xElement].add(ElementoImg[xElement]);
         ElementoNuevo[xElement].add(ctext[xElement]);
+        addAnchor(ElementoNuevo[xElement], 0, 0, 'topLeft');
+        addAnchor(ElementoNuevo[xElement], 50, 0, 'topRight');
+        addAnchor(ElementoNuevo[xElement], 50, 30, 'bottomRight');
+        addAnchor(ElementoNuevo[xElement], 0, 30, 'bottomLeft');
 
-        if (elem.title == "Pared" || elem.title == "BackGround") {
-            addAnchor(ElementoNuevo[xElement], 0, 0, 'topLeft');
-            addAnchor(ElementoNuevo[xElement], 100, 0, 'topRight');
-            addAnchor(ElementoNuevo[xElement], 100, 100, 'bottomRight');
-            addAnchor(ElementoNuevo[xElement], 0, 100, 'bottomLeft');
-        }
+
+            //addAnchor(yodaGroup, 0, 0, 'topLeft');
+    //addAnchor(yodaGroup, 93, 0, 'topRight');
+    //addAnchor(yodaGroup, 93, 104, 'bottomRight');
+    //addAnchor(yodaGroup, 0, 104, 'bottomLeft');
+
+        ElementoNuevo[xElement].on('click', function (event) {
+            //alert(Object.keys(event.target));
+            //alert(event.target._id);
+            //xElement = ElementArray[event.target._id];
+            //if (xElement == 1) {
+            //    imageObj3[xElement].src = '/IMG/Salon/r_blue.jpg';
+            //}
+            //if (xElement == 2) {
+            //    imageObj3[xElement].src = '/IMG/Salon/r_red.jpg';
+            //}
+            //alert(ElementoNuevo[xElement].getX());
+        });
+
+
     }
 
 
@@ -255,10 +231,17 @@
     var layer = new Konva.Layer();
     stage.add(layer);
 
-     
+     darth vader
+    var darthVaderImg = new Konva.Image({
+        width: 200,
+        height: 137,
+    });
 
-
-
+    //// yoda
+    //var yodaImg = new Konva.Image({
+    //    width: 93,
+    //    height: 104,
+    //});
 
     var ElementoImg = [];
 
@@ -269,46 +252,3 @@
     var ctext = [];
 
     var imageObj3 = [];
-
-    var imgLoad = "";
-    
-
-    $("#file_input").change(function (e) {
-
-        var URL = window.webkitURL || window.URL;
-        var url = URL.createObjectURL(e.target.files[0]);
-
-
-        xElement = ElementoNuevo.length;
-
-        ElementoImg[xElement] = new Konva.Image({
-            width: 500,
-            height: 500,
-        });
-
-        ElementArray[ElementoImg[xElement]._id] = xElement;
-
-        imageObj3[xElement] = new Image();
-        imageObj3[xElement].onload = function () {
-            ElementoImg[xElement].image(imageObj3[xElement]);
-            layer.draw();
-        };
-        imageObj3[xElement].src = url;
-         ElementoNuevo[xElement] = new Konva.Group({
-            x: 180,
-            y: 50,
-            draggable: true,
-        });
-
-        
-        layer.add(ElementoNuevo[xElement]);
-        ElementoNuevo[xElement].add(ElementoImg[xElement]);
-        addAnchor(ElementoNuevo[xElement], 0, 0, 'topLeft');
-        addAnchor(ElementoNuevo[xElement], 500, 0, 'topRight');
-        addAnchor(ElementoNuevo[xElement],500, 500, 'bottomRight');
-        addAnchor(ElementoNuevo[xElement], 0, 500, 'bottomLeft');
-        ElementoNuevo[xElement].setZIndex(0);
-        layer.draw();
-    });
-
-</script >
