@@ -20,7 +20,7 @@
     <link href="~/Content/Listas.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <form id="form1" runat="server" action="~/home/OrdenCreada" method="post">
+    <form id="form1"  style="padding-top:50px; padding-left:450px;" runat="server" action="~/home/OrdenCreada" method="post">
         <div class="container">
             <h2>Orden Creada</h2>
             <div class="row">
@@ -30,7 +30,7 @@
                         <div class="input-group">
                             <input type="text" name="txtQRCode" class="form-control" value="@ViewBag.txtQRCode" />
                             <div class="input-group-prepend">
-                                <button type="submit">Buscar Orden</button>
+                                <button class="btn btn-success"  type="submit">Buscar Orden</button>
                             </div>
                         </div>
                     </div>
