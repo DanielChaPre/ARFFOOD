@@ -143,10 +143,33 @@ namespace ARFood.Controllers
 
             List<LED> xLED = consulta.ToList();
 
-            string xtemp = "http://192.168.0.37/";
+            string xtemp = "http://192.168.224.43/";
             if (xLED.Count > 0)
             {
                 foreach(LED item in xLED)
+                {
+                    xtemp += item.Estado;
+                }
+            }
+
+            return Json(xtemp, JsonRequestBehavior.AllowGet);
+        }
+
+        [WebMethod]
+        [HttpGet]
+        public JsonResult PruebaUnity()
+        {
+            ApplicationDbContext xAR = new ApplicationDbContext();
+            var consulta = from datos in xAR.LEDs
+                           orderby datos.ID
+                           select datos;
+
+            List<LED> xLED = consulta.ToList();
+
+            string xtemp = "http://192.168.224.43/";
+            if (xLED.Count > 0)
+            {
+                foreach (LED item in xLED)
                 {
                     xtemp += item.Estado;
                 }
