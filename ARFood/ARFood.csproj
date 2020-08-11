@@ -189,6 +189,10 @@
     <Compile Include="Migrations\202007130306288_AR20200711.Designer.cs">
       <DependentUpon>202007130306288_AR20200711.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202008110243014_20200810.cs" />
+    <Compile Include="Migrations\202008110243014_20200810.Designer.cs">
+      <DependentUpon>202008110243014_20200810.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Almacenes.cs" />
@@ -2997,6 +3001,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202007130306288_AR20200711.resx">
       <DependentUpon>202007130306288_AR20200711.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202008110243014_20200810.resx">
+      <DependentUpon>202008110243014_20200810.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
