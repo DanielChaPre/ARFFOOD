@@ -261,14 +261,14 @@ namespace ARFood.Controllers
             }
             List<ProductosPedidos> ListadoPlatillos;
             ProductosPedidos NewProducto = new ProductosPedidos();
-            int id;
-            if (User.Identity.GetUserId() != null)
+            Guid id;
+            if (User.Identity != null)
             {
-                id = Convert.ToInt32(User.Identity.GetUserId().ToString());
+                id = Guid.Parse( User.Identity.GetUserId().ToString());
             }
             else
             {
-                id = 1;
+                id = new Guid();
             }
             if (HasDate != null)
             {
@@ -491,7 +491,7 @@ namespace ARFood.Controllers
                         id = 1;
                     }
 
-                    List<string> xNewDoc = ARService.GuardaNewBlankPedido(Convert.ToInt32(Session["IDEmpleado"]), id, IDMesa.Substring(2));
+                    List<string> xNewDoc = ARService.GuardaNewBlankPedido(Guid.Parse(Session["IDEmpleado"].ToString()), id, IDMesa.Substring(2));
                     Session["IsMesero"] = true;
                     Session["IDOrden"] = xNewDoc[0].ToString(); ;
                     Session["IDMesaApartada"] = xNewDoc[1].ToString();

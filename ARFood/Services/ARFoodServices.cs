@@ -63,7 +63,7 @@ namespace ARFood.Services
             return consulta.ToList();
         }
 
-        public string GuardaPedido(List<ProductosPedidos> productos, int IDCliente, int IDUser, double subTotal, string hasDate, string IDDocumento, string IDMesa)
+        public string GuardaPedido(List<ProductosPedidos> productos, Guid IDCliente, int IDUser, double subTotal, string hasDate, string IDDocumento, string IDMesa)
         {
             string SeGuardo = "Error al Guardar, favor de intentarlo de nuevo";
             bool NewElement = true;
@@ -203,7 +203,7 @@ namespace ARFood.Services
             return "GUID:" + xID.ToString();
         }
 
-        public List<string> GuardaNewBlankPedido(int IDCliente, int IDUser, string IDMesa)
+        public List<string> GuardaNewBlankPedido(Guid IDCliente, int IDUser, string IDMesa)
         {
             string SeGuardo = "Error al Guardar, favor de intentarlo de nuevo";
 
@@ -407,7 +407,7 @@ namespace ARFood.Services
             Documentos newDoc = new Documentos();
             newDoc.ID = Guid.NewGuid();
             newDoc.IDTipo = 1;
-            newDoc.IDCliente = 0;
+            newDoc.IDCliente = new Guid();
             newDoc.IDMesa = newMesa.ID;
             newDoc.Nombre = Mesa.ToString() + "-" + xDate.ToString("HHMM");
             newDoc.Observaciones = "";

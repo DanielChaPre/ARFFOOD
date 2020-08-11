@@ -219,6 +219,7 @@
     <Compile Include="Models\Proveedores.cs" />
     <Compile Include="Models\Recetas.cs" />
     <Compile Include="Models\Salon.cs" />
+    <Compile Include="Models\Salon3D.cs" />
     <Compile Include="Models\TiposDoc.cs" />
     <Compile Include="Models\TiposProd.cs" />
     <Compile Include="Models\UnidadesMedidas.cs" />

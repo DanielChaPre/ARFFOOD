@@ -12,6 +12,7 @@ namespace ARFood.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
+        public Guid IDUser { get; set; }
         [Required]
         [StringLength(50)]
         public string Nombre { get; set; }

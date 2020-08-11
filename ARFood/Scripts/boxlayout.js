@@ -1,3 +1,5 @@
+import { Alert } from "../assets/bootstrap/js/bootstrap.bundle";
+
 /**
  * boxlayout.js v1.0.0
  * http://www.codrops.com
@@ -50,7 +52,6 @@ var Boxlayout = (function() {
 
 			// expand the clicked section and scale down the others
 			$section.on( 'click', function() {
-
 				if( !$section.data( 'open' ) ) {
 					$section.data( 'open', true ).addClass( 'bl-expand bl-expand-top' );
 					$el.addClass( 'bl-expand-item' );	

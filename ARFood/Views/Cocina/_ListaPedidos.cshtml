@@ -19,7 +19,7 @@
                 foreach (var ItemDoc in Model.GetDocumentos)
                 {
                     int f = 0;
-                    <li class="w3-bar" id="IDPedido_@i" onclick="ViewPedidoDetails(this)" style="background-color:aquamarine">
+                    <li class="w3-bar" id="IDPedido_@i" style="background-color:aquamarine">
                         <div class="w3-bar-item" style="border-style:inset">
                             <span class="w3-large">
                                 @ItemDoc.Nombre
@@ -35,7 +35,7 @@
                                         xFoto = "~/IMG/ARFood/Logo.jpeg";
                                     }
                                     <div class="w3-bar">
-                                        <img src="@Url.Content(xFoto)" class="w3-bar-item" style="width:200px;height:200px" />
+                                        <img src="@Url.Content(xFoto)" class="w3-bar-item" style="width:200px;height:200px" onclick="ViewPedidoDetails(this)"/>
                                         <span class="w3-bar-item">@ItemPartida.Descripcion</span>
                                         <input type="hidden" id="IDPedidoMesaID_@IDPartidaxPedido" value="@ItemPartida.IDProd" />
                                     </div>
