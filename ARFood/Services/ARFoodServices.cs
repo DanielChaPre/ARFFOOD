@@ -42,16 +42,31 @@ namespace ARFood.Services
             var consulta = from datos in contex.Productos
                            where Productos.Contains(datos.ID)
                            select datos;
-            //{
-            //    ID = datos.ID,
-            //    Producto = datos.Producto,
-            //    Descripcion = datos.Descripcion,
-            //    Cantidad = datos.Cantidad,
-            //    Precio = datos.Precio,
-            //    IVA = datos.IVA
-            //};
             return consulta.ToList();
+        }
 
+        public List<Recetas> BuscarRecetas(List<int> Productos)
+        {
+            var consulta = from datos in contex.Recetas
+                           where Productos.Contains(datos.IDProducto)
+                           select datos;
+            return consulta.ToList();
+        }
+
+        public List<Ingredientes> BuscarIngredientes(List<int> Productos)
+        {
+            var consulta = from datos in contex.Ingredientes
+                           where Productos.Contains(datos.IDProd)
+                           select datos;
+            return consulta.ToList();
+        }
+
+        public List<Productos> BuscarIngrProd(List<int> Ingredientes)
+        {
+            var consulta = from datos in contex.Productos
+                           join ingre in contex.Ingredientes on datos.ID equals ingre.IDProd
+                           select datos;
+            return consulta.ToList();
         }
 
         public List<ComplementoProductos> BuscarProductosComplementarios(List<int> Productos)
@@ -297,6 +312,23 @@ namespace ARFood.Services
         {
             var consulta = from datos in contex.docPartidasPersonalizars
                            where xID.Contains(datos.IDDoc)
+                           select datos;
+            return consulta.ToList();
+        }
+
+        public List<DocPartidas> getDocumentosPartidasByID(int xID)
+        {
+            var consulta = from datos in contex.DocPartidas
+                           where datos.ID == xID
+                           select datos;
+            return consulta.ToList();
+        }
+
+        public List<DocPartidasPersonalizar> getDocumentosPartidasPersonalizarByID(int xID)
+        {
+            var consulta = from datos in contex.docPartidasPersonalizars
+                           join partid in contex.DocPartidas on datos.IDDoc equals partid.IDDoc
+                           where  partid.ID == xID
                            select datos;
             return consulta.ToList();
         }

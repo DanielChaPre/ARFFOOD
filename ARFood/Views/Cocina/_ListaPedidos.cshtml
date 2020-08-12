@@ -1,25 +1,26 @@
 ﻿@model ARFood.Models.CocineroData
 
 <!DOCTYPE html>
-<html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<body>
+<html>
 
-    <div class="w3-container">
+<body>
+    <div class="w3-container" id="ListaPedidoWeb">
         <input type="hidden" value="Abajo" onclick="Abajo()" />
         <input type="hidden" value="Arriba" onclick="Arriba()" />
-        <input type="hidden" id="IDOrdenSeleccionada" value="0"/>
+        <input type="hidden" id="IDOrdenSeleccionada" value="0" />
         <input type="hidden" id="OrdenesSolicitadas" value="0" />
         <ul class="w3-ul w3-card-4 w3-ul w3-hoverable">
 
             @if (Model != null)
             {
                 int i = 0;
+                int e = 0;
                 foreach (var ItemDoc in Model.GetDocumentos)
                 {
                     int f = 0;
-                    <li class="w3-bar" id="IDPedido_@i" style="background-color:aquamarine">
+                    <li class="w3-bar" style="background-color:aquamarine">
                         <div class="w3-bar-item" style="border-style:inset">
                             <span class="w3-large">
                                 @ItemDoc.Nombre
@@ -27,18 +28,23 @@
                             <div>
                                 @foreach (var ItemPartida in Model.GetDocPartidas)
                                 {
-                                    string IDPartidaxPedido = i.ToString() + "_" + f.ToString();
-                                    string xFoto = Model.GetProductos.Where(x => x.ID == ItemPartida.IDProd).FirstOrDefault().Imagen;
-                                    f++;
-                                    if (xFoto.Length < 1)
+                                    if (ItemPartida.Surtido < ItemPartida.Cantidad)
                                     {
-                                        xFoto = "~/IMG/ARFood/Logo.jpeg";
+                                        string IDPartidaxPedido = i.ToString() + "_" + f.ToString();
+                                        string xFoto = Model.GetProductos.Where(x => x.ID == ItemPartida.IDProd).FirstOrDefault().Imagen;
+                                        f++;
+                                        if (xFoto.Length < 1)
+                                        {
+                                            xFoto = "~/IMG/ARFood/Logo.jpeg";
+                                        }
+                                        <div class="w3-bar" id="IDPedido_@e">
+                                            <img src="@Url.Content(xFoto)" class="w3-bar-item" style="width:200px;height:200px" onclick="ViewPedidoDetails(this)" id="img_@e" />
+                                            <span class="w3-bar-item">@ItemPartida.Descripcion</span>
+                                            <input type="hidden" id="IDPedidodb_@e" value="@ItemPartida.ID" />
+                                            <input type="hidden" id="IDPedidoMesaID_@IDPartidaxPedido" value="@ItemPartida.IDProd" />
+                                        </div>
+                                        e++;
                                     }
-                                    <div class="w3-bar">
-                                        <img src="@Url.Content(xFoto)" class="w3-bar-item" style="width:200px;height:200px" onclick="ViewPedidoDetails(this)"/>
-                                        <span class="w3-bar-item">@ItemPartida.Descripcion</span>
-                                        <input type="hidden" id="IDPedidoMesaID_@IDPartidaxPedido" value="@ItemPartida.IDProd" />
-                                    </div>
                                 }
                             </div>
                         </div>
@@ -47,7 +53,7 @@
                     </li>
                     i++;
                 }
-                <input type="hidden" id="TotalPedidosARealizar" value="@i" />
+                <input type="hidden" id="TotalPedidosARealizar" value="@e" />
             }
         </ul>
     </div>
@@ -91,5 +97,6 @@
         xclass = document.createAttribute("style");
         xclass.value = "background-color:darkturquoise;";
         xSel.setAttributeNode(xclass);
+        xSel.scrollIntoView({ block: "start", behavior: "smooth" });
     }
 </script>

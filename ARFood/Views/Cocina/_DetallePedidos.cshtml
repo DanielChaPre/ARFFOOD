@@ -1,0 +1,68 @@
+﻿@model ARFood.Models.CocinaPartidas
+
+
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<html>
+<body>
+    <div id="DetallePedidoWeb">
+        @if (Model != null)
+        {
+            if (Model.GetDocPartidas.Count() > 0)
+            {
+                <div class="w3-bar" id="IDCocinaPartida_@Model.GetDocPartidas.FirstOrDefault().ID">
+                    @{string xFoto = Model.GetProductos.FirstOrDefault().Imagen; }
+                    <img src="@Url.Content(xFoto)" class="w3-bar-item" style="width:200px;height:200px" />
+                    <span class="w3-bar-item">@Model.GetProductos.FirstOrDefault().Descripcion</span>
+                    <br />
+                    <div class="w3-bar">
+                        <ol id="listaCircular">
+                            @foreach (ARFood.Models.Recetas recetas in Model.GetRecetas)
+                            {
+                                <li>@recetas.Descripcion</li>
+
+                            }
+                        </ol>
+                    </div>
+                    <br />
+                    <video width="320" height="240" controls autoplay>
+                        <source src="@Url.Content(Model.GetProductos.FirstOrDefault().Video)" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div>
+                        @{
+                            int i = 0;
+                            List<int> xIngrediente = new List<int>();
+                            foreach (ARFood.Models.Ingredientes ingrediente in Model.GetIngredientes)
+                            {
+                                xIngrediente.Add(ingrediente.IDProd);
+                            }
+                        }
+                        <table>
+                            @for (int xRow = 0; xRow < 2; xRow++)
+                            {
+                                <tr>
+                                    @for (int e = 0; e < 3; e++)
+                                    {
+                                        if (i < xIngrediente.Count)
+                                        {
+                                            <td>
+                                                @{
+                                                    string xIngFoto = Model.getIngrProd.Where(x => x.ID == xIngrediente[i]).FirstOrDefault().Imagen;
+                                                    i++;
+                                                }
+                                                <img src="@xIngFoto" class="w3-bar-item" style="width:200px;height:200px" />
+                                            </td>
+                                        }
+                                    }
+                                </tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</body>
+</html>

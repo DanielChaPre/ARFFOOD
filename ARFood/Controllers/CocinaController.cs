@@ -35,6 +35,34 @@ namespace ARFood.Controllers
             return PartialView("_DatosPedido");
         }
 
+        public ActionResult DetallePedidos(string idPartida)
+        {
+            if (idPartida!= null)
+            {
+                if (idPartida.Length>0)
+                {
+                    int ID = Convert.ToInt32(idPartida);
+                    CocinaPartidas xCPartidas = new CocinaPartidas();
+                    xCPartidas.GetDocPartidas = ARService.getDocumentosPartidasByID(ID);
+                    xCPartidas.GetDocPartidasPersonalizars = ARService.getDocumentosPartidasPersonalizarByID(ID);
+                    List<int> xProd = new List<int>();
+                    xProd.Add(xCPartidas.GetDocPartidas.First().IDProd);
+                    xCPartidas.GetProductos = ARService.BuscarProductos(xProd);
+                    xCPartidas.GetRecetas = ARService.BuscarRecetas(xProd);
+                    xCPartidas.GetIngredientes = ARService.BuscarIngredientes(xProd);
+                    List<int> ingredientes = new List<int>();
+                    foreach(var item in xCPartidas.GetIngredientes)
+                    {
+                        ingredientes.Add(item.IDProd);
+                    }
+                    xCPartidas.getIngrProd = ARService.BuscarIngrProd(ingredientes);
+                    return PartialView("_DetallePedidos",xCPartidas);
+                }
+                
+            }
+            return PartialView("_DetallePedidos");
+        }
+
         public ActionResult AccionesPedido()
         {
             return PartialView("_AccionesPedido");
@@ -72,19 +100,46 @@ namespace ARFood.Controllers
                            orderby datos.Fecha
                            select datos;
 
-            List<ESP32> eSP = consulta.ToList();
+            //List<ESP32> eSP = consulta.ToList();
 
+            ESP32 eSP = consulta.FirstOrDefault();
             List<string> xtemp = new List<string>();
-            if (eSP.Count > 0)
+            if (eSP != null)
             {
-                xtemp.Add(eSP[0].Texto);
-                eSP[0].Ya = 1;
-                xAR.SaveChanges();
+                xtemp.Add(eSP.Texto + "-" + eSP.ID);
+                //eSP.Ya = 1;
+                //xAR.SaveChanges();
             }
 
             return Json(xtemp, JsonRequestBehavior.AllowGet);
         }
 
+        [WebMethod]
+        public JsonResult AplicaMovimiento(string idMov)
+        {
+            if (idMov != null)
+            {
+                if (idMov.Length > 0)
+                {
+                    int xMov = Convert.ToInt32(idMov);
+                    ApplicationDbContext xAR = new ApplicationDbContext();
+                    var consulta = from datos in xAR.esp32
+                                   where datos.ID == xMov
+                                   orderby datos.Fecha
+                                   select datos;
+
+                    //List<ESP32> eSP = consulta.ToList();
+
+                    ESP32 eSP = consulta.FirstOrDefault();
+                    if (eSP != null)
+                    {
+                        eSP.Ya = 1;
+                        xAR.SaveChanges();
+                    }
+                }
+            }
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult PrendeLED()
         {

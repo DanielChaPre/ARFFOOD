@@ -16,4 +16,14 @@ namespace ARFood.Models
         public IEnumerable<Productos> GetProductos { get; set; }
 
     }
+
+    public class CocinaPartidas
+    {
+        public IEnumerable<DocPartidas> GetDocPartidas { get; set; }
+        public IEnumerable<DocPartidasPersonalizar> GetDocPartidasPersonalizars { get; set; }
+        public IEnumerable<Productos> GetProductos { get; set; }
+        public IEnumerable<Recetas> GetRecetas { get; set; }
+        public IEnumerable<Ingredientes> GetIngredientes { get; set; }
+        public IEnumerable<Productos> getIngrProd { get; set; }
+    }
 }

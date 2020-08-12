@@ -46,7 +46,7 @@
 
 <body>
     <table>
-        @for (int i = 0; i < 2; i++)
+        @for (int i = 0; i < 10; i++)
         {
             <tr>
                 <td>
@@ -56,20 +56,25 @@
         }
         <tr>
             <td>
-                <input type="text" id="PanelActual" value="1" />
             </td>
         </tr>
     </table>
+    <input type="hidden" id="PanelActualSeleccionado" />
     <div class="flex-container">
-        <div class="flex-container1" style="width:80%" id="Panel1" >
+
+        <div class="flex-container1" style="width:80%" id="Panel1">
             <input type="button" onclick="AbrirPanel(1)" style="background-color:transparent" value="Pedidos" />
-            <div id="ListadePedidosRealizados" style="overflow-y:scroll;height:650px">
+            <div id="ListadePedidosRealizados" style="overflow:scroll;height:650px">
                 @{Html.RenderAction("ListaPedidos");
                 }
             </div>
         </div>
         <div class="flex-container2" style="width:10%" id="Panel2">
             <input type="button" onclick="AbrirPanel(2)" style="background-color:transparent" value="Datos" />
+            <div id="DetallePedidosRealizados" style="overflow:scroll;height:650px">
+                @{Html.RenderAction("DetallePedidos");
+                }
+            </div>
         </div>
         <div class="flex-container3" style="width:10%" id="Panel3">
             <input type="button" onclick="AbrirPanel(3)" style="background-color:transparent" value="Acción" />
@@ -81,7 +86,7 @@
     setTimeout("SetAutoTime();", 1000);
 
     function AbrirPanel(iPanel) {
-        var xPanel = document.getElementById('PanelActual');
+        var xPanel = document.getElementById('PanelActualSeleccionado');
         if (iPanel != xPanel.value) {
             for (i = 1; i < 4; i++) {
                 var xPanel = document.getElementById('Panel' + i);
@@ -89,15 +94,32 @@
                 xclass.value = "width: 15%;";
                 xPanel.setAttributeNode(xclass);
             }
+            
+            //if (iPanel != 2) {
+            //    //alert('hi');
+            
+            //}
             xPanel = document.getElementById('Panel' + iPanel);
             xclass = document.createAttribute("style");
             xclass.value = "width: 90%;";
             xPanel.setAttributeNode(xclass);
             if (iPanel == 1) {
                 CargaPedidos(true);
+                //$('#ListaPedidoWeb').style.display = "block";
+                //$('#DetallePedidosRealizados').style.display = "none";
             }
-            else {
-                CargaPedidos(false);
+            else if (iPanel == 2) {
+                var xOrder = document.getElementById("IDOrdenSeleccionada");
+                var idPartida = document.getElementById('img_' + xOrder.value);
+                ViewPedidoDetails(idPartida);
+                //$('#DetallePedidoWeb').style.display = "block";
+                //$('#ListaPedidoWeb').style.display = "none";
+                //CargaPedidos(false);
+            }
+            else if (iPanel == 3) {
+                //$('#DetallePedidoWeb').style.display = "none";
+                //$('#ListaPedidoWeb').style.display = "none";
+                //CargaPedidos(false);
             }
             xPanel.value = iPanel;
         }
@@ -117,7 +139,7 @@
             });
         }
         else {
-            $('#ListadePedidosRealizados').html("");
+            
         }
     }
 
@@ -150,75 +172,134 @@
             dataType: "json",
             contentType: "application/json",
             success: function (dato) {
-                dato.forEach(function (elemento, indice, array) {
-                    var xPanel = document.getElementById('PanelActual');
-                    var iPanel = 1;
-                    if (xPanel.value != null) {
-                        if (xPanel.value.length > 0) {
-                            iPanel = parseInt(xPanel.value);
-                        }
-                    }
-                    if (iPanel < 1) {
-                        iPanel = 1;
-                    }
-                    if (iPanel > 3) {
-                        iPanel = 3;
-                    }
-                    if (iPanel == 1) {
-                        if (elemento == "L") {
-                            iPanel--;
-                            if (iPanel < 1) {
-                                iPanel = 1;
+                if (dato.length > 0) {
+                    var IDMov = "";
+                    dato.forEach(function (elemento, indice, array) {
+                        var n = elemento.indexOf("-");
+                        var Movimiento = elemento.substring(0, n);
+                        IDMov = elemento.substring(n + 1);
+                        var xPanel = document.getElementById('PanelActualSeleccionado');
+                        var iPanel = 1;
+                        if (xPanel.value != null) {
+                            if (xPanel.value.length > 0) {
+                                iPanel = parseInt(xPanel.value);
                             }
-                            AbrirPanel(iPanel);
                         }
-                        if (elemento == "R") {
-                            iPanel++;
-                            AbrirPanel(iPanel);
+                        if (iPanel < 1) {
+                            iPanel = 1;
                         }
-                        if (elemento == "U") {
-                            Arriba();
+                        if (iPanel > 3) {
+                            iPanel = 3;
                         }
-                        if (elemento == "D") {
-                            Abajo();
-                        }
-                        if (elemento == "OK") {
+                        if (iPanel == 1) {
+                            if (Movimiento == "L") {
+                                iPanel--;
+                                if (iPanel < 1) {
+                                    iPanel = 1;
+                                }
+                                AbrirPanel(iPanel);
+                            }
+                            if (Movimiento == "R") {
+                                iPanel++;
+                                //var xOrder = document.getElementById("IDOrdenSeleccionada");
+                                //var idPartida = document.getElementById('img_' + xOrder.value);
+                                //ViewPedidoDetails(idPartida);
+                                AbrirPanel(iPanel);
+                            }
+                            if (Movimiento == "U") {
+                                Arriba();
+                            }
+                            if (Movimiento == "D") {
+                                Abajo();
+                            }
+                            if (Movimiento == "OK") {
 
-                        }
-                    }
-                    if (iPanel == 2) {
-                        if (elemento == "L") {
-                            iPanel--;
-                            if (iPanel < 1) {
-                                iPanel = 1;
                             }
-                            if (iPanel > 3) {
-                                iPanel = 3;
+                        }
+                        else if (iPanel == 2) {
+                            if (Movimiento == "L") {
+                                iPanel--;
+                                if (iPanel < 1) {
+                                    iPanel = 1;
+                                }
+                                if (iPanel > 3) {
+                                    iPanel = 3;
+                                }
+                                AbrirPanel(iPanel);
                             }
-                            AbrirPanel(iPanel);
-                        }
-                        if (elemento == "R") {
-                            if (iPanel < 1) {
-                                iPanel = 1;
+                            if (Movimiento == "R") {
+                                iPanel++;
+                                if (iPanel < 1) {
+                                    iPanel = 1;
+                                }
+                                if (iPanel > 3) {
+                                    iPanel = 3;
+                                }
+                                //alert('HOla 3');
+                                AbrirPanel(iPanel);
                             }
-                            if (iPanel > 3) {
-                                iPanel = 3;
+                            if (Movimiento == "U") {
+                                ArribaP();
                             }
-                            iPanel++;
-                            AbrirPanel(iPanel);
-                        }
-                        if (elemento == "U") {
-                            ArribaP();
-                        }
-                        if (elemento == "D") {
-                            AbajoP();
-                        }
-                        if (elemento == "OK") {
+                            if (Movimiento == "D") {
+                                AbajoP();
+                            }
+                            if (Movimiento == "OK") {
 
+                            }
                         }
-                    }
-                    xPanel.value = iPanel;
-                });
+                        else if (iPanel == 3) {
+                            if (Movimiento == "L") {
+                                iPanel--;
+                                if (iPanel < 1) {
+                                    iPanel = 1;
+                                }
+                                if (iPanel > 3) {
+                                    iPanel = 3;
+                                }
+                                AbrirPanel(iPanel);
+                            }
+                            if (Movimiento == "R") {
+                                iPanel++;
+                                if (iPanel < 1) {
+                                    iPanel = 1;
+                                }
+                                if (iPanel > 3) {
+                                    iPanel = 3;
+                                }
+                                //alert('HOla 3');
+                                AbrirPanel(iPanel);
+                            }
+                            if (Movimiento == "U") {
+                                ArribaP();
+                            }
+                            if (Movimiento == "D") {
+                                AbajoP();
+                            }
+                            if (Movimiento == "OK") {
+
+                            }
+                        }
+                        xPanel.value = iPanel;
+                    });
+                    var xParam = '{idMov: "' + IDMov + '"}';
+                    $.ajax({
+                        type: "POST",
+                        traditional: true,
+                        async: false,
+                        cache: false,
+                        url: '/Cocina/AplicaMovimiento',
+                        data: xParam,
+                        dataType: "json",
+                        contentType: "application/json",
+                        success: function (dato) {
+
+                        },
+                        failure: function () {
+                            alert('Ocurrió un error al momento de guardar la información');
+                        }
+                    });
+                }
             },
             failure: function () {
                 alert('Ocurrió un error al momento de guardar la información');
@@ -226,4 +307,25 @@
         });
     }
 
+
+    function ViewPedidoDetails(elem) {
+        var xID = elem.id;
+        var id = xID.substring(4);
+        var xPartida = document.getElementById('IDPedidodb_' + id);
+        $.ajax({
+            type: "POST",
+            traditional: true,
+            async: false,
+            cache: false,
+            url: '/Cocina/DetallePedidos?idPartida=' + xPartida.value,
+            success: function (dato) {
+                $('#DetallePedidosRealizados').html(dato);
+            },
+            failure: function () {
+                $('#DetallePedidosRealizados').html("")
+                alert('Ocurrió un error al momento de guardar la información');
+            }
+        });
+        //AbrirPanel(2);
+    }
 </script>

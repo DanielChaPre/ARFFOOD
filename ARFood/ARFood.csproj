@@ -2897,6 +2897,10 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\modernizr.custom.js" />
     <Content Include="Scripts\pagetransitions.js" />
+    <Content Include="Videos\Chilaquiles.mp4" />
+    <Content Include="Videos\Enchiladas.mp4" />
+    <Content Include="Videos\Pozole.mp4" />
+    <Content Include="Videos\Zopes.mp4" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2979,6 +2983,8 @@
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Shared\_menu.cshtml" />
     <Content Include="Views\Shared\_menuCliente.cshtml" />
+    <Content Include="Views\Cocina\DetallePedidos.cshtml" />
+    <Content Include="Views\Cocina\_DetallePedidos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
