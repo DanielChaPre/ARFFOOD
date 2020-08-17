@@ -1969,6 +1969,8 @@
     <Content Include="assets\vendor\venobox\venobox.js" />
     <Content Include="assets\vendor\venobox\venobox.min.css" />
     <Content Include="assets\vendor\venobox\venobox.min.js" />
+    <Content Include="bin\ARFood.dll" />
+    <Content Include="bin\ARFood.pdb" />
     <Content Include="Content\animations.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -2993,11 +2995,13 @@
     <Content Include="Views\Almacenes\Edit.cshtml" />
     <Content Include="Views\Almacenes\Index.cshtml" />
     <Content Include="Views\MovimientosAlmacenes\Index.cshtml" />
+    <Content Include="Views\Salon\BuscaDisponibilidad.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="IMG\fruta\" />
     <Folder Include="IMG\tortaccias\" />
+    <Folder Include="Mesas\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

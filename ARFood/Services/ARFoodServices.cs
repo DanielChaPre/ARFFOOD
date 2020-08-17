@@ -377,6 +377,25 @@ namespace ARFood.Services
             return consulta.ToList();
         }
 
+        public List<MesasDisponibles> BuscarMesasDisponiblesAllDay(string xFecha)
+        {
+            //DateTime xDate = Convert.ToDateTime(string.Format("yyyy-MM-dd hh:mm tt",xFecha));
+            DateTime xDate;
+            if (xFecha.Contains("undef"))
+            {
+                xDate = DateTime.Now;
+            }
+            else
+            {
+                xFecha = xFecha.Replace('.', '-');
+                xDate = DateTime.ParseExact(xFecha, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            }
+            var consulta = from datos in contex.mesasdisponibles
+                           where datos.FechaInicio.Year == xDate.Year && datos.FechaInicio.Month == xDate.Month && datos.FechaInicio.Day == xDate.Day
+                           select datos;
+            return consulta.ToList();
+        }
+
         public List<Documentos> GetOrdenesxMesa(int Mesa)
         {
             var consulta = from datos in contex.Documentos

@@ -2,6 +2,7 @@
 using ARFood.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -134,6 +135,37 @@ namespace ARFood.Controllers
 
         public ActionResult Banquetes()
         {
+            return View();
+        }
+
+        public ActionResult BuscaDisponibilidad(string Fecha, string Hora)
+        {
+            var folder = Server.MapPath("~/Mesas/");
+            if (!Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
+            else 
+            {
+
+                if (Fecha != null && Hora != null)
+                {
+                    if (Fecha.Length > 0 && Hora.Length > 0)
+                    {
+                        string txtFecha = Fecha.Substring(6, 4) + Fecha.Substring(3,2) + Fecha.Substring(0,2);
+                        string xFile = folder + txtFecha + ".txt";
+                        StreamWriter File = new StreamWriter(xFile);
+                        File.Flush();
+                        string xFecha = Fecha;
+                        List<MesasDisponibles> xMesas = ARService.BuscarMesasDisponiblesAllDay(xFecha);
+                        foreach (var item in xMesas)
+                        {
+                            File.WriteLine("M" + item.IDMesa + "-" + item.FechaInicio.ToString("dd/MM/yyyy HH:mm") + "-" + item.FechaFin.ToString("dd/MM/yyyy HH:mm"));
+                        }
+                        File.Close();
+                    }
+                }
+            }
             return View();
         }
     }
